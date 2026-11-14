@@ -3,6 +3,7 @@
 {% block title %}{% trans "Gestión" %}{% endblock %}
 {% block app %}
 <div class="page-head"><h1>{% trans "Panel de gestión" %}</h1></div>
+{% if not EMAIL_CONFIGURED %}<div class="note warn"><p><b>{% trans "El correo no está configurado." %}</b> {% trans "Las cuentas nuevas se dan por confirmadas sin comprobar su dirección y los avisos solo se ven dentro de la web. Configura el servidor de correo antes de abrir la plataforma a usuarios reales." %}</p></div>{% endif %}
 <h2>{% trans "Pendiente de hacer" %}</h2>
 <div class="grid g4">
   <a class="stat {% if queue.identities %}alert{% endif %}" href="{% url 'staff_talents' %}?estado=submitted"><b>{{ queue.identities }}</b><span>{% trans "Identidades por verificar" %}</span></a>

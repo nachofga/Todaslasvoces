@@ -27,6 +27,12 @@ EMAIL_SALT = "tlv-confirmar-correo"
 
 
 def send_verification(request, user):
+    if not settings.TLV_EMAIL_CONFIGURED:
+        if not user.email_verified:
+            user.email_verified_at = timezone.now()
+            user.save(update_fields=["email_verified_at"])
+            ledger.record("account.email_verified", user, automatic=True, reason="sin servidor de correo")
+        return
     token = signing.dumps({"u": user.pk, "e": user.email}, salt=EMAIL_SALT)
     link = settings.TLV_SITE_URL + reverse("verify_email", args=[token])
     with translation.override(user.language):
@@ -59,7 +65,7 @@ def signup_talent(request):
             ledger.record("account.created", user, role="talent", terms=True, adult_statement=True, ip=client_ip(request))
         send_verification(request, user)
         auth_login(request, user)
-        messages.success(request, _("Cuenta creada. Te hemos enviado un correo para confirmarla."))
+        messages.success(request, _("Cuenta creada. Te hemos enviado un correo para confirmarla.") if settings.TLV_EMAIL_CONFIGURED else _("Cuenta creada."))
         return redirect("talent_home")
     return render(request, "tlv/auth/signup_form.html", {"form": form, "kind": "talent"})
 
@@ -81,7 +87,7 @@ def signup_client(request):
         notify_staff(N_("Nuevo cliente pendiente de validar: %(name)s"), "", "/gestion/clientes/", name=d["company_name"])
         send_verification(request, user)
         auth_login(request, user)
-        messages.success(request, _("Cuenta creada. Te hemos enviado un correo para confirmarla."))
+        messages.success(request, _("Cuenta creada. Te hemos enviado un correo para confirmarla.") if settings.TLV_EMAIL_CONFIGURED else _("Cuenta creada."))
         return redirect("client_home")
     return render(request, "tlv/auth/signup_form.html", {"form": form, "kind": "client"})
 

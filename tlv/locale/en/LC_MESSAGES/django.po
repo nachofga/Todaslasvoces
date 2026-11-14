@@ -3553,3 +3553,18 @@ msgstr "Request rejected."
 
 msgid "Pregunta enviada al cliente."
 msgstr "Question sent to the client."
+
+msgid "El correo no está configurado."
+msgstr "Email is not configured."
+
+msgid ""
+"Las cuentas nuevas se dan por confirmadas sin comprobar su dirección y los "
+"avisos solo se ven dentro de la web. Configura el servidor de correo antes "
+"de abrir la plataforma a usuarios reales."
+msgstr ""
+"New accounts are treated as confirmed without checking their address, and "
+"notifications are only shown inside the site. Configure the mail server "
+"before opening the platform to real users."
+
+msgid "Cuenta creada."
+msgstr "Account created."

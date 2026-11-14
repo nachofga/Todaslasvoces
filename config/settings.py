@@ -178,6 +178,9 @@ if env("EMAIL_HOST"):
     EMAIL_TIMEOUT = 15
 else:
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+# Sin servidor de correo no se puede confirmar ninguna dirección: las cuentas nuevas
+# se dan por confirmadas para poder probar, y gestión ve un aviso en su panel.
+TLV_EMAIL_CONFIGURED = bool(env("EMAIL_HOST"))
 DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL") or "Todas las Voces <no-responder@todaslasvoces.local>"
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 

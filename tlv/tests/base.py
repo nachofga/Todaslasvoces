@@ -36,7 +36,7 @@ def wav_upload(key, text, name="muestra.wav", noise=0.0012):
     STORAGES={"default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
               "staticfiles": {"BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"}},
     CACHES={"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}},
-    SECURE_SSL_REDIRECT=False, SESSION_COOKIE_SECURE=False, CSRF_COOKIE_SECURE=False,
+    SECURE_SSL_REDIRECT=False, TLV_EMAIL_CONFIGURED=True, SESSION_COOKIE_SECURE=False, CSRF_COOKIE_SECURE=False,
 )
 class TlvTestCase(TestCase):
     @classmethod

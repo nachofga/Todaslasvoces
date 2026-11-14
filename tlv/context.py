@@ -13,4 +13,5 @@ def site(request):
         "SITE_URL": settings.TLV_SITE_URL,
         "ENGINE_SIMULATED": engine_name() == "simulated",
         "unread_count": unread,
+        "EMAIL_CONFIGURED": settings.TLV_EMAIL_CONFIGURED,
     }

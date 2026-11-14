@@ -61,7 +61,7 @@ tlv/services/      la lógica, sin nada de web:
 tlv/views/         las pantallas, por tipo de usuario (público, locutor, cliente, gestión)
 tlv/templates/     HTML        tlv/static/   CSS, JS y tipografía
 tlv/locale/en/     traducción al inglés (django.po)
-tlv/tests/         41 pruebas automáticas:  python manage.py test tlv
+tlv/tests/         42 pruebas automáticas:  python manage.py test tlv
 ```
 
 ## Órdenes útiles

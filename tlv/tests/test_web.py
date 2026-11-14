@@ -425,3 +425,17 @@ class PagesAndPrivacyTests(TlvTestCase):
         self.assertRedirects(c.get(reverse("dashboard")), reverse("client_home"))
         c.post(reverse("logout"))
         self.assertEqual(c.get(reverse("client_home")).status_code, 302)
+
+
+class NoEmailServerTests(TlvTestCase):
+    def test_sin_servidor_de_correo_las_cuentas_nuevas_pueden_entrar(self):
+        from django.test import override_settings
+
+        with override_settings(TLV_EMAIL_CONFIGURED=False):
+            self.client.post(reverse("signup_talent"), {
+                "legal_name": "Sin Correo Ruiz", "stage_name": "Sin Correo", "email": "sincorreo@test.local",
+                "password": PASSWORD, "is_adult": "on", "accept_terms": "on"})
+            self.assertTrue(User.objects.get(email="sincorreo@test.local").email_verified)
+            self.assertEqual(self.client.get(reverse("talent_home")).status_code, 200)
+            self.client.logout(); self.login(self.staff)
+            self.assertContains(self.client.get(reverse("staff_home")), "El correo no está configurado")
