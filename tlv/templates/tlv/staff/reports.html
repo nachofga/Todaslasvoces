@@ -1,0 +1,17 @@
+{% extends "tlv/app.html" %}
+{% load i18n tlv_extras %}
+{% block title %}{% trans "Informes" %}{% endblock %}
+{% block app %}
+<div class="page-head"><h1>{% trans "Informes" %}</h1><a class="btn ghost small" href="?formato=csv">{% trans "Descargar CSV" %}</a></div>
+<div class="panel"><h2>{% trans "Ingresos por mes" %}</h2><div class="table-wrap"><table class="data">
+  <thead><tr><th>{% trans "Mes" %}</th><th class="num">{% trans "Licencias" %}</th><th class="num">{% trans "Facturado (sin IVA)" %}</th><th class="num">{% trans "Plataforma" %}</th><th class="num">{% trans "Locutores" %}</th><th class="num">{% trans "Representantes" %}</th></tr></thead>
+  {% for month, r in rows %}<tr><td>{{ month }}</td><td class="num">{{ r.n }}</td><td class="num">{{ r.net|eur }}</td><td class="num">{{ r.platform|eur }}</td><td class="num">{{ r.talent|eur }}</td><td class="num">{{ r.rep|eur }}</td></tr>
+  {% empty %}<tr><td colspan="6" class="muted">{% trans "Todavía no hay cobros confirmados." %}</td></tr>{% endfor %}</table></div></div>
+<div class="grid g2">
+  <div class="panel"><h2>{% trans "Por voz" %}</h2><table class="data">{% for v in by_voice %}<tr><td>{{ v.payment__request__voice__name }}</td><td class="num">{{ v.n }}</td><td class="num">{{ v.net|eur }}</td></tr>{% empty %}<tr><td class="muted">—</td></tr>{% endfor %}</table></div>
+  <div class="panel"><h2>{% trans "Por categoría de uso" %}</h2><table class="data">{% for c in by_category %}<tr><td>{{ c.payment__request__category__name_es }}</td><td class="num">{{ c.n }}</td><td class="num">{{ c.net|eur }}</td></tr>{% empty %}<tr><td class="muted">—</td></tr>{% endfor %}</table></div>
+  <div class="panel"><h2>{% trans "Solicitudes por estado" %}</h2><table class="data">{% for f in funnel %}<tr><td><span class="chip {{ f.status|tone }}">{{ f.status }}</span></td><td class="num">{{ f.n }}</td></tr>{% empty %}<tr><td class="muted">—</td></tr>{% endfor %}</table></div>
+  <div class="panel"><h2>{% trans "Uso del motor de voz" %}</h2><table class="data"><thead><tr><th>{% trans "Tipo" %}</th><th class="num">{% trans "Audios" %}</th><th class="num">{% trans "Caracteres" %}</th></tr></thead>
+    {% for u in usage %}<tr><td>{{ u.kind }}</td><td class="num">{{ u.n|num }}</td><td class="num">{{ u.chars|num }}</td></tr>{% empty %}<tr><td class="muted">—</td></tr>{% endfor %}</table></div>
+</div>
+{% endblock %}

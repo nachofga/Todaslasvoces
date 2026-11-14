@@ -1,0 +1,13 @@
+{% load i18n tlv_extras %}
+<div class="clip" data-player>
+  {% url 'media_sample' s.pk as src %}{% include "tlv/parts/play.html" with src=src hue=voice.hue size="small" %}
+  <div class="meta"><b>{{ s.title|default:s.original_name|default:"—" }}</b>
+    <span>{{ s.duration|dur }} · {{ s.sample_rate|num }} Hz{% if s.checks.metrics.snr_db %} · {% trans "ruido" %} {{ s.checks.metrics.snr_db }} dB SNR{% endif %}</span>
+    {% for issue in s.issues %}<div class="small" style="color:var(--{% if issue.level == 'error' %}bad{% else %}warn{% endif %})">{{ issue.text }}</div>{% endfor %}
+  </div>
+  {% if s.ok %}<span class="chip ok">{% trans "Válida" %}</span>{% else %}<span class="chip bad">{% trans "No válida" %}</span>{% endif %}
+  {% if s.kind == "showcase" and s.ok %}<form method="post">{% csrf_token %}<input type="hidden" name="action" value="toggle"><input type="hidden" name="sample" value="{{ s.pk }}">
+    <button class="btn ghost small">{% if s.public %}{% trans "Ocultar" %}{% else %}{% trans "Publicar" %}{% endif %}</button></form>{% endif %}
+  <form method="post" data-confirm="{% trans "¿Borrar esta muestra?" %}">{% csrf_token %}<input type="hidden" name="action" value="delete"><input type="hidden" name="sample" value="{{ s.pk }}">
+    <button class="btn ghost small">{% trans "Borrar" %}</button></form>
+</div>

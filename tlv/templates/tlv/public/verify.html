@@ -1,0 +1,29 @@
+{% extends "tlv/base.html" %}
+{% load i18n tlv_extras %}
+{% block title %}{% trans "Verificar una licencia" %}{% endblock %}
+{% block main %}
+<div class="narrow section">
+  <h1>{% trans "Verificar una licencia" %}</h1>
+  <p>{% trans "Introduce el código que aparece en el certificado para comprobar si la licencia es auténtica y sigue vigente." %}</p>
+  <form method="get" action="{% url 'verify' %}" class="row"><input class="input" style="max-width:16rem" name="codigo" value="{{ code }}" placeholder="LIC-…" aria-label="{% trans "Código de licencia" %}" required><button class="btn">{% trans "Comprobar" %}</button></form>
+  {% if code and not lic %}<div class="note bad" style="margin-top:1.5rem"><p><b>{% trans "No existe ninguna licencia con este código." %}</b> {% trans "Si lo has visto en un certificado, puede ser falso." %} <a href="{% url 'report' %}">{% trans "Denunciar" %}</a></p></div>{% endif %}
+  {% if lic %}
+    <div class="panel" style="margin-top:1.5rem">
+      <div class="row between"><h2 style="margin:0">{{ lic.code }}</h2>
+        {% if lic.in_force and not lic.request.blocked %}<span class="chip ok">{% trans "Auténtica y vigente" %}</span>
+        {% elif lic.request.blocked %}<span class="chip warn">{% trans "En revisión por una incidencia" %}</span>
+        {% else %}<span class="chip bad">{{ lic.get_status_display }}{% if lic.status == 'active' %} · {% trans "caducada" %}{% endif %}</span>{% endif %}</div>
+      <dl class="dl" style="margin-top:1rem">
+        <dt>{% trans "Voz" %}</dt><dd>{{ lic.request.voice.name }}</dd>
+        <dt>{% trans "Licenciatario" %}</dt><dd>{{ lic.request.client.company_name }}</dd>
+        <dt>{% trans "Categoría de uso" %}</dt><dd>{{ lic.request.category.name }}</dd>
+        <dt>{% trans "Territorio" %}</dt><dd>{{ lic.request.get_territory_display }}</dd>
+        <dt>{% trans "Canales de difusión" %}</dt><dd>{{ lic.request.channel_labels|join:", " }}</dd>
+        <dt>{% trans "Emitida" %}</dt><dd>{{ lic.issued_at|date:"d/m/Y" }}</dd>
+        <dt>{% trans "Válida hasta" %}</dt><dd>{% if lic.valid_until %}{{ lic.valid_until|date:"d/m/Y" }}{% else %}{% trans "Sin límite de tiempo" %}{% endif %}</dd>
+      </dl>
+      <p class="small muted" style="margin:1rem 0 0">{% trans "La licencia cubre solo el proyecto y el guion aprobados por el locutor. Voz generada con inteligencia artificial." %}</p>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

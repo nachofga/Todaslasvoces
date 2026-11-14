@@ -1,0 +1,35 @@
+{% extends "tlv/app.html" %}
+{% load i18n %}
+{% block title %}{% trans "Cuenta y privacidad" %}{% endblock %}
+{% block app %}
+<div class="page-head"><h1>{% trans "Cuenta y privacidad" %}</h1></div>
+{% if not user.email_verified %}<div class="note warn"><p>{% trans "Todavía no has confirmado tu correo. Busca nuestro mensaje en tu bandeja de entrada." %}</p>
+  <form method="post" action="{% url 'resend_verification' %}">{% csrf_token %}<button class="btn small">{% trans "Enviar otro correo de confirmación" %}</button></form></div>{% endif %}
+<div class="panel">
+  <h2>{% trans "Tu cuenta" %}</h2>
+  <dl class="dl"><dt>{% trans "Correo electrónico" %}</dt><dd>{{ user.email }} {% if user.email_verified %}<span class="chip ok">{% trans "Confirmado" %}</span>{% endif %}</dd>
+    <dt>{% trans "Tipo de cuenta" %}</dt><dd>{{ user.get_role_display }}</dd></dl>
+  <div class="row" style="margin-top:1rem">
+    <form method="post" class="row">{% csrf_token %}<input type="hidden" name="action" value="language">
+      <label for="lang-pref" class="muted">{% trans "Idioma de la web y de los correos" %}</label>
+      <select class="input" style="width:auto" id="lang-pref" name="language"><option value="es" {% if user.language == 'es' %}selected{% endif %}>Español</option><option value="en" {% if user.language == 'en' %}selected{% endif %}>English</option></select>
+      <button class="btn ghost small">{% trans "Guardar" %}</button></form>
+    <a class="btn ghost small" href="{% url 'password_change' %}">{% trans "Cambiar contraseña" %}</a>
+  </div>
+</div>
+<div class="panel">
+  <h2>{% trans "Tus datos" %}</h2>
+  <p>{% trans "Puedes descargar una copia de todo lo que guardamos sobre ti." %}</p>
+  <form method="post">{% csrf_token %}<input type="hidden" name="action" value="export"><button class="btn ghost">{% trans "Descargar mis datos" %}</button></form>
+</div>
+<div class="panel">
+  <h2>{% trans "Suprimir la cuenta" %}</h2>
+  {% if pending_delete %}<div class="note"><p>{% trans "Tu solicitud de supresión está en curso." %}</p></div>
+  {% else %}
+  <p>{% trans "Eliminaremos tus datos personales, tus grabaciones y tu voz digital. Conservaremos, sin datos de contacto, las facturas y el registro de trazabilidad que la ley obliga a guardar." %}</p>
+  <form method="post" data-confirm="{% trans "¿Seguro que quieres pedir la supresión de tu cuenta?" %}">{% csrf_token %}<input type="hidden" name="action" value="delete">
+    <label class="check"><input type="checkbox" name="confirm" required> <span>{% trans "Entiendo que esta acción no se puede deshacer." %}</span></label>
+    <button class="btn danger" style="margin-top:.8rem">{% trans "Solicitar la supresión" %}</button></form>
+  {% endif %}
+</div>
+{% endblock %}

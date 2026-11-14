@@ -1,0 +1,30 @@
+{% extends "tlv/app.html" %}
+{% load i18n tlv_extras %}
+{% block title %}{% trans "Gestión" %}{% endblock %}
+{% block app %}
+<div class="page-head"><h1>{% trans "Panel de gestión" %}</h1></div>
+<h2>{% trans "Pendiente de hacer" %}</h2>
+<div class="grid g4">
+  <a class="stat {% if queue.identities %}alert{% endif %}" href="{% url 'staff_talents' %}?estado=submitted"><b>{{ queue.identities }}</b><span>{% trans "Identidades por verificar" %}</span></a>
+  <a class="stat {% if queue.clients %}alert{% endif %}" href="{% url 'staff_clients' %}"><b>{{ queue.clients }}</b><span>{% trans "Clientes por validar" %}</span></a>
+  <a class="stat {% if queue.voices %}alert{% endif %}" href="{% url 'staff_voices' %}?estado=in_review"><b>{{ queue.voices }}</b><span>{% trans "Voces por revisar" %}</span></a>
+  <a class="stat {% if queue.payments %}alert{% endif %}" href="{% url 'staff_payments' %}"><b>{{ queue.payments }}</b><span>{% trans "Cobros por confirmar" %}</span></a>
+  <a class="stat {% if queue.payouts %}alert{% endif %}" href="{% url 'staff_payouts' %}"><b>{{ queue.payouts }}</b><span>{% trans "Pagos a locutores pendientes" %}</span></a>
+  <a class="stat {% if queue.disputes %}alert{% endif %}" href="{% url 'staff_disputes' %}"><b>{{ queue.disputes }}</b><span>{% trans "Disputas abiertas" %}</span></a>
+  <a class="stat {% if queue.privacy %}alert{% endif %}" href="{% url 'staff_privacy' %}"><b>{{ queue.privacy }}</b><span>{% trans "Solicitudes de privacidad" %}</span></a>
+</div>
+<h2 style="margin-top:1.5rem">{% trans "La plataforma en cifras" %}</h2>
+<div class="grid g4">
+  <div class="stat"><b>{{ kpi.voices }}</b><span>{% trans "Voces activas" %}</span></div>
+  <div class="stat"><b>{{ kpi.talents }}</b><span>{% trans "Locutores" %}</span></div>
+  <div class="stat"><b>{{ kpi.clients }}</b><span>{% trans "Clientes" %}</span></div>
+  <div class="stat"><b>{{ kpi.licenses }}</b><span>{% trans "Licencias activas" %}</span></div>
+  <div class="stat"><b>{{ kpi.revenue|eur }}</b><span>{% trans "Facturado (sin IVA)" %}</span></div>
+  <div class="stat"><b>{{ kpi.revenue_month|eur }}</b><span>{% trans "Facturado este mes" %}</span></div>
+  <div class="stat"><b>{{ kpi.platform|eur }}</b><span>{% trans "Comisiones de la plataforma" %}</span></div>
+  <div class="stat"><b>{{ kpi.generations|num }}</b><span>{% trans "Audios generados" %}</span></div>
+</div>
+<div class="panel"><h2>{% trans "Última actividad" %}</h2><div class="table-wrap"><table class="data">
+  {% for e in latest %}<tr><td class="small muted">{{ e.created_at|date:"d/m H:i" }}</td><td><b>{{ e.event }}</b></td><td class="small">{{ e.actor.email|default:"sistema" }}</td></tr>{% endfor %}
+</table></div><a href="{% url 'staff_ledger' %}">{% trans "Ver el registro completo" %}</a></div>
+{% endblock %}

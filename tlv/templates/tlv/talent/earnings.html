@@ -1,0 +1,26 @@
+{% extends "tlv/app.html" %}
+{% load i18n tlv_extras %}
+{% block title %}{% trans "Ingresos" %}{% endblock %}
+{% block app %}
+<div class="page-head"><h1>{% trans "Ingresos" %}</h1></div>
+<div class="grid g4">
+  <div class="stat"><b>{{ total|eur }}</b><span>{% trans "Ingresos generados" %}</span></div>
+  <div class="stat"><b>{{ paid|eur }}</b><span>{% trans "Pagos recibidos" %}</span></div>
+  <div class="stat {% if pending %}alert{% endif %}"><b>{{ pending|eur }}</b><span>{% trans "Pendiente de cobro" %}</span></div>
+  <div class="stat"><b>{{ uses }}</b><span>{% trans "Locuciones con licencia" %}</span></div>
+</div>
+{% if not talent.payout_iban %}<div class="note warn"><p>{% trans "Añade tu IBAN en el perfil para que podamos pagarte." %} <a href="{% url 'talent_profile' %}">{% trans "Ir al perfil" %}</a></p></div>{% endif %}
+<div class="panel"><h2>{% trans "Proyectos y liquidaciones" %}</h2>
+  {% if splits %}<div class="table-wrap"><table class="data">
+    <thead><tr><th>{% trans "Fecha" %}</th><th>{% trans "Proyecto" %}</th><th class="num">{% trans "Licencia" %}</th><th class="num">{% trans "Comisión" %}</th><th class="num">{% trans "Tu parte" %}</th><th>{% trans "Estado" %}</th><th></th></tr></thead>
+    {% for s in splits %}<tr><td>{{ s.created_at|date:"d/m/Y" }}</td>
+      <td><a href="{% url 'talent_request' s.payment.request_id %}">{{ s.payment.request.project_name }}</a><div class="small muted">{{ s.payment.request.client.company_name }}</div></td>
+      <td class="num">{{ s.net|eur }}</td><td class="num">{{ s.fee_percent|num:0 }} %</td><td class="num"><b>{{ s.talent_amount|eur }}</b></td>
+      <td><span class="chip {{ s.talent_payout|tone }}">{{ s.get_talent_payout_display }}</span></td>
+      <td><a href="{% url 'talent_statement' s.pk %}" target="_blank">{% trans "Justificante" %}</a></td></tr>{% endfor %}
+  </table></div>{% else %}<p class="muted">{% trans "Todavía no hay ingresos. Aparecerán aquí cuando se pague la primera licencia." %}</p>{% endif %}
+</div>
+{% if by_month %}<div class="panel"><h2>{% trans "Por mes" %}</h2><table class="data" style="max-width:24rem">
+  {% for month, amount in by_month %}<tr><td>{{ month }}</td><td class="num">{{ amount|eur }}</td></tr>{% endfor %}</table></div>{% endif %}
+<p class="small muted">{% blocktrans trimmed with n=demos %}Además, los clientes han generado {{ n }} demos de evaluación con tu voz (no dan derechos de uso ni generan ingresos).{% endblocktrans %}</p>
+{% endblock %}

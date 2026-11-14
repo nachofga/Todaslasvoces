@@ -1,0 +1,9 @@
+{% extends "tlv/base.html" %}
+{% load i18n %}
+{% block main %}
+<div class="narrow section" style="text-align:center">
+  <h1>403</h1>
+  <p style="margin-inline:auto">{% if "403" == "404" %}{% trans "Esta página no existe o ya no está disponible." %}{% elif "403" == "403" %}{% trans "No tienes permiso para ver esta página." %}{% else %}{% trans "Algo ha fallado por nuestra parte. Inténtalo de nuevo en unos minutos." %}{% endif %}</p>
+  <a class="btn" href="{% url 'home' %}">{% trans "Volver al inicio" %}</a>
+</div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "tlv/app.html" %}
+{% load i18n tlv_extras %}
+{% block title %}{% trans "Disputas" %}{% endblock %}
+{% block app %}
+<div class="page-head"><h1>{% trans "Disputas" %}</h1></div>
+<div class="panel"><div class="table-wrap"><table class="data">
+  <thead><tr><th>{% trans "Código" %}</th><th>{% trans "Quién" %}</th><th>{% trans "Voz" %}</th><th>{% trans "Audio identificado" %}</th><th>{% trans "Estado" %}</th><th>{% trans "Fecha" %}</th></tr></thead>
+  {% for d in disputes %}<tr><td><a href="{% url 'staff_dispute' d.pk %}"><b>{{ d.code }}</b></a></td><td class="small">{{ d.reporter.email|default:d.reporter_email }}</td>
+    <td>{{ d.voice.name|default:"—" }}</td><td>{% if d.detection.match %}<span class="chip ok">{{ d.detection.match }}</span>{% else %}—{% endif %}</td>
+    <td><span class="chip {{ d.status|tone }}">{{ d.get_status_display }}</span></td><td>{{ d.created_at|date:"d/m/Y" }}</td></tr>
+  {% empty %}<tr><td colspan="6" class="muted">{% trans "No hay disputas." %}</td></tr>{% endfor %}
+</table></div></div>
+{% endblock %}

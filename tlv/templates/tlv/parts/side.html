@@ -1,0 +1,41 @@
+{% load i18n tlv_extras %}
+<nav class="side" aria-label="{% trans "Área privada" %}">
+{% if user.is_manager %}
+  <a class="{% if request.path|slice:'-9:' == '/gestion/' %}is-active{% endif %}" href="{% url 'staff_home' %}">{% trans "Resumen" %}</a>
+  <a class="{{ request|active_nav:'/gestion/locutores/' }}" href="{% url 'staff_talents' %}">{% trans "Locutores" %}</a>
+  <a class="{{ request|active_nav:'/gestion/clientes/' }}" href="{% url 'staff_clients' %}">{% trans "Clientes" %}</a>
+  <a class="{{ request|active_nav:'/gestion/voces/' }}" href="{% url 'staff_voices' %}">{% trans "Voces" %}</a>
+  <a class="{{ request|active_nav:'/gestion/solicitudes/' }}" href="{% url 'staff_requests' %}">{% trans "Solicitudes" %}</a>
+  <a class="{{ request|active_nav:'/gestion/cobros/' }}" href="{% url 'staff_payments' %}">{% trans "Cobros" %}</a>
+  <a class="{{ request|active_nav:'/gestion/pagos/' }}" href="{% url 'staff_payouts' %}">{% trans "Pagos a locutores" %}</a>
+  <a class="{{ request|active_nav:'/gestion/disputas/' }}" href="{% url 'staff_disputes' %}">{% trans "Disputas" %}</a>
+  <div class="sep"></div>
+  <a class="{{ request|active_nav:'/gestion/informes/' }}" href="{% url 'staff_reports' %}">{% trans "Informes" %}</a>
+  <a class="{{ request|active_nav:'/gestion/registro/' }}" href="{% url 'staff_ledger' %}">{% trans "Registro" %}</a>
+  <a class="{{ request|active_nav:'/gestion/herramientas/' }}" href="{% url 'staff_tools' %}">{% trans "Herramientas" %}</a>
+  <a class="{{ request|active_nav:'/gestion/categorias/' }}" href="{% url 'staff_categories' %}">{% trans "Categorías de uso" %}</a>
+  <a class="{{ request|active_nav:'/gestion/ajustes/' }}" href="{% url 'staff_settings' %}">{% trans "Ajustes y comisiones" %}</a>
+  <a class="{{ request|active_nav:'/gestion/privacidad/' }}" href="{% url 'staff_privacy' %}">{% trans "Privacidad" %}</a>
+{% elif user.is_talent %}
+  <a class="{% if request.path|slice:'-9:' == '/locutor/' %}is-active{% endif %}" href="{% url 'talent_home' %}">{% trans "Resumen" %}</a>
+  <a class="{{ request|active_nav:'/locutor/perfil/' }}" href="{% url 'talent_profile' %}">{% trans "Perfil y voz" %}</a>
+  <a class="{{ request|active_nav:'/locutor/identidad/' }}" href="{% url 'talent_identity' %}">{% trans "Identidad" %}</a>
+  <a class="{{ request|active_nav:'/locutor/muestras/' }}" href="{% url 'talent_samples' %}">{% trans "Muestras de voz" %}</a>
+  <a class="{{ request|active_nav:'/locutor/titularidad/' }}" href="{% url 'talent_verification' %}">{% trans "Prueba de titularidad" %}</a>
+  <a class="{{ request|active_nav:'/locutor/contrato/' }}" href="{% url 'talent_contract' %}">{% trans "Usos y contrato" %}</a>
+  <a class="{{ request|active_nav:'/locutor/voz/' }}" href="{% url 'talent_listen' %}">{% trans "Mi voz digital" %}</a>
+  <div class="sep"></div>
+  <a class="{{ request|active_nav:'/locutor/solicitudes/' }}" href="{% url 'talent_requests' %}">{% trans "Solicitudes" %}</a>
+  <a class="{{ request|active_nav:'/locutor/ingresos/' }}" href="{% url 'talent_earnings' %}">{% trans "Ingresos" %}</a>
+  <a class="{{ request|active_nav:'/locutor/disputas/' }}" href="{% url 'talent_disputes' %}">{% trans "Incidencias" %}</a>
+{% else %}
+  <a class="{% if request.path|slice:'-9:' == '/cliente/' %}is-active{% endif %}" href="{% url 'client_home' %}">{% trans "Resumen" %}</a>
+  <a class="{{ request|active_nav:'/cliente/solicitudes/' }}" href="{% url 'client_requests' %}">{% trans "Solicitudes y licencias" %}</a>
+  <a href="{% url 'catalog' %}">{% trans "Buscar voces" %}</a>
+  <a class="{{ request|active_nav:'/cliente/empresa/' }}" href="{% url 'client_profile' %}">{% trans "Datos de empresa" %}</a>
+  <a class="{{ request|active_nav:'/cliente/disputas/' }}" href="{% url 'client_disputes' %}">{% trans "Incidencias" %}</a>
+{% endif %}
+  <div class="sep"></div>
+  <a class="{{ request|active_nav:'/avisos/' }}" href="{% url 'notifications' %}">{% trans "Avisos" %}{% if unread_count %}<span class="count">{{ unread_count }}</span>{% endif %}</a>
+  <a class="{{ request|active_nav:'/cuenta/' }}" href="{% url 'account' %}">{% trans "Cuenta y privacidad" %}</a>
+</nav>

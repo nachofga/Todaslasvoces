@@ -1,0 +1,18 @@
+{% extends "tlv/app.html" %}
+{% load i18n tlv_extras %}
+{% block title %}{% trans "Identidad" %}{% endblock %}
+{% block app %}
+<div class="page-head"><div><h1>{% trans "Verificación de identidad" %}</h1>
+  <p><span class="chip {{ talent.identity_status|tone }}">{{ talent.get_identity_status_display }}</span></p></div></div>
+{% if talent.identity_status == "verified" %}
+  <div class="note ok"><p>{% trans "Tu identidad está verificada. Hemos borrado el documento que subiste." %}</p></div>
+{% else %}
+  {% if talent.identity_status == "rejected" %}<div class="note bad"><p><b>{% trans "No hemos podido verificar tu identidad." %}</b> {{ talent.identity_note }}</p></div>{% endif %}
+  {% if talent.identity_status == "submitted" %}<div class="note"><p>{% trans "Hemos recibido tu documento y lo estamos revisando. Puedes sustituirlo si te has equivocado." %}</p></div>{% endif %}
+  <div class="panel">
+    <p>{% blocktrans trimmed with name=talent.legal_name %}Necesitamos comprobar que eres <b>{{ name }}</b>, la persona que firma el contrato. El nombre del documento debe coincidir.{% endblocktrans %}</p>
+    <form method="post" enctype="multipart/form-data">{% csrf_token %}{% include "tlv/parts/fields.html" %}
+      <button class="btn" data-busy="{% trans "Subiendo…" %}">{% trans "Enviar documento" %}</button></form>
+  </div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,18 @@
+# Para probar en tu ordenador con PostgreSQL de verdad:  docker compose up --build
+services:
+  db:
+    image: postgres:16
+    environment: { POSTGRES_DB: tlv, POSTGRES_USER: tlv, POSTGRES_PASSWORD: tlv }
+    volumes: [pgdata:/var/lib/postgresql/data]
+  web:
+    build: .
+    depends_on: [db]
+    ports: ["8000:8000"]
+    environment:
+      DATABASE_URL: postgres://tlv:tlv@db:5432/tlv
+      SECRET_KEY: cambia-esta-clave-local-0123456789abcdef
+      DEBUG: "1"
+      TLV_ADMIN_EMAIL: gestion@ejemplo.com
+      TLV_ADMIN_PASSWORD: cambia-esta-clave
+    volumes: [media:/datos]
+volumes: { pgdata: {}, media: {} }

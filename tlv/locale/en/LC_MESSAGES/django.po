@@ -1,0 +1,3555 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: todaslasvoces\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Esta página no existe o ya no está disponible."
+msgstr "This page does not exist or is no longer available."
+
+msgid "No tienes permiso para ver esta página."
+msgstr "You do not have permission to view this page."
+
+msgid "Algo ha fallado por nuestra parte. Inténtalo de nuevo en unos minutos."
+msgstr "Something went wrong on our side. Please try again in a few minutes."
+
+msgid "Volver al inicio"
+msgstr "Back to home"
+
+msgid "Cuenta y privacidad"
+msgstr "Account and privacy"
+
+msgid ""
+"Todavía no has confirmado tu correo. Busca nuestro mensaje en tu bandeja de "
+"entrada."
+msgstr ""
+"You have not confirmed your email yet. Look for our message in your inbox."
+
+msgid "Enviar otro correo de confirmación"
+msgstr "Send another confirmation email"
+
+msgid "Tu cuenta"
+msgstr "Your account"
+
+msgid "Correo electrónico"
+msgstr "Email"
+
+msgid "Confirmado"
+msgstr "Confirmed"
+
+msgid "Tipo de cuenta"
+msgstr "Account type"
+
+msgid "Idioma de la web y de los correos"
+msgstr "Language for the site and emails"
+
+msgid "Guardar"
+msgstr "Save"
+
+msgid "Cambiar contraseña"
+msgstr "Change password"
+
+msgid "Tus datos"
+msgstr "Your data"
+
+msgid "Puedes descargar una copia de todo lo que guardamos sobre ti."
+msgstr "You can download a copy of everything we hold about you."
+
+msgid "Descargar mis datos"
+msgstr "Download my data"
+
+msgid "Suprimir la cuenta"
+msgstr "Delete the account"
+
+msgid "Tu solicitud de supresión está en curso."
+msgstr "Your erasure request is in progress."
+
+msgid ""
+"Eliminaremos tus datos personales, tus grabaciones y tu voz digital. "
+"Conservaremos, sin datos de contacto, las facturas y el registro de "
+"trazabilidad que la ley obliga a guardar."
+msgstr ""
+"We will delete your personal data, your recordings and your digital voice. "
+"We will keep, without contact details, the invoices and the traceability log"
+" the law requires us to keep."
+
+msgid "¿Seguro que quieres pedir la supresión de tu cuenta?"
+msgstr "Are you sure you want to request deletion of your account?"
+
+msgid "Entiendo que esta acción no se puede deshacer."
+msgstr "I understand this action cannot be undone."
+
+msgid "Solicitar la supresión"
+msgstr "Request deletion"
+
+msgid "Entrar"
+msgstr "Sign in"
+
+msgid "He olvidado mi contraseña"
+msgstr "I forgot my password"
+
+msgid "¿No tienes cuenta?"
+msgstr "No account yet?"
+
+msgid "Crear cuenta"
+msgstr "Create account"
+
+msgid "Avisos"
+msgstr "Notifications"
+
+msgid "Nuevo"
+msgstr "New"
+
+msgid "No tienes avisos."
+msgstr "You have no notifications."
+
+msgid "Contraseña"
+msgstr "Password"
+
+msgid "El enlace no es válido o ha caducado."
+msgstr "The link is not valid or has expired."
+
+msgid "Pedir otro"
+msgstr "Request another"
+
+msgid "Continuar"
+msgstr "Continue"
+
+msgid ""
+"Hecho. Si el correo corresponde a una cuenta, recibirás un enlace para "
+"elegir una contraseña nueva. Si ya la has cambiado, entra con ella."
+msgstr ""
+"Done. If the email belongs to an account, you will receive a link to choose "
+"a new password. If you have already changed it, sign in with it."
+
+msgid "Hola:"
+msgstr "Hello,"
+
+msgid "Para elegir una contraseña nueva en Todas las Voces, abre este enlace:"
+msgstr "To choose a new password on Todas las Voces, open this link:"
+
+msgid "Si no lo has pedido tú, ignora este correo."
+msgstr "If you did not request this, ignore this email."
+
+msgid "[Todas las Voces] Nueva contraseña"
+msgstr "[Todas las Voces] New password"
+
+msgid "Soy locutor"
+msgstr "I am a voice actor"
+
+msgid ""
+"Quiero crear mi voz digital, decidir para qué se usa y cobrar por cada "
+"licencia."
+msgstr ""
+"I want to create my digital voice, decide what it is used for and get paid "
+"for every licence."
+
+msgid "Crear cuenta de locutor"
+msgstr "Create voice actor account"
+
+msgid "Soy cliente"
+msgstr "I am a client"
+
+msgid ""
+"Represento a una empresa, agencia o productora y quiero contratar locuciones"
+" con licencia."
+msgstr ""
+"I represent a company, agency or production house and want to commission "
+"licensed voice-overs."
+
+msgid "Crear cuenta de cliente"
+msgstr "Create client account"
+
+msgid "¿Ya tienes cuenta?"
+msgstr "Already have an account?"
+
+msgid "Cuenta de locutor"
+msgstr "Voice actor account"
+
+msgid "Cuenta de cliente"
+msgstr "Client account"
+
+msgid ""
+"Después podrás completar tu perfil, subir tus muestras y firmar el contrato."
+msgstr ""
+"Afterwards you can complete your profile, upload your samples and sign the "
+"agreement."
+
+msgid ""
+"Validaremos los datos de tu empresa antes de que puedas solicitar licencias."
+msgstr ""
+"We will validate your company details before you can request licences."
+
+msgid "Condiciones de uso"
+msgstr "Terms of use"
+
+msgid "Privacidad"
+msgstr "Privacy"
+
+msgid "Voces profesionales con IA y con permiso"
+msgstr "Professional AI voices, with permission"
+
+msgid ""
+"Marketplace de voces profesionales generadas con IA, con el consentimiento y"
+" la licencia del locutor."
+msgstr ""
+"Marketplace of professional AI-generated voices, with the voice actor's "
+"consent and licence."
+
+msgid ""
+"Modo de pruebas: el motor de voz es simulado. Las voces que se oyen no son "
+"clones reales."
+msgstr ""
+"Test mode: the voice engine is simulated. The voices you hear are not real "
+"clones."
+
+msgid "Menú"
+msgstr "Menu"
+
+msgid "Voces"
+msgstr "Voices"
+
+msgid "Cómo funciona"
+msgstr "How it works"
+
+msgid "Mi panel"
+msgstr "My dashboard"
+
+msgid "Salir"
+msgstr "Sign out"
+
+msgid "Idioma"
+msgstr "Language"
+
+msgid ""
+"Voces de locutores reales, generadas con IA y usadas solo con su permiso."
+msgstr ""
+"Real voice actors' voices, generated with AI and used only with their "
+"permission."
+
+msgid "Plataforma"
+msgstr "Platform"
+
+msgid "Catálogo de voces"
+msgstr "Voice catalogue"
+
+msgid "Verificar una licencia"
+msgstr "Verify a licence"
+
+msgid "Denunciar un uso no autorizado"
+msgstr "Report unauthorised use"
+
+msgid "Legal"
+msgstr "Legal"
+
+msgid "Cookies"
+msgstr "Cookies"
+
+msgid "Transparencia sobre IA"
+msgstr "AI transparency"
+
+msgid "Registro de trazabilidad"
+msgstr "Traceability log"
+
+msgid "Buscar una voz"
+msgstr "Find a voice"
+
+msgid "Estamos validando los datos de tu empresa."
+msgstr "We are validating your company details."
+
+msgid ""
+"Mientras tanto puedes escuchar el catálogo y generar demos. Te avisaremos "
+"por correo en cuanto puedas solicitar licencias."
+msgstr ""
+"Meanwhile you can listen to the catalogue and generate demos. We will email "
+"you as soon as you can request licences."
+
+msgid "No hemos podido validar tu empresa."
+msgstr "We could not validate your company."
+
+msgid "Revisar los datos"
+msgstr "Review the details"
+
+msgid "Pendientes de pago"
+msgstr "Awaiting payment"
+
+msgid "Esperan tu respuesta"
+msgstr "Awaiting your reply"
+
+msgid "Pendientes del locutor"
+msgstr "Awaiting the voice actor"
+
+msgid "Licencias activas"
+msgstr "Active licences"
+
+msgid "Últimas solicitudes"
+msgstr "Latest requests"
+
+msgid ""
+"Todavía no has solicitado ninguna licencia. Elige una voz del catálogo para "
+"empezar."
+msgstr ""
+"You have not requested any licence yet. Pick a voice from the catalogue to "
+"get started."
+
+msgid "Tus últimas demos"
+msgstr "Your latest demos"
+
+msgid ""
+"Las demos son solo para evaluar la voz: no dan ningún derecho de uso y "
+"llevan marca de agua."
+msgstr ""
+"Demos are only for evaluating the voice: they grant no usage rights and are "
+"watermarked."
+
+msgid "Datos de empresa"
+msgstr "Company details"
+
+msgid ""
+"Voz: <b>%(v)s</b>. El locutor verá esta solicitud y decidirá si la aprueba."
+msgstr ""
+"Voice: <b>%(v)s</b>. The voice actor will see this request and decide "
+"whether to approve it."
+
+msgid "Solicitar licencia"
+msgstr "Request licence"
+
+msgid "Enviar solicitud al locutor"
+msgstr "Send request to the voice actor"
+
+msgid "Presupuesto sin IVA"
+msgstr "Quote excluding VAT"
+
+msgid "Total con IVA"
+msgstr "Total including VAT"
+
+msgid ""
+"El precio se calcula con la tarifa del locutor para la categoría elegida, el"
+" territorio y la duración. El locutor puede aceptarlo o proponerte otro."
+msgstr ""
+"The price is calculated from the voice actor's rate for the chosen category,"
+" the territory and the duration. The voice actor may accept it or propose "
+"another."
+
+msgid "No pagas nada hasta que el locutor apruebe."
+msgstr "You pay nothing until the voice actor approves."
+
+msgid "Área privada"
+msgstr "Private area"
+
+msgid "Resumen"
+msgstr "Overview"
+
+msgid "Locutores"
+msgstr "Voice actors"
+
+msgid "Clientes"
+msgstr "Clients"
+
+msgid "Solicitudes"
+msgstr "Requests"
+
+msgid "Cobros"
+msgstr "Payments in"
+
+msgid "Pagos a locutores"
+msgstr "Payouts to voice actors"
+
+msgid "Disputas"
+msgstr "Disputes"
+
+msgid "Informes"
+msgstr "Reports"
+
+msgid "Registro"
+msgstr "Log"
+
+msgid "Herramientas"
+msgstr "Tools"
+
+msgid "Categorías de uso"
+msgstr "Use categories"
+
+msgid "Ajustes y comisiones"
+msgstr "Settings and commissions"
+
+msgid "Perfil y voz"
+msgstr "Profile and voice"
+
+msgid "Identidad"
+msgstr "Identity"
+
+msgid "Muestras de voz"
+msgstr "Voice samples"
+
+msgid "Prueba de titularidad"
+msgstr "Ownership check"
+
+msgid "Usos y contrato"
+msgstr "Uses and agreement"
+
+msgid "Mi voz digital"
+msgstr "My digital voice"
+
+msgid "Ingresos"
+msgstr "Earnings"
+
+msgid "Incidencias"
+msgstr "Issues"
+
+msgid "Solicitudes y licencias"
+msgstr "Requests and licences"
+
+msgid "Buscar voces"
+msgstr "Browse voices"
+
+msgid "Escuchar"
+msgstr "Listen"
+
+msgid "Licencias desde"
+msgstr "Licences from"
+
+msgid "%(n)s voz disponible"
+msgid_plural "%(n)s voces disponibles"
+msgstr[0] "%(n)s voice available"
+msgstr[1] "%(n)s voices available"
+
+msgid "Buscar"
+msgstr "Search"
+
+msgid "Nombre, estilo, rasgo…"
+msgstr "Name, style, trait…"
+
+msgid "Cualquiera"
+msgstr "Any"
+
+msgid "Precio máximo (€)"
+msgstr "Maximum price (€)"
+
+msgid "Ordenar por"
+msgstr "Sort by"
+
+msgid "Más recientes"
+msgstr "Most recent"
+
+msgid "Precio"
+msgstr "Price"
+
+msgid "Filtrar"
+msgstr "Filter"
+
+msgid "Quitar filtros"
+msgstr "Clear filters"
+
+msgid "Anterior"
+msgstr "Previous"
+
+msgid "Siguiente"
+msgstr "Next"
+
+msgid "Ninguna voz encaja con estos filtros. Prueba a quitar alguno."
+msgstr "No voice matches these filters. Try removing one."
+
+msgid "Todavía no hay voces publicadas."
+msgstr "No voices have been published yet."
+
+msgid "Voces de locutores reales,"
+msgstr "Real voice actors' voices,"
+
+msgid "generadas con IA,"
+msgstr "generated with AI,"
+
+msgid "con su permiso firmado."
+msgstr "with their signed permission."
+
+msgid ""
+"Elige una voz profesional, escribe tu guion y recibe la locución con su "
+"licencia. El locutor aprueba cada proyecto y cobra por cada uso."
+msgstr ""
+"Choose a professional voice, write your script and receive the recording "
+"with its licence. The voice actor approves every project and is paid for "
+"every use."
+
+msgid "Escuchar el catálogo"
+msgstr "Listen to the catalogue"
+
+msgid "Soy locutor: crear mi voz digital"
+msgstr "I am a voice actor: create my digital voice"
+
+msgid "Escucha ahora"
+msgstr "Listen now"
+
+msgid "Todavía no hay voces publicadas. Las primeras están en revisión."
+msgstr "No voices have been published yet. The first ones are under review."
+
+msgid ""
+"Demostraciones generadas con inteligencia artificial y autorizadas por cada "
+"locutor."
+msgstr ""
+"Demos generated with artificial intelligence and authorised by each voice "
+"actor."
+
+msgid "Si necesitas una locución"
+msgstr "If you need a voice-over"
+
+msgid "Busca y escucha"
+msgstr "Search and listen"
+
+msgid ""
+"Filtra por idioma, acento, estilo y uso permitido. Prueba cada voz con tu "
+"propio texto."
+msgstr ""
+"Filter by language, accent, style and permitted use. Try each voice with "
+"your own text."
+
+msgid "Solicita la licencia"
+msgstr "Request the licence"
+
+msgid ""
+"Indica el guion, la finalidad, el territorio, los canales y la duración. "
+"Verás el presupuesto al momento."
+msgstr ""
+"State the script, purpose, territory, channels and duration. You will see "
+"the quote straight away."
+
+msgid "El locutor decide"
+msgstr "The voice actor decides"
+
+msgid "Aprueba, rechaza o te pide más información antes de autorizar su voz."
+msgstr ""
+"They approve, reject or ask for more information before authorising their "
+"voice."
+
+msgid "Paga, genera y descarga"
+msgstr "Pay, generate and download"
+
+msgid "Recibes el audio en WAV y MP3 con su certificado de licencia."
+msgstr "You receive the audio in WAV and MP3 with its licence certificate."
+
+msgid "Si eres locutor"
+msgstr "If you are a voice actor"
+
+msgid "Sube tus grabaciones"
+msgstr "Upload your recordings"
+
+msgid ""
+"Entre 2 y 5 minutos de tu voz. Comprobamos la calidad y que la voz es tuya."
+msgstr ""
+"Between 2 and 5 minutes of your voice. We check the quality and that the "
+"voice is yours."
+
+msgid "Decide para qué se puede usar"
+msgstr "Decide what it can be used for"
+
+msgid "17 categorías de uso que aceptas o rechazas una a una, con tu tarifa."
+msgstr ""
+"17 use categories that you accept or reject one by one, with your rate."
+
+msgid "Firma y activa tu voz digital"
+msgstr "Sign and activate your digital voice"
+
+msgid ""
+"La escuchas antes de publicarla. Puedes pausarla o retirarla cuando quieras."
+msgstr ""
+"You listen to it before it is published. You can pause or withdraw it "
+"whenever you like."
+
+msgid "Aprueba cada proyecto y cobra"
+msgstr "Approve each project and get paid"
+
+msgid ""
+"Nadie usa tu voz sin tu visto bueno. Ves cada uso y cada ingreso en tu "
+"panel."
+msgstr ""
+"Nobody uses your voice without your go-ahead. You see every use and every "
+"payment in your dashboard."
+
+msgid "Lo que protege cada voz"
+msgstr "What protects each voice"
+
+msgid "Consentimiento por categoría y por proyecto."
+msgstr "Consent per category and per project."
+
+msgid "El sistema bloquea cualquier uso que el locutor no haya autorizado."
+msgstr "The system blocks any use the voice actor has not authorised."
+
+msgid "Marca de agua invisible en cada audio."
+msgstr "Invisible watermark in every audio file."
+
+msgid ""
+"Permite saber de qué licencia sale una locución aunque la recorten o la "
+"compriman."
+msgstr ""
+"It shows which licence a recording comes from, even if it is trimmed or "
+"compressed."
+
+msgid "Registro firmado de cada operación."
+msgstr "Signed record of every operation."
+
+msgid ""
+"Cada audio queda vinculado con el locutor, el cliente, el proyecto, el "
+"contrato y el modelo de IA."
+msgstr ""
+"Every audio file is linked to the voice actor, the client, the project, the "
+"agreement and the AI model."
+
+msgid "Certificado verificable."
+msgstr "Verifiable certificate."
+
+msgid ""
+"Cualquiera puede comprobar con un código si una licencia es auténtica y "
+"sigue vigente."
+msgstr ""
+"Anyone can check with a code whether a licence is genuine and still in "
+"force."
+
+msgid "¿Has oído una voz usada sin permiso?"
+msgstr "Have you heard a voice used without permission?"
+
+msgid ""
+"Cuéntanoslo. Si nos envías el audio, comprobamos su marca de agua y abrimos "
+"una incidencia."
+msgstr ""
+"Tell us. If you send us the audio, we check its watermark and open a case."
+
+msgid "Denunciar un uso"
+msgstr "Report a use"
+
+msgid ""
+"Todas las Voces conecta a locutores profesionales con empresas que necesitan"
+" locuciones. La voz la pone una persona; la IA solo la reproduce cuando esa "
+"persona lo autoriza."
+msgstr ""
+"Todas las Voces connects professional voice actors with companies that need "
+"voice-overs. A person provides the voice; AI only reproduces it when that "
+"person authorises it."
+
+msgid "Para clientes"
+msgstr "For clients"
+
+msgid "Crea tu cuenta de empresa"
+msgstr "Create your company account"
+
+msgid "Validamos tus datos antes de que puedas pedir licencias."
+msgstr "We validate your details before you can request licences."
+
+msgid "Escucha y prueba"
+msgstr "Listen and try"
+
+msgid ""
+"Muestras originales, demostraciones de IA y demos cortas con tu texto. Las "
+"demos no dan derechos de uso."
+msgstr ""
+"Original samples, AI demos and short demos with your own text. Demos grant "
+"no usage rights."
+
+msgid ""
+"Guion, finalidad, sector, territorio, canales y duración. El presupuesto se "
+"calcula con la tarifa del locutor."
+msgstr ""
+"Script, purpose, sector, territory, channels and duration. The quote is "
+"calculated from the voice actor's rate."
+
+msgid "Espera la aprobación"
+msgstr "Wait for approval"
+
+msgid ""
+"El locutor puede aprobar, rechazar, pedir información o proponer otro "
+"precio."
+msgstr ""
+"The voice actor may approve, reject, ask for information or propose a "
+"different price."
+
+msgid "Paga por transferencia"
+msgstr "Pay by bank transfer"
+
+msgid ""
+"Cuando confirmamos el pago, la licencia queda activa y se emite la factura."
+msgstr ""
+"Once we confirm the payment, the licence becomes active and the invoice is "
+"issued."
+
+msgid "Genera y descarga"
+msgstr "Generate and download"
+
+msgid ""
+"Audio final en WAV y MP3 y certificado de licencia con código de "
+"verificación."
+msgstr ""
+"Final audio in WAV and MP3 and a licence certificate with a verification "
+"code."
+
+msgid "Para locutores"
+msgstr "For voice actors"
+
+msgid "Crea tu cuenta y verifica tu identidad"
+msgstr "Create your account and verify your identity"
+
+msgid ""
+"Un documento de identidad que solo ve el equipo de verificación y que se "
+"borra al revisarlo."
+msgstr ""
+"An identity document seen only by the verification team and deleted once "
+"reviewed."
+
+msgid "Sube tus muestras"
+msgstr "Upload your samples"
+
+msgid ""
+"El sistema comprueba duración, ruido, saturación y calidad de cada "
+"grabación."
+msgstr ""
+"The system checks the length, noise, clipping and quality of each recording."
+
+msgid "Demuestra que la voz es tuya"
+msgstr "Prove the voice is yours"
+
+msgid "Grabas en directo una frase aleatoria que nadie puede tener preparada."
+msgstr "You record live a random phrase nobody could have prepared."
+
+msgid "Elige los usos y firma"
+msgstr "Choose the uses and sign"
+
+msgid ""
+"Aceptas o rechazas cada categoría de uso y firmas el contrato "
+"electrónicamente."
+msgstr ""
+"You accept or reject each use category and sign the agreement "
+"electronically."
+
+msgid "Escucha tu voz digital y actívala"
+msgstr "Listen to your digital voice and activate it"
+
+msgid ""
+"No se publica hasta que tú la apruebas. Después puedes pausarla o revocarla."
+msgstr ""
+"It is not published until you approve it. Afterwards you can pause or revoke"
+" it."
+
+msgid "Aprueba proyectos y cobra"
+msgstr "Approve projects and get paid"
+
+msgid "Cada solicitud pasa por ti. En tu panel ves usos, ingresos y pagos."
+msgstr ""
+"Every request goes through you. Your dashboard shows uses, earnings and "
+"payouts."
+
+msgid "Preguntas frecuentes"
+msgstr "Frequently asked questions"
+
+msgid "¿De quién es la voz?"
+msgstr "Whose voice is it?"
+
+msgid ""
+"Del locutor, siempre. La plataforma recibe una autorización limitada y "
+"revocable, nunca la propiedad de la voz."
+msgstr ""
+"The voice actor's, always. The platform receives a limited, revocable "
+"authorisation, never ownership of the voice."
+
+msgid "¿Qué pasa si el locutor revoca su voz?"
+msgstr "What happens if the voice actor revokes their voice?"
+
+msgid ""
+"Se elimina su modelo de voz y no se admiten usos nuevos. Las licencias ya "
+"pagadas siguen valiendo para los audios ya entregados."
+msgstr ""
+"Their voice model is deleted and no new uses are accepted. Licences already "
+"paid remain valid for audio already delivered."
+
+msgid "¿Cómo se sabe de dónde sale un audio?"
+msgstr "How do you know where an audio file comes from?"
+
+msgid ""
+"Cada locución lleva una marca de agua invisible y queda apuntada en un "
+"registro firmado junto con su licencia."
+msgstr ""
+"Every recording carries an invisible watermark and is entered in a signed "
+"log together with its licence."
+
+msgid "¿Hay que avisar de que la voz es de IA?"
+msgstr "Do you have to disclose that the voice is AI?"
+
+msgid ""
+"Sí, cuando la normativa lo exija. El certificado de licencia lo recuerda y "
+"los ficheros lo indican en sus metadatos."
+msgstr ""
+"Yes, where the law requires it. The licence certificate says so and the "
+"files state it in their metadata."
+
+msgid "Información legal"
+msgstr "Legal information"
+
+msgid ""
+"Borrador pendiente de revisión jurídica. No es todavía un texto legal "
+"definitivo."
+msgstr "Draft pending legal review. This is not yet a final legal text."
+
+msgid "Denuncia %(code)s recibida."
+msgstr "Report %(code)s received."
+
+msgid "La revisaremos y te escribiremos al correo que nos has dado."
+msgstr "We will review it and write to the email address you gave us."
+
+msgid ""
+"Hemos identificado el audio como generado en la plataforma. Esto acelera la "
+"investigación."
+msgstr ""
+"We have identified the audio as generated on the platform. This speeds up "
+"the investigation."
+
+msgid ""
+"Si crees que una voz del catálogo se está usando sin licencia, o fuera de "
+"las condiciones de su licencia, cuéntanoslo. No necesitas tener cuenta."
+msgstr ""
+"If you believe a voice from the catalogue is being used without a licence, "
+"or outside the terms of its licence, tell us. You do not need an account."
+
+msgid "Enviando…"
+msgstr "Sending…"
+
+msgid "Enviar denuncia"
+msgstr "Send report"
+
+msgid ""
+"Cada consentimiento, aprobación, cobro y audio generado se apunta en un "
+"registro encadenado: cada entrada incluye la huella de la anterior y va "
+"firmada. Si alguien modificara una entrada, la cadena dejaría de cuadrar."
+msgstr ""
+"Every consent, approval, payment and generated audio is entered in a chained"
+" log: each entry includes the fingerprint of the previous one and is signed."
+" If anyone altered an entry, the chain would no longer add up."
+
+msgid "Entradas"
+msgstr "Entries"
+
+msgid "Íntegro"
+msgstr "Intact"
+
+msgid "Roto"
+msgstr "Broken"
+
+msgid "Estado de la cadena"
+msgstr "Chain status"
+
+msgid "Última entrada"
+msgstr "Latest entry"
+
+msgid "Huella de la última entrada"
+msgstr "Fingerprint of the latest entry"
+
+msgid "Clave pública de firma"
+msgstr "Public signing key"
+
+msgid ""
+"Introduce el código que aparece en el certificado para comprobar si la "
+"licencia es auténtica y sigue vigente."
+msgstr ""
+"Enter the code shown on the certificate to check whether the licence is "
+"genuine and still in force."
+
+msgid "Código de licencia"
+msgstr "Licence code"
+
+msgid "Comprobar"
+msgstr "Check"
+
+msgid "No existe ninguna licencia con este código."
+msgstr "There is no licence with this code."
+
+msgid "Si lo has visto en un certificado, puede ser falso."
+msgstr "If you saw it on a certificate, it may be fake."
+
+msgid "Denunciar"
+msgstr "Report"
+
+msgid "Auténtica y vigente"
+msgstr "Genuine and in force"
+
+msgid "En revisión por una incidencia"
+msgstr "Under review due to a case"
+
+msgid "caducada"
+msgstr "expired"
+
+msgid "Voz"
+msgstr "Voice"
+
+msgid "Licenciatario"
+msgstr "Licensee"
+
+msgid "Categoría de uso"
+msgstr "Use category"
+
+msgid "Territorio"
+msgstr "Territory"
+
+msgid "Canales de difusión"
+msgstr "Distribution channels"
+
+msgid "Emitida"
+msgstr "Issued"
+
+msgid "Válida hasta"
+msgstr "Valid until"
+
+msgid "Sin límite de tiempo"
+msgstr "No time limit"
+
+msgid ""
+"La licencia cubre solo el proyecto y el guion aprobados por el locutor. Voz "
+"generada con inteligencia artificial."
+msgstr ""
+"The licence covers only the project and script approved by the voice actor. "
+"Voice generated with artificial intelligence."
+
+msgid "Incluye hasta %(n)s tomas del mismo guion."
+msgstr "Includes up to %(n)s takes of the same script."
+
+msgid "Vista previa: esta ficha todavía no es pública."
+msgstr "Preview: this page is not public yet."
+
+msgid "Escúchala"
+msgstr "Listen to it"
+
+msgid "Demostración generada por IA"
+msgstr "AI-generated demo"
+
+msgid "Grabación original del locutor"
+msgstr "Original recording by the voice actor"
+
+msgid "Esta voz todavía no tiene audios publicados."
+msgstr "This voice has no published audio yet."
+
+msgid "Pruébala con tu texto"
+msgstr "Try it with your text"
+
+msgid "No se ha podido generar la demo."
+msgstr "The demo could not be generated."
+
+msgid "Escribe una frase de tu guion…"
+msgstr "Write a line from your script…"
+
+msgid "Generando…"
+msgstr "Generating…"
+
+msgid "Generar demo"
+msgstr "Generate demo"
+
+msgid "Tu demo"
+msgstr "Your demo"
+
+msgid "Crea una cuenta de cliente para generar demos con tu propio texto."
+msgstr "Create a client account to generate demos with your own text."
+
+msgid "Sobre esta voz"
+msgstr "About this voice"
+
+msgid "Características"
+msgstr "Characteristics"
+
+msgid "Idiomas"
+msgstr "Languages"
+
+msgid "Acentos"
+msgstr "Accents"
+
+msgid "Rasgos"
+msgstr "Traits"
+
+msgid "Estilos"
+msgstr "Styles"
+
+msgid "Especialidades"
+msgstr "Specialities"
+
+msgid "Usos autorizados y tarifas"
+msgstr "Authorised uses and rates"
+
+msgid ""
+"Precio orientativo de una licencia de 12 meses en España, sin IVA. Cambia "
+"con el territorio y la duración."
+msgstr ""
+"Guide price for a 12-month licence in Spain, excluding VAT. It changes with "
+"territory and duration."
+
+msgid "Usos no autorizados"
+msgstr "Uses not authorised"
+
+msgid "Restricciones del locutor"
+msgstr "Voice actor's restrictions"
+
+msgid "sin IVA"
+msgstr "excl. VAT"
+
+msgid "Entrar para solicitar licencia"
+msgstr "Sign in to request a licence"
+
+msgid "Esta voz no admite usos nuevos ahora mismo."
+msgstr "This voice is not accepting new uses right now."
+
+msgid "Condiciones de contratación"
+msgstr "Licensing terms"
+
+msgid "El locutor aprueba cada proyecto antes de autorizar su voz."
+msgstr "The voice actor approves each project before authorising their voice."
+
+msgid ""
+"La licencia cubre el guion, el territorio, los canales y la duración que "
+"indiques."
+msgstr ""
+"The licence covers the script, territory, channels and duration you specify."
+
+msgid "Recibes WAV, MP3 y un certificado de licencia verificable."
+msgstr "You receive WAV, MP3 and a verifiable licence certificate."
+
+msgid "Pago por transferencia bancaria."
+msgstr "Payment by bank transfer."
+
+msgid "Muestra original"
+msgstr "Original sample"
+
+msgid ""
+"Avísanos si crees que tu voz se ha usado sin permiso o fuera de las "
+"condiciones que aprobaste."
+msgstr ""
+"Let us know if you think your voice has been used without permission or "
+"outside the terms you approved."
+
+msgid ""
+"Avísanos de cualquier problema con una licencia o de un uso indebido que "
+"hayas detectado."
+msgstr ""
+"Let us know about any problem with a licence or any misuse you have spotted."
+
+msgid "Abrir una incidencia"
+msgstr "Open a case"
+
+msgid "Abrir incidencia"
+msgstr "Open case"
+
+msgid "Usos nuevos bloqueados mientras se investiga"
+msgstr "New uses blocked while under investigation"
+
+msgid "Hemos identificado el audio como generado en la plataforma."
+msgstr "We have identified the audio as generated on the platform."
+
+msgid "Equipo de Todas las Voces"
+msgstr "Todas las Voces team"
+
+msgid "Resolución"
+msgstr "Resolution"
+
+msgid ""
+"Presupuesto calculado con tus tarifas: %(p)s. Si lo cambias, el cliente "
+"tendrá que aceptarlo."
+msgstr ""
+"Quote calculated from your rates: %(p)s. If you change it, the client will "
+"have to accept it."
+
+msgid "Propone <b>%(a)s</b> en lugar de %(b)s (sin IVA)."
+msgstr "They propose <b>%(a)s</b> instead of %(b)s (excl. VAT)."
+
+msgid "%(used)s de %(max)s tomas usadas."
+msgstr "%(used)s of %(max)s takes used."
+
+msgid "Bloqueada por una incidencia"
+msgstr "Blocked due to a case"
+
+msgid "Precio sin IVA"
+msgstr "Price excl. VAT"
+
+msgid "Tu decisión"
+msgstr "Your decision"
+
+msgid ""
+"Lee el guion y las condiciones. Si apruebas, el cliente podrá pagar y "
+"generar la locución solo con este guion y para este uso."
+msgstr ""
+"Read the script and the terms. If you approve, the client will be able to "
+"pay and generate the recording only with this script and for this use."
+
+msgid "Obligatorio para rechazar o pedir información."
+msgstr "Required to reject or ask for information."
+
+msgid "Aprobar"
+msgstr "Approve"
+
+msgid "Pedir más información"
+msgstr "Ask for more information"
+
+msgid "¿Rechazar esta solicitud?"
+msgstr "Reject this request?"
+
+msgid "Rechazar"
+msgstr "Reject"
+
+msgid "El locutor propone otro precio"
+msgstr "The voice actor proposes a different price"
+
+msgid "Aceptar el precio"
+msgstr "Accept the price"
+
+msgid "Si no aceptas, la solicitud se cancela."
+msgstr "If you do not accept, the request is cancelled."
+
+msgid "No aceptar"
+msgstr "Do not accept"
+
+msgid "El locutor necesita más información."
+msgstr "The voice actor needs more information."
+
+msgid "Respóndele en la conversación de abajo para que pueda decidir."
+msgstr "Reply in the conversation below so they can decide."
+
+msgid "Paga por transferencia para activar la licencia"
+msgstr "Pay by bank transfer to activate the licence"
+
+msgid "Importe"
+msgstr "Amount"
+
+msgid "Beneficiario"
+msgstr "Payee"
+
+msgid "Concepto"
+msgstr "Reference"
+
+msgid ""
+"Nos has avisado de la transferencia. Activaremos la licencia en cuanto la "
+"veamos en el banco (uno o dos días laborables)."
+msgstr ""
+"You have told us about the transfer. We will activate the licence as soon as"
+" we see it at the bank (one or two working days)."
+
+msgid "Ya he hecho la transferencia"
+msgstr "I have made the transfer"
+
+msgid "Tu locución"
+msgstr "Your recording"
+
+msgid "Generando el audio…"
+msgstr "Generating the audio…"
+
+msgid "Generar otra toma"
+msgstr "Generate another take"
+
+msgid "Generar la locución"
+msgstr "Generate the recording"
+
+msgid ""
+"Cada toma interpreta el mismo guion aprobado de forma ligeramente distinta. "
+"Para otro guion necesitas una licencia nueva."
+msgstr ""
+"Each take performs the same approved script slightly differently. For a "
+"different script you need a new licence."
+
+msgid "Locuciones generadas"
+msgstr "Generated recordings"
+
+msgid "Toma"
+msgstr "Take"
+
+msgid "Licencia"
+msgstr "Licence"
+
+msgid "Certificado de licencia (PDF)"
+msgstr "Licence certificate (PDF)"
+
+msgid "Factura (PDF)"
+msgstr "Invoice (PDF)"
+
+msgid "Página pública de verificación"
+msgstr "Public verification page"
+
+msgid "Reparto"
+msgstr "Split"
+
+msgid "Importe de la licencia (sin IVA)"
+msgstr "Licence amount (excl. VAT)"
+
+msgid "Comisión de la plataforma"
+msgstr "Platform commission"
+
+msgid "Representante"
+msgstr "Representative"
+
+msgid "Tu parte"
+msgstr "Your share"
+
+msgid "Locutor"
+msgstr "Voice actor"
+
+msgid "Condiciones solicitadas"
+msgstr "Requested terms"
+
+msgid "Cliente"
+msgstr "Client"
+
+msgid "Finalidad"
+msgstr "Purpose"
+
+msgid "Sector o marca"
+msgstr "Sector or brand"
+
+msgid "Duración"
+msgstr "Duration"
+
+msgid "Otras condiciones"
+msgstr "Other terms"
+
+msgid "Motivo"
+msgstr "Reason"
+
+msgid "Guion"
+msgstr "Script"
+
+msgid "caracteres"
+msgstr "characters"
+
+msgid "Conversación"
+msgstr "Conversation"
+
+msgid "Sistema"
+msgstr "System"
+
+msgid "Descargar adjunto"
+msgstr "Download attachment"
+
+msgid "Todavía no hay mensajes."
+msgstr "No messages yet."
+
+msgid "Enviar mensaje"
+msgstr "Send message"
+
+msgid "¿Cancelar esta solicitud?"
+msgstr "Cancel this request?"
+
+msgid "Cancelar la solicitud"
+msgstr "Cancel the request"
+
+msgid "Acciones de gestión"
+msgstr "Management actions"
+
+msgid "Cobro"
+msgstr "Payment"
+
+msgid "Justificante"
+msgstr "Receipt"
+
+msgid "Ir a confirmar cobros"
+msgstr "Go to confirm payments"
+
+msgid "Quitar bloqueo"
+msgstr "Remove block"
+
+msgid "Bloquear usos nuevos"
+msgstr "Block new uses"
+
+msgid "¿Anular la licencia?"
+msgstr "Cancel the licence?"
+
+msgid "Anular licencia"
+msgstr "Cancel licence"
+
+msgid "Estado"
+msgstr "Status"
+
+msgid "Todos"
+msgstr "All"
+
+msgid "Proyecto"
+msgstr "Project"
+
+msgid "Uso"
+msgstr "Use"
+
+msgid "Fecha"
+msgstr "Date"
+
+msgid "Bloqueada"
+msgstr "Blocked"
+
+msgid "No hay solicitudes con este filtro."
+msgstr "No requests match this filter."
+
+msgid ""
+"Son las categorías que cada locutor acepta o rechaza una a una. La última "
+"fila sirve para añadir una nueva."
+msgstr ""
+"These are the categories each voice actor accepts or rejects one by one. The"
+" last row is for adding a new one."
+
+msgid "Nombre (ES)"
+msgstr "Name (ES)"
+
+msgid "Nombre (EN)"
+msgstr "Name (EN)"
+
+msgid "Descripción (ES)"
+msgstr "Description (ES)"
+
+msgid "Descripción (EN)"
+msgstr "Description (EN)"
+
+msgid "Multiplicador de precio"
+msgstr "Price multiplier"
+
+msgid "Orden"
+msgstr "Order"
+
+msgid "Uso delicado"
+msgstr "Sensitive use"
+
+msgid "Activa"
+msgstr "Active"
+
+msgid "Guardar categorías"
+msgstr "Save categories"
+
+msgid "Bloqueado"
+msgstr "Blocked"
+
+msgid "sin confirmar"
+msgstr "unconfirmed"
+
+msgid "solicitudes"
+msgstr "requests"
+
+msgid "Validar"
+msgstr "Validate"
+
+msgid "Bloquear"
+msgstr "Block"
+
+msgid "Todavía no hay clientes."
+msgstr "There are no clients yet."
+
+msgid "Denuncia"
+msgstr "Report"
+
+msgid "Descargar la prueba"
+msgstr "Download the evidence"
+
+msgid "Identificación del audio"
+msgstr "Audio identification"
+
+msgid "Es exactamente un fichero entregado por la plataforma."
+msgstr "It is exactly a file delivered by the platform."
+
+msgid "Marca de agua reconocida."
+msgstr "Watermark recognised."
+
+msgid "Tipo"
+msgstr "Type"
+
+msgid "Solicitud"
+msgstr "Request"
+
+msgid "Generado"
+msgstr "Generated"
+
+msgid ""
+"No se ha reconocido ninguna marca de agua de la plataforma en la prueba."
+msgstr "No platform watermark was recognised in the evidence."
+
+msgid "señal"
+msgstr "signal"
+
+msgid "La denuncia no incluye ningún audio."
+msgstr "The report does not include any audio."
+
+msgid "Bloqueo temporal de usos nuevos"
+msgstr "Temporary block on new uses"
+
+msgid "La voz"
+msgstr "The voice"
+
+msgid "La licencia"
+msgstr "The licence"
+
+msgid "El cliente"
+msgstr "The client"
+
+msgid "Aplicar"
+msgstr "Apply"
+
+msgid "Notas y comunicaciones"
+msgstr "Notes and communications"
+
+msgid "nota interna"
+msgstr "internal note"
+
+msgid "Nota interna (no la ve quien denuncia)"
+msgstr "Internal note (not shown to the reporter)"
+
+msgid "Añadir"
+msgstr "Add"
+
+msgid "Resolver"
+msgstr "Resolve"
+
+msgid "Explica la resolución. Se envía a las partes."
+msgstr "Explain the resolution. It is sent to the parties."
+
+msgid "Mantener los bloqueos después de resolver"
+msgstr "Keep the blocks after resolving"
+
+msgid "Uso no autorizado confirmado"
+msgstr "Unauthorised use confirmed"
+
+msgid "Sin incumplimiento"
+msgstr "No breach"
+
+msgid "Código"
+msgstr "Code"
+
+msgid "Quién"
+msgstr "Who"
+
+msgid "Audio identificado"
+msgstr "Audio identified"
+
+msgid "No hay disputas."
+msgstr "There are no disputes."
+
+msgid "Gestión"
+msgstr "Management"
+
+msgid "Panel de gestión"
+msgstr "Management dashboard"
+
+msgid "Pendiente de hacer"
+msgstr "To do"
+
+msgid "Identidades por verificar"
+msgstr "Identities to verify"
+
+msgid "Clientes por validar"
+msgstr "Clients to validate"
+
+msgid "Voces por revisar"
+msgstr "Voices to review"
+
+msgid "Cobros por confirmar"
+msgstr "Payments to confirm"
+
+msgid "Pagos a locutores pendientes"
+msgstr "Payouts pending"
+
+msgid "Disputas abiertas"
+msgstr "Open disputes"
+
+msgid "Solicitudes de privacidad"
+msgstr "Privacy requests"
+
+msgid "La plataforma en cifras"
+msgstr "The platform in figures"
+
+msgid "Voces activas"
+msgstr "Active voices"
+
+msgid "Facturado (sin IVA)"
+msgstr "Invoiced (excl. VAT)"
+
+msgid "Facturado este mes"
+msgstr "Invoiced this month"
+
+msgid "Comisiones de la plataforma"
+msgstr "Platform commissions"
+
+msgid "Audios generados"
+msgstr "Audio files generated"
+
+msgid "Última actividad"
+msgstr "Latest activity"
+
+msgid "Ver el registro completo"
+msgstr "View the full log"
+
+msgid ""
+"Cada entrada guarda la huella de la anterior y va firmada. Aquí puedes "
+"comprobar que nadie ha tocado nada."
+msgstr ""
+"Each entry stores the fingerprint of the previous one and is signed. Here "
+"you can check that nothing has been tampered with."
+
+msgid "Comprobando…"
+msgstr "Checking…"
+
+msgid "Comprobar la cadena"
+msgstr "Check the chain"
+
+msgid "Registro íntegro."
+msgstr "Log intact."
+
+msgid "entradas comprobadas."
+msgstr "entries checked."
+
+msgid "El registro está roto"
+msgstr "The log is broken"
+
+msgid "entrada"
+msgstr "entry"
+
+msgid "Filtrar por evento (p. ej. audio)"
+msgstr "Filter by event (e.g. audio)"
+
+msgid "Clave"
+msgstr "Key"
+
+msgid "Evento"
+msgstr "Event"
+
+msgid "Datos"
+msgstr "Data"
+
+msgid ""
+"Confirma un cobro solo cuando veas la transferencia en el banco. Al "
+"confirmar se emite la licencia, la factura y el reparto."
+msgstr ""
+"Confirm a payment only when you see the transfer at the bank. Confirming "
+"issues the licence, the invoice and the split."
+
+msgid "Pendientes de confirmar"
+msgstr "Awaiting confirmation"
+
+msgid "Total"
+msgstr "Total"
+
+msgid "¿Has visto esta transferencia en el banco?"
+msgstr "Have you seen this transfer at the bank?"
+
+msgid "Confirmar cobro"
+msgstr "Confirm payment"
+
+msgid "No hay cobros pendientes."
+msgstr "There are no pending payments."
+
+msgid "Confirmados"
+msgstr "Confirmed"
+
+msgid "Pendiente de pagar: <b>%(a)s</b>."
+msgstr "Still to pay: <b>%(a)s</b>."
+
+msgid "Haz la transferencia desde el banco y regístrala aquí."
+msgstr "Make the transfer from the bank and record it here."
+
+msgid "Pendientes"
+msgstr "Pending"
+
+msgid "Ref. transferencia"
+msgstr "Transfer ref."
+
+msgid "Marcar pagado"
+msgstr "Mark as paid"
+
+msgid "No hay pagos pendientes."
+msgstr "There are no pending payouts."
+
+msgid "Pagados"
+msgstr "Paid"
+
+msgid ""
+"Plazo legal de respuesta: un mes. La supresión retira las voces, borra "
+"grabaciones y anonimiza la cuenta."
+msgstr ""
+"Legal deadline to respond: one month. Erasure withdraws the voices, deletes "
+"recordings and anonymises the account."
+
+msgid "Usuario"
+msgstr "User"
+
+msgid "Esta acción no se puede deshacer. ¿Continuar?"
+msgstr "This action cannot be undone. Continue?"
+
+msgid "Denegar"
+msgstr "Deny"
+
+msgid "No hay solicitudes."
+msgstr "There are no requests."
+
+msgid "Descargar CSV"
+msgstr "Download CSV"
+
+msgid "Ingresos por mes"
+msgstr "Revenue by month"
+
+msgid "Mes"
+msgstr "Month"
+
+msgid "Licencias"
+msgstr "Licences"
+
+msgid "Representantes"
+msgstr "Representatives"
+
+msgid "Todavía no hay cobros confirmados."
+msgstr "There are no confirmed payments yet."
+
+msgid "Por voz"
+msgstr "By voice"
+
+msgid "Por categoría de uso"
+msgstr "By use category"
+
+msgid "Solicitudes por estado"
+msgstr "Requests by status"
+
+msgid "Uso del motor de voz"
+msgstr "Voice engine usage"
+
+msgid "Audios"
+msgstr "Audio files"
+
+msgid "Caracteres"
+msgstr "Characters"
+
+msgid ""
+"La comisión se aplica a los cobros que se confirmen a partir de ahora. Cada "
+"locutor puede tener una comisión propia en su ficha."
+msgstr ""
+"The commission applies to payments confirmed from now on. Each voice actor "
+"can have their own commission on their record."
+
+msgid "Guardar ajustes"
+msgstr "Save settings"
+
+msgid "Multiplicadores de precio"
+msgstr "Price multipliers"
+
+msgid ""
+"Presupuesto = tarifa del locutor × categoría × territorio × duración. Se "
+"cambian desde el administrador de datos (/admin/)."
+msgstr ""
+"Quote = voice actor's rate × category × territory × duration. They are "
+"changed from the data admin (/admin/)."
+
+msgid "meses"
+msgstr "months"
+
+msgid ""
+"Comprueba que el nombre es «%(n)s» y que el documento es válido. Al decidir,"
+" el documento se borra."
+msgstr ""
+"Check that the name is “%(n)s” and that the document is valid. Once you "
+"decide, the document is deleted."
+
+msgid "Teléfono"
+msgstr "Phone"
+
+msgid "Ubicación"
+msgstr "Location"
+
+msgid "Correo confirmado"
+msgstr "Email confirmed"
+
+msgid "Verificación de identidad"
+msgstr "Identity verification"
+
+msgid "Abrir el documento"
+msgstr "Open the document"
+
+msgid "Motivo (si se rechaza)"
+msgstr "Reason (if rejected)"
+
+msgid "Identidad correcta"
+msgstr "Identity correct"
+
+msgid "Verificada. El documento ya se ha borrado."
+msgstr "Verified. The document has already been deleted."
+
+msgid "El locutor no ha subido ningún documento."
+msgstr "The voice actor has not uploaded any document."
+
+msgid "Condiciones económicas"
+msgstr "Financial terms"
+
+msgid ""
+"Si la comisión específica se deja vacía, se aplica la comisión general de la"
+" plataforma."
+msgstr ""
+"If the specific commission is left empty, the platform's general commission "
+"applies."
+
+msgid "¿Cambiar el estado de suspensión de esta cuenta?"
+msgstr "Change the suspension status of this account?"
+
+msgid "Reactivar la cuenta"
+msgstr "Reactivate the account"
+
+msgid "Suspender la cuenta"
+msgstr "Suspend the account"
+
+msgid "Sí,No"
+msgstr "Yes,No"
+
+msgid "Alta"
+msgstr "Joined"
+
+msgid "Suspendido"
+msgstr "Suspended"
+
+msgid "Sin resultados."
+msgstr "No results."
+
+msgid "¿De dónde sale este audio?"
+msgstr "Where does this audio come from?"
+
+msgid ""
+"Sube un audio (aunque esté recortado o comprimido) para buscar su marca de "
+"agua y saber a qué licencia pertenece. Hacen falta unos 10 segundos seguidos"
+" para una lectura fiable."
+msgstr ""
+"Upload an audio file (even if trimmed or compressed) to look for its "
+"watermark and find out which licence it belongs to. About 10 continuous "
+"seconds are needed for a reliable reading."
+
+msgid "Analizando el audio…"
+msgstr "Analysing the audio…"
+
+msgid "Identificar"
+msgstr "Identify"
+
+msgid "No se ha reconocido ninguna marca de agua de la plataforma."
+msgstr "No platform watermark was recognised."
+
+msgid "Motor de voz"
+msgstr "Voice engine"
+
+msgid ""
+"Ahora mismo se usa el motor simulado: no clona voces reales. Para conectar "
+"ElevenLabs, añade ELEVENLABS_API_KEY en la configuración del servidor."
+msgstr ""
+"The simulated engine is in use right now: it does not clone real voices. To "
+"connect ElevenLabs, add ELEVENLABS_API_KEY to the server configuration."
+
+msgid "Motor real conectado."
+msgstr "Real engine connected."
+
+msgid "Comprobar la conexión y el consumo"
+msgstr "Check the connection and usage"
+
+msgid "Comprobaciones antes de aprobar"
+msgstr "Checks before approving"
+
+msgid "Revisar"
+msgstr "Review"
+
+msgid "Contrato"
+msgstr "Agreement"
+
+msgid "Sin firmar"
+msgstr "Not signed"
+
+msgid "Muestras válidas"
+msgstr "Valid samples"
+
+msgid "frase"
+msgstr "phrase"
+
+msgid "parecido de voz"
+msgstr "voice similarity"
+
+msgid "orientativo"
+msgstr "indicative"
+
+msgid "Modelo de IA"
+msgstr "AI model"
+
+msgid "Todavía no clonada"
+msgstr "Not cloned yet"
+
+msgid ""
+"Escucha la frase grabada en directo y compárala con las muestras: debe ser "
+"la misma persona y decir la frase pedida."
+msgstr ""
+"Listen to the phrase recorded live and compare it with the samples: it must "
+"be the same person saying the requested phrase."
+
+msgid "Transcripción automática"
+msgstr "Automatic transcription"
+
+msgid "Frase grabada en directo"
+msgstr "Phrase recorded live"
+
+msgid "Es la misma voz"
+msgstr "It is the same voice"
+
+msgid "No coincide"
+msgstr "It does not match"
+
+msgid "Muestras"
+msgstr "Samples"
+
+msgid "pico"
+msgstr "peak"
+
+msgid "Válida"
+msgstr "Valid"
+
+msgid "No válida"
+msgstr "Not valid"
+
+msgid "Usos autorizados"
+msgstr "Authorised uses"
+
+msgid "Restricciones"
+msgstr "Restrictions"
+
+msgid "Demostraciones de IA"
+msgstr "AI demos"
+
+msgid "Decisión"
+msgstr "Decision"
+
+msgid ""
+"Al aprobar se envían las muestras al motor de voz, se crea el modelo y se "
+"generan las demostraciones. El locutor tendrá que escucharlas y activar la "
+"voz."
+msgstr ""
+"On approval the samples are sent to the voice engine, the model is created "
+"and the demos are generated. The voice actor will have to listen to them and"
+" activate the voice."
+
+msgid "Qué debe cambiar el locutor (si pides cambios)"
+msgstr "What the voice actor must change (if you request changes)"
+
+msgid "Clonando la voz…"
+msgstr "Cloning the voice…"
+
+msgid "Aprobar y clonar la voz"
+msgstr "Approve and clone the voice"
+
+msgid "Pedir cambios"
+msgstr "Request changes"
+
+msgid "Esta voz no está pendiente de revisión."
+msgstr "This voice is not awaiting review."
+
+msgid "Regenerar demostraciones"
+msgstr "Regenerate demos"
+
+msgid "Motor"
+msgstr "Engine"
+
+msgid "Enviada"
+msgstr "Submitted"
+
+msgid "ruido"
+msgstr "noise"
+
+msgid "Ocultar"
+msgstr "Hide"
+
+msgid "Publicar"
+msgstr "Publish"
+
+msgid "¿Borrar esta muestra?"
+msgstr "Delete this sample?"
+
+msgid "Borrar"
+msgstr "Delete"
+
+msgid "Autorizas %(n)s de %(total)s categorías de uso."
+msgstr "You authorise %(n)s of %(total)s use categories."
+
+msgid "Contrato %(code)s firmado el %(date)s."
+msgstr "Agreement %(code)s signed on %(date)s."
+
+msgid "Usos autorizados y contrato"
+msgstr "Authorised uses and agreement"
+
+msgid "Descargar contrato firmado (PDF)"
+msgstr "Download signed agreement (PDF)"
+
+msgid ""
+"Puedes cambiar tus autorizaciones cuando quieras: se aplican al momento a "
+"los usos nuevos."
+msgstr ""
+"You can change your authorisations whenever you like: they apply immediately"
+" to new uses."
+
+msgid "Marcar todas las habituales"
+msgstr "Tick all the usual ones"
+
+msgid ""
+"Marca solo los usos para los que aceptas que se use tu voz. Las delicadas "
+"vienen desmarcadas. Si dejas la tarifa vacía, se usa tu tarifa base."
+msgstr ""
+"Tick only the uses for which you accept your voice being used. Sensitive "
+"ones are unticked by default. If you leave the rate empty, your base rate is"
+" used."
+
+msgid "Tarifa propia (€)"
+msgstr "Own rate (€)"
+
+msgid "Condiciones (opcional)"
+msgstr "Terms (optional)"
+
+msgid "Guardar autorizaciones"
+msgstr "Save authorisations"
+
+msgid "Firmar el contrato"
+msgstr "Sign the agreement"
+
+msgid ""
+"La firma registra tu nombre, la fecha y hora, tu dirección IP y la huella "
+"del texto firmado."
+msgstr ""
+"The signature records your name, the date and time, your IP address and the "
+"fingerprint of the signed text."
+
+msgid ""
+"Además, los clientes han generado %(n)s demos de evaluación con tu voz (no "
+"dan derechos de uso ni generan ingresos)."
+msgstr ""
+"In addition, clients have generated %(n)s evaluation demos with your voice "
+"(they grant no usage rights and generate no income)."
+
+msgid "Ingresos generados"
+msgstr "Earnings generated"
+
+msgid "Pagos recibidos"
+msgstr "Payouts received"
+
+msgid "Pendiente de cobro"
+msgstr "Awaiting payout"
+
+msgid "Locuciones con licencia"
+msgstr "Licensed recordings"
+
+msgid "Añade tu IBAN en el perfil para que podamos pagarte."
+msgstr "Add your IBAN in your profile so we can pay you."
+
+msgid "Ir al perfil"
+msgstr "Go to profile"
+
+msgid "Proyectos y liquidaciones"
+msgstr "Projects and payouts"
+
+msgid "Comisión"
+msgstr "Commission"
+
+msgid ""
+"Todavía no hay ingresos. Aparecerán aquí cuando se pague la primera "
+"licencia."
+msgstr ""
+"No earnings yet. They will appear here once the first licence is paid."
+
+msgid "Por mes"
+msgstr "By month"
+
+msgid "Llevas %(have)s s válidos de %(need)s s necesarios."
+msgstr "You have %(have)s valid seconds of the %(need)s needed."
+
+msgid "El equipo te pide cambios:"
+msgstr "The team asks you for changes:"
+
+msgid "Pasos para crear tu voz digital"
+msgstr "Steps to create your digital voice"
+
+msgid "Completa tu perfil y los datos de tu voz"
+msgstr "Complete your profile and your voice details"
+
+msgid "Nombre profesional, idiomas, estilos y tarifa orientativa."
+msgstr "Professional name, languages, styles and guide rate."
+
+msgid "Editar"
+msgstr "Edit"
+
+msgid "Completar"
+msgstr "Complete"
+
+msgid "Verifica tu identidad"
+msgstr "Verify your identity"
+
+msgid "Sube tu documento. Solo lo ve el equipo de verificación."
+msgstr "Upload your document. Only the verification team sees it."
+
+msgid "Ver"
+msgstr "View"
+
+msgid "Subir"
+msgstr "Upload"
+
+msgid "Sube tus muestras de voz"
+msgstr "Upload your voice samples"
+
+msgid "Graba en directo una frase aleatoria."
+msgstr "Record a random phrase live."
+
+msgid "Grabar"
+msgstr "Record"
+
+msgid "Elige los usos y firma el contrato"
+msgstr "Choose the uses and sign the agreement"
+
+msgid "Aceptas o rechazas cada categoría de uso, una a una."
+msgstr "You accept or reject each use category, one by one."
+
+msgid "Firmar"
+msgstr "Sign"
+
+msgid "Enviar mi voz a revisión"
+msgstr "Submit my voice for review"
+
+msgid "Completa todos los pasos para poder enviarla."
+msgstr "Complete every step to be able to submit it."
+
+msgid "Tu voz está en revisión."
+msgstr "Your voice is under review."
+
+msgid ""
+"Comprobamos tu identidad, las muestras y la prueba de titularidad. Te "
+"avisaremos por correo, normalmente en uno o dos días laborables."
+msgstr ""
+"We check your identity, the samples and the ownership check. We will email "
+"you, usually within one or two working days."
+
+msgid "Tu voz digital está creada."
+msgstr "Your digital voice has been created."
+
+msgid "Escúchala y actívala para publicarla en el catálogo."
+msgstr "Listen to it and activate it to publish it in the catalogue."
+
+msgid "Escuchar mi voz digital"
+msgstr "Listen to my digital voice"
+
+msgid ""
+"Has retirado la autorización de esta voz. Tu modelo de voz se ha eliminado."
+msgstr ""
+"You have withdrawn authorisation for this voice. Your voice model has been "
+"deleted."
+
+msgid "Solicitudes por decidir"
+msgstr "Requests to decide"
+
+msgid "Solicitudes que esperan tu decisión"
+msgstr "Requests awaiting your decision"
+
+msgid ""
+"Necesitamos comprobar que eres <b>%(name)s</b>, la persona que firma el "
+"contrato. El nombre del documento debe coincidir."
+msgstr ""
+"We need to check that you are <b>%(name)s</b>, the person signing the "
+"agreement. The name on the document must match."
+
+msgid "Tu identidad está verificada. Hemos borrado el documento que subiste."
+msgstr "Your identity is verified. We have deleted the document you uploaded."
+
+msgid "No hemos podido verificar tu identidad."
+msgstr "We could not verify your identity."
+
+msgid ""
+"Hemos recibido tu documento y lo estamos revisando. Puedes sustituirlo si te"
+" has equivocado."
+msgstr ""
+"We have received your document and are reviewing it. You can replace it if "
+"you made a mistake."
+
+msgid "Subiendo…"
+msgstr "Uploading…"
+
+msgid "Enviar documento"
+msgstr "Send document"
+
+msgid "Ver mi ficha pública"
+msgstr "View my public page"
+
+msgid "Así suena tu voz digital"
+msgstr "This is how your digital voice sounds"
+
+msgid "Tu voz digital se creará cuando el equipo apruebe tu alta."
+msgstr ""
+"Your digital voice will be created when the team approves your application."
+
+msgid "Ver los pasos"
+msgstr "View the steps"
+
+msgid "¿Te reconoces?"
+msgstr "Do you recognise yourself?"
+
+msgid ""
+"Si la voz te convence, actívala: se publicará en el catálogo y los clientes "
+"podrán enviarte solicitudes. Si no, escríbenos y lo revisamos."
+msgstr ""
+"If you are happy with the voice, activate it: it will be published in the "
+"catalogue and clients will be able to send you requests. If not, write to us"
+" and we will look into it."
+
+msgid "Activar y publicar mi voz"
+msgstr "Activate and publish my voice"
+
+msgid "Pausar"
+msgstr "Pause"
+
+msgid ""
+"En pausa, tu voz sale del catálogo y no admite demos, solicitudes ni tomas "
+"nuevas. Puedes reactivarla cuando quieras."
+msgstr ""
+"While paused, your voice leaves the catalogue and accepts no demos, requests"
+" or new takes. You can reactivate it whenever you like."
+
+msgid "Pausar mi voz"
+msgstr "Pause my voice"
+
+msgid "Tu voz está en pausa"
+msgstr "Your voice is paused"
+
+msgid "Reactivar mi voz"
+msgstr "Reactivate my voice"
+
+msgid "Revocar la autorización"
+msgstr "Revoke authorisation"
+
+msgid ""
+"Eliminamos tu modelo de voz del proveedor, cancelamos las solicitudes en "
+"curso y nadie podrá generar audios nuevos. Las licencias ya pagadas "
+"conservan los audios entregados. Esta acción no se puede deshacer: para "
+"volver tendrías que repetir el alta."
+msgstr ""
+"We delete your voice model from the provider, cancel requests in progress "
+"and nobody will be able to generate new audio. Licences already paid keep "
+"the audio already delivered. This action cannot be undone: to come back you "
+"would have to go through onboarding again."
+
+msgid "¿Seguro que quieres revocar tu voz digital? No se puede deshacer."
+msgstr ""
+"Are you sure you want to revoke your digital voice? This cannot be undone."
+
+msgid "Revocar mi voz digital"
+msgstr "Revoke my digital voice"
+
+msgid "Últimos usos de tu voz"
+msgstr "Latest uses of your voice"
+
+msgid "Texto"
+msgstr "Text"
+
+msgid ""
+"Lo que marques aquí es lo que verán los clientes en tu ficha del catálogo."
+msgstr "What you set here is what clients will see on your catalogue page."
+
+msgid "Tu voz"
+msgstr "Your voice"
+
+msgid ""
+"El nombre legal, el NIF y los datos de cobro no se publican: se usan para el"
+" contrato y para pagarte."
+msgstr ""
+"Your legal name, tax ID and payout details are not published: they are used "
+"for the agreement and to pay you."
+
+msgid "%(have)s s válidos de %(need)s s necesarios para crear tu voz."
+msgstr "%(have)s valid seconds of the %(need)s needed to create your voice."
+
+msgid "Cómo grabar"
+msgstr "How to record"
+
+msgid "Subir una grabación"
+msgstr "Upload a recording"
+
+msgid "Subir y comprobar"
+msgstr "Upload and check"
+
+msgid "Muestras para crear tu voz digital"
+msgstr "Samples to create your digital voice"
+
+msgid "Todavía no has subido ninguna."
+msgstr "You have not uploaded any yet."
+
+msgid "Muestras originales para el catálogo"
+msgstr "Original samples for the catalogue"
+
+msgid ""
+"Opcionales. Los clientes las escuchan junto a las demostraciones de IA para "
+"comparar."
+msgstr "Optional. Clients listen to them alongside the AI demos to compare."
+
+msgid "Ninguna todavía."
+msgstr "None yet."
+
+msgid "La frase caduca a las %(t)s."
+msgstr "The phrase expires at %(t)s."
+
+msgid ""
+"Para asegurarnos de que la voz de las muestras es la tuya, graba ahora, en "
+"directo, la frase que te damos."
+msgstr ""
+"To make sure the voice in the samples is yours, record now, live, the phrase"
+" we give you."
+
+msgid "Tu grabación"
+msgstr "Your recording"
+
+msgid "Repetir con una frase nueva"
+msgstr "Try again with a new phrase"
+
+msgid "No hemos podido usar el micrófono. Sube un fichero grabado ahora."
+msgstr "We could not use the microphone. Upload a file recorded just now."
+
+msgid "Lee esta frase con tu voz natural, a tu ritmo habitual:"
+msgstr "Read this phrase in your natural voice, at your usual pace:"
+
+msgid "Empezar a grabar"
+msgstr "Start recording"
+
+msgid "Parar"
+msgstr "Stop"
+
+msgid "Enviar esta grabación"
+msgstr "Send this recording"
+
+msgid "O sube un fichero que acabes de grabar"
+msgstr "Or upload a file you have just recorded"
+
+msgid "Enviar fichero"
+msgstr "Send file"
+
+msgid ""
+"Cuando estés delante del micrófono, pide tu frase. Tendrás 15 minutos para "
+"grabarla."
+msgstr ""
+"When you are in front of the microphone, ask for your phrase. You will have "
+"15 minutes to record it."
+
+msgid "Darme una frase"
+msgstr "Give me a phrase"
+
+msgid "Mínimo 10 caracteres."
+msgstr "At least 10 characters."
+
+msgid "Acepto las condiciones de uso y la política de privacidad."
+msgstr "I accept the terms of use and the privacy policy."
+
+msgid "Nombre y apellidos (como en tu documento)"
+msgstr "Full name (as on your document)"
+
+msgid "Nombre profesional"
+msgstr "Professional name"
+
+msgid "Soy mayor de edad y la voz que voy a subir es la mía."
+msgstr "I am of legal age and the voice I am going to upload is my own."
+
+msgid "Empresa"
+msgstr "Company"
+
+msgid "CIF / NIF / VAT"
+msgstr "Tax ID / VAT number"
+
+msgid "Persona de contacto"
+msgstr "Contact person"
+
+msgid "Dirección de facturación"
+msgstr "Billing address"
+
+msgid "Código postal"
+msgstr "Postcode"
+
+msgid "Ciudad"
+msgstr "City"
+
+msgid "País"
+msgstr "Country"
+
+msgid "Documento de identidad (DNI, NIE o pasaporte)"
+msgstr "Identity document (national ID or passport)"
+
+msgid ""
+"PDF o foto. Solo lo ve el equipo de verificación y se borra en cuanto se "
+"revisa."
+msgstr ""
+"PDF or photo. Only the verification team sees it and it is deleted as soon "
+"as it is reviewed."
+
+msgid "Grabación"
+msgstr "Recording"
+
+msgid "Para qué es"
+msgstr "What it is for"
+
+msgid "Título (opcional)"
+msgstr "Title (optional)"
+
+msgid "Escribe tu nombre y apellidos para firmar"
+msgstr "Type your full name to sign"
+
+msgid ""
+"Consiento expresamente que Todas las Voces trate mis grabaciones y cree un "
+"modelo digital de mi voz con las finalidades del contrato."
+msgstr ""
+"I expressly consent to Todas las Voces processing my recordings and creating"
+" a digital model of my voice for the purposes of the agreement."
+
+msgid "He leído el contrato completo y lo acepto."
+msgstr "I have read the whole agreement and I accept it."
+
+msgid "Motivo (opcional)"
+msgstr "Reason (optional)"
+
+msgid ""
+"Entiendo que se borrará mi voz digital y se cancelarán las solicitudes en "
+"curso."
+msgstr ""
+"I understand my digital voice will be deleted and requests in progress will "
+"be cancelled."
+
+msgid "Precio (€, sin IVA)"
+msgstr "Price (€, excl. VAT)"
+
+msgid "Mensaje"
+msgstr "Message"
+
+msgid ""
+"Me comprometo a usar la locución solo en las condiciones que apruebe el "
+"locutor."
+msgstr ""
+"I undertake to use the recording only under the terms the voice actor "
+"approves."
+
+msgid "Texto exacto que se va a locutar. Máximo %(n)s caracteres."
+msgstr "Exact text to be voiced. Maximum %(n)s characters."
+
+msgid "Adjunto (opcional)"
+msgstr "Attachment (optional)"
+
+msgid "Justificante de la transferencia (opcional)"
+msgstr "Proof of transfer (optional)"
+
+msgid "Qué ha pasado"
+msgstr "What happened"
+
+msgid "Dónde lo has visto u oído (enlace)"
+msgstr "Where you saw or heard it (link)"
+
+msgid "Prueba (audio o documento)"
+msgstr "Evidence (audio or document)"
+
+msgid "Si subes el audio, intentaremos identificarlo por su marca de agua."
+msgstr "If you upload the audio, we will try to identify it by its watermark."
+
+msgid "Tu correo, para responderte"
+msgstr "Your email, so we can reply"
+
+msgid "Nota"
+msgstr "Note"
+
+msgid "Audio que quieres identificar"
+msgstr "Audio you want to identify"
+
+msgid "El fichero supera el máximo de %(mb)s MB."
+msgstr "The file exceeds the maximum of %(mb)s MB."
+
+msgid "Ya existe una cuenta con este correo."
+msgstr "An account with this email already exists."
+
+msgid "Elige al menos un idioma."
+msgstr "Choose at least one language."
+
+msgid "La tarifa mínima es de 10 €."
+msgstr "The minimum rate is €10."
+
+msgid "Escribe un mensaje para el cliente."
+msgstr "Write a message for the client."
+
+msgid "Formato no admitido. Usa: %(list)s"
+msgstr "Format not accepted. Use: %(list)s"
+
+msgid "Para crear mi voz digital"
+msgstr "To create my digital voice"
+
+msgid "Muestra original para enseñar en el catálogo"
+msgstr "Original sample to show in the catalogue"
+
+msgid "correo electrónico"
+msgstr "email"
+
+msgid "usuario"
+msgstr "user"
+
+msgid "usuarios"
+msgstr "users"
+
+msgid "nombre"
+msgstr "name"
+
+msgid "NIF/CIF"
+msgstr "tax ID"
+
+msgid "% sobre la parte del locutor"
+msgstr "% of the voice actor's share"
+
+msgid "datos de pago"
+msgstr "payout details"
+
+msgid "representante"
+msgstr "representative"
+
+msgid "representantes"
+msgstr "representatives"
+
+msgid "nombre y apellidos (legal)"
+msgstr "full legal name"
+
+msgid "nombre profesional"
+msgstr "professional name"
+
+msgid "NIF/NIE"
+msgstr "tax ID"
+
+msgid "teléfono"
+msgstr "phone"
+
+msgid "país"
+msgstr "country"
+
+msgid "ciudad"
+msgstr "city"
+
+msgid "presentación"
+msgstr "introduction"
+
+msgid "años de experiencia"
+msgstr "years of experience"
+
+msgid "web o demo reel"
+msgstr "website or demo reel"
+
+msgid "comisión de plataforma específica (%)"
+msgstr "specific platform commission (%)"
+
+msgid "titular de la cuenta"
+msgstr "account holder"
+
+msgid "IBAN para cobros"
+msgstr "IBAN for payouts"
+
+msgid "locutor"
+msgstr "voice actor"
+
+msgid "locutores"
+msgstr "voice actors"
+
+msgid "empresa"
+msgstr "company"
+
+msgid "CIF/NIF/VAT"
+msgstr "tax ID / VAT number"
+
+msgid "persona de contacto"
+msgstr "contact person"
+
+msgid "sector"
+msgstr "sector"
+
+msgid "web"
+msgstr "website"
+
+msgid "dirección de facturación"
+msgstr "billing address"
+
+msgid "código postal"
+msgstr "postcode"
+
+msgid "cliente"
+msgstr "client"
+
+msgid "clientes"
+msgstr "clients"
+
+msgid "Sin enviar"
+msgstr "Not submitted"
+
+msgid "En revisión"
+msgstr "Under review"
+
+msgid "Verificada"
+msgstr "Verified"
+
+msgid "Rechazada"
+msgstr "Rejected"
+
+msgid "Pendiente de validar"
+msgstr "Awaiting validation"
+
+msgid "Validado"
+msgstr "Validated"
+
+msgid "Rechazado"
+msgstr "Rejected"
+
+msgid "Copia de mis datos"
+msgstr "Copy of my data"
+
+msgid "Supresión de la cuenta"
+msgstr "Account deletion"
+
+msgid "Abierta"
+msgstr "Open"
+
+msgid "Atendida"
+msgstr "Completed"
+
+msgid "Denegada"
+msgstr "Denied"
+
+msgid "comisión de la plataforma (%)"
+msgstr "platform commission (%)"
+
+msgid "IVA (%)"
+msgstr "VAT (%)"
+
+msgid "multiplicadores por territorio"
+msgstr "territory multipliers"
+
+msgid "multiplicadores por duración"
+msgstr "duration multipliers"
+
+msgid "máximo de caracteres por demo"
+msgstr "maximum characters per demo"
+
+msgid "demos por cliente y día"
+msgstr "demos per client per day"
+
+msgid "máximo de caracteres por guion"
+msgstr "maximum characters per script"
+
+msgid "tomas incluidas por licencia"
+msgstr "takes included per licence"
+
+msgid "segundos mínimos de muestras"
+msgstr "minimum seconds of samples"
+
+msgid "los clientes necesitan validación para pedir licencias"
+msgstr "clients need validation to request licences"
+
+msgid "razón social"
+msgstr "company name"
+
+msgid "CIF"
+msgstr "tax ID"
+
+msgid "domicilio"
+msgstr "registered address"
+
+msgid "IBAN para transferencias"
+msgstr "IBAN for transfers"
+
+msgid "banco"
+msgstr "bank"
+
+msgid "serie de facturación"
+msgstr "invoice series"
+
+msgid "emitir como proforma"
+msgstr "issue as pro forma"
+
+msgid "correo de soporte"
+msgstr "support email"
+
+msgid "ajustes de la plataforma"
+msgstr "platform settings"
+
+msgid "cobro"
+msgstr "payment"
+
+msgid "cobros"
+msgstr "payments"
+
+msgid "factura"
+msgstr "invoice"
+
+msgid "facturas"
+msgstr "invoices"
+
+msgid "reparto"
+msgstr "split"
+
+msgid "repartos"
+msgstr "splits"
+
+msgid "Mantener activado hasta que el asesor fiscal valide la facturación."
+msgstr "Keep enabled until the tax adviser validates invoicing."
+
+msgid "Pendiente de transferencia"
+msgstr "Awaiting transfer"
+
+msgid "Transferencia comunicada"
+msgstr "Transfer reported"
+
+msgid "Cobro confirmado"
+msgstr "Payment confirmed"
+
+msgid "Anulado"
+msgstr "Cancelled"
+
+msgid "Devuelto"
+msgstr "Refunded"
+
+msgid "Transferencia bancaria"
+msgstr "Bank transfer"
+
+msgid "Tarjeta (pasarela pendiente)"
+msgstr "Card (gateway pending)"
+
+msgid "Pendiente de pago"
+msgstr "Awaiting payout"
+
+msgid "Pagado"
+msgstr "Paid"
+
+msgid "España"
+msgstr "Spain"
+
+msgid "Unión Europea"
+msgstr "European Union"
+
+msgid "Latinoamérica"
+msgstr "Latin America"
+
+msgid "Todo el mundo"
+msgstr "Worldwide"
+
+msgid "Televisión"
+msgstr "Television"
+
+msgid "Radio"
+msgstr "Radio"
+
+msgid "Web y vídeo online"
+msgstr "Web and online video"
+
+msgid "Redes sociales"
+msgstr "Social media"
+
+msgid "Cine"
+msgstr "Cinema"
+
+msgid "Pódcast y audio digital"
+msgstr "Podcast and digital audio"
+
+msgid "Uso interno"
+msgstr "Internal use"
+
+msgid "Telefonía e IVR"
+msgstr "Telephony and IVR"
+
+msgid "Apps y dispositivos"
+msgstr "Apps and devices"
+
+msgid "Eventos y punto de venta"
+msgstr "Events and point of sale"
+
+msgid "3 meses"
+msgstr "3 months"
+
+msgid "6 meses"
+msgstr "6 months"
+
+msgid "12 meses"
+msgstr "12 months"
+
+msgid "24 meses"
+msgstr "24 months"
+
+msgid "nombre del proyecto"
+msgstr "project name"
+
+msgid "finalidad"
+msgstr "purpose"
+
+msgid "sector o marca anunciante"
+msgstr "sector or advertiser brand"
+
+msgid "guion"
+msgstr "script"
+
+msgid "territorio"
+msgstr "territory"
+
+msgid "canales de difusión"
+msgstr "distribution channels"
+
+msgid "duración"
+msgstr "duration"
+
+msgid "otras condiciones"
+msgstr "other terms"
+
+msgid "solicitud de licencia"
+msgstr "licence request"
+
+msgid "solicitudes de licencia"
+msgstr "licence requests"
+
+msgid "licencia"
+msgstr "licence"
+
+msgid "licencias"
+msgstr "licences"
+
+msgid "locución generada"
+msgstr "generated recording"
+
+msgid "locuciones generadas"
+msgstr "generated recordings"
+
+msgid "Pendiente del locutor"
+msgstr "Awaiting the voice actor"
+
+msgid "El locutor pide más información"
+msgstr "The voice actor asks for more information"
+
+msgid "Contraoferta pendiente del cliente"
+msgstr "Counter-offer awaiting the client"
+
+msgid "Aprobada, pendiente de pago"
+msgstr "Approved, awaiting payment"
+
+msgid "Licencia activa"
+msgstr "Licence active"
+
+msgid "Cancelada"
+msgstr "Cancelled"
+
+msgid "Licencia caducada"
+msgstr "Licence expired"
+
+msgid "categoría de uso"
+msgstr "use category"
+
+msgid "Vigente"
+msgstr "In force"
+
+msgid "Suspendida"
+msgstr "Suspended"
+
+msgid "Caducada"
+msgstr "Expired"
+
+msgid "Anulada"
+msgstr "Cancelled"
+
+msgid "Demostración"
+msgstr "Demo"
+
+msgid "Prueba interna"
+msgstr "Internal test"
+
+msgid "Locución final"
+msgstr "Final recording"
+
+msgid "entrada del registro"
+msgstr "log entry"
+
+msgid "registro de trazabilidad"
+msgstr "traceability log"
+
+msgid "tu correo"
+msgstr "your email"
+
+msgid "qué ha pasado"
+msgstr "what happened"
+
+msgid "dónde se ha publicado"
+msgstr "where it was published"
+
+msgid "prueba (audio o documento)"
+msgstr "evidence (audio or document)"
+
+msgid "disputa"
+msgstr "dispute"
+
+msgid "disputas"
+msgstr "disputes"
+
+msgid "En investigación"
+msgstr "Under investigation"
+
+msgid "Resuelta: uso no autorizado confirmado"
+msgstr "Resolved: unauthorised use confirmed"
+
+msgid "Resuelta: sin incumplimiento"
+msgstr "Resolved: no breach"
+
+msgid "idioma"
+msgstr "language"
+
+msgid "idiomas"
+msgstr "languages"
+
+msgid "acento"
+msgstr "accent"
+
+msgid "acentos"
+msgstr "accents"
+
+msgid "estilo"
+msgstr "style"
+
+msgid "estilos"
+msgstr "styles"
+
+msgid "tipo de proyecto"
+msgstr "project type"
+
+msgid "tipos de proyecto"
+msgstr "project types"
+
+msgid "categorías de uso"
+msgstr "use categories"
+
+msgid "nombre público de la voz"
+msgstr "public name of the voice"
+
+msgid "frase de presentación"
+msgstr "tagline"
+
+msgid "descripción"
+msgstr "description"
+
+msgid "género vocal"
+msgstr "vocal gender"
+
+msgid "edad vocal"
+msgstr "vocal age"
+
+msgid "características vocales"
+msgstr "vocal characteristics"
+
+msgid "tarifa base orientativa (€)"
+msgstr "guide base rate (€)"
+
+msgid "restricciones"
+msgstr "restrictions"
+
+msgid "voz"
+msgstr "voice"
+
+msgid "voces"
+msgstr "voices"
+
+msgid "título"
+msgstr "title"
+
+msgid "visible en el catálogo"
+msgstr "visible in the catalogue"
+
+msgid "tarifa propia para esta categoría (€)"
+msgstr "own rate for this category (€)"
+
+msgid "condiciones"
+msgstr "terms"
+
+msgid "Uso delicado: se desmarca por defecto y se avisa al locutor."
+msgstr "Sensitive use: unticked by default and flagged to the voice actor."
+
+msgid "Multiplicador sobre la tarifa base."
+msgstr "Multiplier on the base rate."
+
+msgid "En preparación"
+msgstr "In preparation"
+
+msgid "Cambios solicitados"
+msgstr "Changes requested"
+
+msgid "Aprobada, pendiente de activar"
+msgstr "Approved, awaiting activation"
+
+msgid "En pausa"
+msgstr "Paused"
+
+msgid "Revocada"
+msgstr "Revoked"
+
+msgid "Femenina"
+msgstr "Female"
+
+msgid "Masculina"
+msgstr "Male"
+
+msgid "Neutra"
+msgstr "Neutral"
+
+msgid "Joven"
+msgstr "Young"
+
+msgid "Adulta"
+msgstr "Adult"
+
+msgid "Madura"
+msgstr "Mature"
+
+msgid "Sénior"
+msgstr "Senior"
+
+msgid "Separadas por comas: grave, cálida, rasgada…"
+msgstr "Comma-separated: deep, warm, husky…"
+
+msgid "especialidades"
+msgstr "specialities"
+
+msgid "Precio de partida de una licencia de 12 meses en España, sin IVA."
+msgstr "Starting price for a 12-month licence in Spain, excluding VAT."
+
+msgid ""
+"Marcas, sectores o contenidos para los que no quieres que se use tu voz."
+msgstr "Brands, sectors or content you do not want your voice used for."
+
+msgid "Muestra para crear la voz"
+msgstr "Sample to create the voice"
+
+msgid "Muestra original para el catálogo"
+msgstr "Original sample for the catalogue"
+
+msgid "Pendiente de grabar"
+msgstr "Awaiting recording"
+
+msgid "Superada"
+msgstr "Passed"
+
+msgid "Pendiente de revisión manual"
+msgstr "Awaiting manual review"
+
+msgid "No superada"
+msgstr "Not passed"
+
+msgid "Sustituido"
+msgstr "Superseded"
+
+msgid "Resuelto"
+msgstr "Terminated"
+
+msgid "Nueva disputa %(code)s"
+msgstr "New dispute %(code)s"
+
+msgid "Se ha abierto una incidencia sobre tu voz (%(code)s)"
+msgstr "A case has been opened about your voice (%(code)s)"
+
+msgid "Nuestro equipo la está revisando. Te avisaremos de cualquier novedad."
+msgstr "Our team is reviewing it. We will let you know of any news."
+
+msgid "Disputa %(code)s resuelta"
+msgstr "Dispute %(code)s resolved"
+
+msgid "Factura proforma"
+msgstr "Pro forma invoice"
+
+msgid "Factura"
+msgstr "Invoice"
+
+msgid "Partes"
+msgstr "Parties"
+
+msgid "Uso autorizado"
+msgstr "Authorised use"
+
+msgid "Condiciones"
+msgstr "Terms"
+
+msgid ""
+"La licencia cubre únicamente el guion, el proyecto, el territorio, los "
+"canales y la duración indicados. Cualquier otro uso necesita una licencia "
+"nueva. No se permite usar la locución para entrenar modelos de IA ni para "
+"crear otras voces. Cuando la normativa lo exija, el licenciatario debe "
+"informar de que la voz se ha generado con inteligencia artificial. Cada "
+"audio lleva una marca de agua invisible que lo vincula con esta licencia."
+msgstr ""
+"The licence covers only the script, project, territory, channels and "
+"duration stated. Any other use needs a new licence. The recording may not be"
+" used to train AI models or to create other voices. Where the law requires "
+"it, the licensee must disclose that the voice was generated with artificial "
+"intelligence. Every audio file carries an invisible watermark linking it to "
+"this licence."
+
+msgid "Justificante de liquidación"
+msgstr "Payout statement"
+
+msgid ""
+"Documento informativo. No sustituye a la factura que corresponda según tu "
+"situación fiscal."
+msgstr ""
+"For information only. It does not replace the invoice required by your tax "
+"situation."
+
+msgid "Locuciones generadas con esta licencia"
+msgstr "Recordings generated under this licence"
+
+msgid "Base imponible"
+msgstr "Taxable amount"
+
+msgid ""
+"Documento proforma sin validez fiscal. La factura definitiva se emitirá "
+"aparte."
+msgstr ""
+"Pro forma document with no tax validity. The final invoice will be issued "
+"separately."
+
+msgid "Contrato del locutor"
+msgstr "Voice actor's agreement"
+
+msgid "Huella del guion (SHA-256)"
+msgstr "Script fingerprint (SHA-256)"
+
+msgid "Comprueba la validez de esta licencia en"
+msgstr "Check the validity of this licence at"
+
+msgid "Forma de pago"
+msgstr "Payment method"
+
+msgid "transferencia bancaria"
+msgstr "bank transfer"
+
+msgid "Certificado de licencia de voz"
+msgstr "Voice licence certificate"
+
+msgid ""
+"Este documento acredita que la locución identificada se ha generado con "
+"inteligencia artificial con la autorización expresa del locutor titular de "
+"la voz, en las condiciones que se indican."
+msgstr ""
+"This document certifies that the identified recording was generated with "
+"artificial intelligence with the express authorisation of the voice actor "
+"who owns the voice, under the terms stated."
+
+msgid "emitida el"
+msgstr "issued on"
+
+msgid "válida hasta"
+msgstr "valid until"
+
+msgid "Emisor"
+msgstr "Issuer"
+
+msgid "Nueva solicitud de licencia para %(voice)s"
+msgstr "New licence request for %(voice)s"
+
+msgid ""
+"%(client)s quiere usar tu voz en «%(project)s». Revisa el guion y las "
+"condiciones y decide."
+msgstr ""
+"%(client)s wants to use your voice in “%(project)s”. Review the script and "
+"the terms and decide."
+
+msgid "Solicitud %(code)s aprobada: ya puedes pagar"
+msgstr "Request %(code)s approved: you can now pay"
+
+msgid ""
+"El locutor ha aprobado el uso de su voz. Haz la transferencia con el "
+"concepto %(ref)s para activar la licencia."
+msgstr ""
+"The voice actor has approved the use of their voice. Make the transfer with "
+"the reference %(ref)s to activate the licence."
+
+msgid "Solicitud %(code)s rechazada"
+msgstr "Request %(code)s rejected"
+
+msgid "El locutor pide más información sobre %(code)s"
+msgstr "The voice actor asks for more information about %(code)s"
+
+msgid "Solicitud %(code)s cancelada por el cliente"
+msgstr "Request %(code)s cancelled by the client"
+
+msgid "Transferencia comunicada: %(ref)s"
+msgstr "Transfer reported: %(ref)s"
+
+msgid "Licencia %(code)s activa: ya puedes generar tu locución"
+msgstr "Licence %(code)s active: you can now generate your recording"
+
+msgid ""
+"Hemos confirmado tu pago. Entra en la solicitud para generar y descargar el "
+"audio y el certificado."
+msgstr ""
+"We have confirmed your payment. Open the request to generate and download "
+"the audio and the certificate."
+
+msgid "Licencia %(code)s pagada"
+msgstr "Licence %(code)s paid"
+
+msgid ""
+"El cliente ha pagado «%(project)s». Tu parte queda pendiente de liquidación "
+"en tu panel de ingresos."
+msgstr ""
+"The client has paid for “%(project)s”. Your share is awaiting payout in your"
+" earnings dashboard."
+
+msgid "Esta solicitud no es tuya."
+msgstr "This request is not yours."
+
+msgid "Esta solicitud ya está decidida."
+msgstr "This request has already been decided."
+
+msgid "Tu voz no está activa. Actívala antes de aprobar solicitudes."
+msgstr "Your voice is not active. Activate it before approving requests."
+
+msgid "El locutor propone otro precio para %(code)s"
+msgstr "The voice actor proposes a different price for %(code)s"
+
+msgid ""
+"Propone %(price)s € en lugar del presupuesto inicial. Acepta o rechaza la "
+"propuesta."
+msgstr ""
+"They propose €%(price)s instead of the initial quote. Accept or reject the "
+"proposal."
+
+msgid "No participas en esta solicitud."
+msgstr "You are not part of this request."
+
+msgid "Nuevo mensaje en la solicitud %(code)s"
+msgstr "New message in request %(code)s"
+
+msgid "No hay ninguna contraoferta pendiente."
+msgstr "There is no pending counter-offer."
+
+msgid "El cliente ha aceptado tu precio para %(code)s"
+msgstr "The client has accepted your price for %(code)s"
+
+msgid "El cliente no ha aceptado tu precio para %(code)s"
+msgstr "The client has not accepted your price for %(code)s"
+
+msgid "Esta solicitud ya no se puede cancelar."
+msgstr "This request can no longer be cancelled."
+
+msgid "Has comunicado una transferencia. Escribe a soporte para cancelar."
+msgstr "You have reported a transfer. Write to support to cancel."
+
+msgid "Esta solicitud no está pendiente de pago."
+msgstr "This request is not awaiting payment."
+
+msgid "La solicitud no está pendiente de pago."
+msgstr "The request is not awaiting payment."
+
+msgid "La licencia %(code)s ha caducado"
+msgstr "Licence %(code)s has expired"
+
+msgid "Si necesitas seguir usando la locución, solicita una nueva licencia."
+msgstr "If you need to keep using the recording, request a new licence."
+
+msgid "No se ha podido generar el audio: %(error)s"
+msgstr "The audio could not be generated: %(error)s"
+
+msgid "Este es un aviso automático de Todas las Voces."
+msgstr "This is an automatic notification from Todas las Voces."
+
+msgid "El locutor ha pausado esta voz. No admite usos nuevos por ahora."
+msgstr ""
+"The voice actor has paused this voice. It is not accepting new uses for now."
+
+msgid "El locutor ha retirado la autorización de esta voz."
+msgstr "The voice actor has withdrawn authorisation for this voice."
+
+msgid "Esta voz todavía no está activa."
+msgstr "This voice is not active yet."
+
+msgid "Esta voz está bloqueada temporalmente por una incidencia."
+msgstr "This voice is temporarily blocked due to a case."
+
+msgid "Esta voz no tiene un modelo de IA disponible."
+msgstr "This voice has no AI model available."
+
+msgid "Esta voz no tiene un contrato vigente."
+msgstr "This voice has no agreement in force."
+
+msgid "Necesitas una cuenta de cliente."
+msgstr "You need a client account."
+
+msgid "Confirma tu correo electrónico para continuar."
+msgstr "Confirm your email to continue."
+
+msgid "Tu cuenta está bloqueada. Contacta con soporte."
+msgstr "Your account is blocked. Contact support."
+
+msgid "Esta categoría de uso no está disponible."
+msgstr "This use category is not available."
+
+msgid "El locutor no autoriza su voz para esta categoría de uso."
+msgstr "The voice actor does not authorise their voice for this use category."
+
+msgid "Escribe el texto que quieres escuchar."
+msgstr "Write the text you want to hear."
+
+msgid ""
+"Has alcanzado el límite diario de demos. Vuelve mañana o solicita una "
+"licencia."
+msgstr ""
+"You have reached the daily demo limit. Come back tomorrow or request a "
+"licence."
+
+msgid "Estamos validando los datos de tu empresa. Te avisaremos por correo."
+msgstr "We are validating your company details. We will email you."
+
+msgid "Añade el guion que se va a locutar."
+msgstr "Add the script to be voiced."
+
+msgid "Esta licencia no es tuya."
+msgstr "This licence is not yours."
+
+msgid "Esta licencia está bloqueada por una incidencia abierta."
+msgstr "This licence is blocked due to an open case."
+
+msgid "La licencia todavía no está activa. Falta la aprobación o el pago."
+msgstr "The licence is not active yet. Approval or payment is missing."
+
+msgid "La licencia no está vigente."
+msgstr "The licence is not in force."
+
+msgid "La licencia ha caducado."
+msgstr "The licence has expired."
+
+msgid "Has usado todas las tomas incluidas en esta licencia."
+msgstr "You have used all the takes included in this licence."
+
+msgid "Las demos admiten como máximo %(n)s caracteres."
+msgstr "Demos accept a maximum of %(n)s characters."
+
+msgid "El guion supera el máximo de %(n)s caracteres."
+msgstr "The script exceeds the maximum of %(n)s characters."
+
+msgid "Voz pendiente de revisión: %(voice)s"
+msgstr "Voice awaiting review: %(voice)s"
+
+msgid "Tu voz necesita cambios antes de aprobarse"
+msgstr "Your voice needs changes before it can be approved"
+
+msgid "El proveedor de voz pide una verificación adicional de esta voz."
+msgstr "The voice provider requires additional verification of this voice."
+
+msgid "Tu voz digital está lista para que la escuches"
+msgstr "Your digital voice is ready for you to listen to"
+
+msgid ""
+"Hemos creado tu voz digital. Escucha las demostraciones y, si te convence, "
+"actívala para publicarla en el catálogo."
+msgstr ""
+"We have created your digital voice. Listen to the demos and, if you are "
+"happy with it, activate it to publish it in the catalogue."
+
+msgid "La frase ha caducado. Pide una nueva y grábala antes de 15 minutos."
+msgstr ""
+"The phrase has expired. Ask for a new one and record it within 15 minutes."
+
+msgid "La grabación es demasiado corta. Lee la frase completa."
+msgstr "The recording is too short. Read the whole phrase."
+
+msgid "Lo que se oye no coincide con la frase pedida."
+msgstr "What is heard does not match the requested phrase."
+
+msgid ""
+"Para crear tu voz digital necesitamos tu consentimiento expreso para tratar "
+"tu voz."
+msgstr ""
+"To create your digital voice we need your express consent to process your "
+"voice."
+
+msgid "Autoriza al menos una categoría de uso antes de firmar."
+msgstr "Authorise at least one use category before signing."
+
+msgid "Esta voz ya está enviada a revisión."
+msgstr "This voice has already been submitted for review."
+
+msgid "Todavía faltan pasos por completar."
+msgstr "There are still steps to complete."
+
+msgid "Verifica primero la identidad del locutor."
+msgstr "Verify the voice actor's identity first."
+
+msgid "El locutor no tiene contrato firmado."
+msgstr "The voice actor has no signed agreement."
+
+msgid "No hay muestras válidas."
+msgstr "There are no valid samples."
+
+msgid "Esta voz no se puede activar ahora."
+msgstr "This voice cannot be activated right now."
+
+msgid "Solo se puede pausar una voz activa."
+msgstr "Only an active voice can be paused."
+
+msgid "Solicitud cancelada: el locutor ha retirado su voz"
+msgstr "Request cancelled: the voice actor has withdrawn their voice"
+
+msgid ""
+"La solicitud %(code)s se ha cancelado porque el locutor ha retirado la "
+"autorización de su voz."
+msgstr ""
+"Request %(code)s has been cancelled because the voice actor has withdrawn "
+"authorisation for their voice."
+
+msgid ""
+"La voz de la frase no se parece a la de las muestras. Lo revisará una "
+"persona."
+msgstr ""
+"The voice in the phrase does not resemble the samples. A person will review "
+"it."
+
+msgid "El nombre de la firma debe coincidir con tu nombre legal: %(name)s"
+msgstr "The signature name must match your legal name: %(name)s"
+
+msgid "Frase y voz comprobadas."
+msgstr "Phrase and voice checked."
+
+msgid ""
+"Grabación recibida. Una persona del equipo la escuchará antes de aprobar la "
+"voz."
+msgstr ""
+"Recording received. A team member will listen to it before approving the "
+"voice."
+
+msgid "Hay que borrar a mano una voz del proveedor: %(voice)s"
+msgstr "A voice must be deleted manually at the provider: %(voice)s"
+
+msgid "Correo confirmado."
+msgstr "Email confirmed."
+
+msgid ""
+"Hola:\n"
+"\n"
+"Confirma tu correo para activar tu cuenta en Todas las Voces:\n"
+"\n"
+"%(link)s\n"
+"\n"
+"El enlace caduca en 3 días."
+msgstr ""
+"Hello,\n"
+"\n"
+"Confirm your email to activate your Todas las Voces account:\n"
+"\n"
+"%(link)s\n"
+"\n"
+"The link expires in 3 days."
+
+msgid "Cuenta creada. Te hemos enviado un correo para confirmarla."
+msgstr "Account created. We have sent you an email to confirm it."
+
+msgid "Nuevo cliente pendiente de validar: %(name)s"
+msgstr "New client awaiting validation: %(name)s"
+
+msgid "Te hemos enviado otro correo de confirmación."
+msgstr "We have sent you another confirmation email."
+
+msgid "[Todas las Voces] Confirma tu correo"
+msgstr "[Todas las Voces] Confirm your email"
+
+msgid "Demasiados intentos. Espera 15 minutos."
+msgstr "Too many attempts. Wait 15 minutes."
+
+msgid "El enlace no es válido o ha caducado. Pide uno nuevo desde tu cuenta."
+msgstr ""
+"The link is not valid or has expired. Request a new one from your account."
+
+msgid ""
+"Hemos recibido tu solicitud de supresión. La atenderemos en un máximo de 30 "
+"días."
+msgstr ""
+"We have received your erasure request. We will handle it within 30 days at "
+"most."
+
+msgid ""
+"No hemos podido enviarte el correo de confirmación. Inténtalo desde tu "
+"cuenta."
+msgstr ""
+"We could not send you the confirmation email. Try again from your account."
+
+msgid "Solicitud de supresión de cuenta: %(email)s"
+msgstr "Account erasure request: %(email)s"
+
+msgid "Datos de empresa guardados."
+msgstr "Company details saved."
+
+msgid ""
+"Estamos validando los datos de tu empresa. En cuanto estén validados podrás "
+"solicitar licencias."
+msgstr ""
+"We are validating your company details. As soon as they are validated you "
+"will be able to request licences."
+
+msgid "Solicitud enviada al locutor. Te avisaremos cuando responda."
+msgstr ""
+"Request sent to the voice actor. We will let you know when they reply."
+
+msgid "Incidencia %(code)s abierta. Nuestro equipo la revisará."
+msgstr "Case %(code)s opened. Our team will review it."
+
+msgid "Mensaje enviado."
+msgstr "Message sent."
+
+msgid "Respuesta registrada."
+msgstr "Reply recorded."
+
+msgid "Solicitud cancelada."
+msgstr "Request cancelled."
+
+msgid "Gracias. Activaremos la licencia en cuanto veamos la transferencia."
+msgstr ""
+"Thank you. We will activate the licence as soon as we see the transfer."
+
+msgid "Toma generada."
+msgstr "Take generated."
+
+msgid "Tu cuenta está suspendida. Escribe a soporte."
+msgstr "Your account is suspended. Write to support."
+
+msgid "Acento"
+msgstr "Accent"
+
+msgid "Género vocal"
+msgstr "Vocal gender"
+
+msgid "Edad vocal"
+msgstr "Vocal age"
+
+msgid "Estilo"
+msgstr "Style"
+
+msgid "Tipo de proyecto"
+msgstr "Project type"
+
+msgid "Uso permitido"
+msgstr "Permitted use"
+
+msgid "Has enviado varias denuncias seguidas. Espera una hora o escríbenos."
+msgstr "You have sent several reports in a row. Wait an hour or write to us."
+
+msgid "Te hemos pagado %(amount)s €"
+msgstr "We have paid you €%(amount)s"
+
+msgid ""
+"Hemos ordenado la transferencia de tu parte. Puedes descargar el "
+"justificante en tu panel de ingresos."
+msgstr ""
+"We have ordered the transfer of your share. You can download the statement "
+"from your earnings dashboard."
+
+msgid "Pago al locutor registrado."
+msgstr "Payout to the voice actor recorded."
+
+msgid "Ajustes guardados."
+msgstr "Settings saved."
+
+msgid "Categorías guardadas."
+msgstr "Categories saved."
+
+msgid "Identidad revisada."
+msgstr "Identity reviewed."
+
+msgid "Cobro confirmado y licencia emitida."
+msgstr "Payment confirmed and licence issued."
+
+msgid "Bloqueos actualizados."
+msgstr "Blocks updated."
+
+msgid "Cuenta suprimida y anonimizada."
+msgstr "Account erased and anonymised."
+
+msgid "Identidad verificada"
+msgstr "Identity verified"
+
+msgid "No hemos podido verificar tu identidad"
+msgstr "We could not verify your identity"
+
+msgid "Empresa validada: ya puedes solicitar licencias"
+msgstr "Company validated: you can now request licences"
+
+msgid "No hemos podido validar los datos de tu empresa"
+msgstr "We could not validate your company details"
+
+msgid "La licencia %(code)s ha sido anulada"
+msgstr "Licence %(code)s has been cancelled"
+
+msgid "Condiciones guardadas."
+msgstr "Terms saved."
+
+msgid "Voz aprobada y clonada. El locutor ya puede escucharla y activarla."
+msgstr ""
+"Voice approved and cloned. The voice actor can now listen to it and activate"
+" it."
+
+msgid "Cambios solicitados al locutor."
+msgstr "Changes requested from the voice actor."
+
+msgid "Disputa resuelta."
+msgstr "Dispute resolved."
+
+msgid "Voz clonada, pero alguna demo no se ha generado: %(e)s"
+msgstr "Voice cloned, but a demo was not generated: %(e)s"
+
+msgid "Demos regeneradas."
+msgstr "Demos regenerated."
+
+msgid "Revisada por gestión."
+msgstr "Reviewed by management."
+
+msgid "Perfil guardado."
+msgstr "Profile saved."
+
+msgid "Identidad pendiente de verificar: %(name)s"
+msgstr "Identity awaiting verification: %(name)s"
+
+msgid "Documento recibido. Lo revisaremos en uno o dos días laborables."
+msgstr "Document received. We will review it within one or two working days."
+
+msgid "No hemos recibido la grabación."
+msgstr "We did not receive the recording."
+
+msgid "Autorizaciones guardadas. Se aplican ya a los usos nuevos."
+msgstr "Authorisations saved. They already apply to new uses."
+
+msgid "Voz enviada a revisión. Te avisaremos por correo."
+msgstr "Voice submitted for review. We will email you."
+
+msgid "No puedes borrar muestras mientras tu voz está en revisión o activa."
+msgstr "You cannot delete samples while your voice is under review or active."
+
+msgid "Muestra eliminada."
+msgstr "Sample deleted."
+
+msgid ""
+"Tu voz ya está enviada. Para añadir muestras de entrenamiento, escribe a "
+"soporte."
+msgstr ""
+"Your voice has already been submitted. To add training samples, write to "
+"support."
+
+msgid "Sube primero tus muestras: la frase se compara con ellas."
+msgstr "Upload your samples first: the phrase is compared with them."
+
+msgid "Añade tu NIF en el perfil antes de firmar."
+msgstr "Add your tax ID in your profile before signing."
+
+msgid "Tu voz está activa y publicada en el catálogo."
+msgstr "Your voice is active and published in the catalogue."
+
+msgid "Muestra añadida. Ha pasado el control de calidad."
+msgstr "Sample added. It passed the quality check."
+
+msgid "Contrato firmado."
+msgstr "Agreement signed."
+
+msgid "Voz en pausa. No admite usos nuevos hasta que la reactives."
+msgstr "Voice paused. It accepts no new uses until you reactivate it."
+
+msgid ""
+"Muestra subida, pero no pasa el control de calidad. Mira los avisos y vuelve"
+" a grabarla."
+msgstr ""
+"Sample uploaded, but it does not pass the quality check. Read the warnings "
+"and record it again."
+
+msgid "Marca la casilla de confirmación para revocar."
+msgstr "Tick the confirmation box to revoke."
+
+msgid "Decisión registrada."
+msgstr "Decision recorded."
+
+msgid "Autorización revocada. Hemos eliminado tu voz digital."
+msgstr "Authorisation revoked. We have deleted your digital voice."
+
+msgid "Solicitud rechazada."
+msgstr "Request rejected."
+
+msgid "Pregunta enviada al cliente."
+msgstr "Question sent to the client."

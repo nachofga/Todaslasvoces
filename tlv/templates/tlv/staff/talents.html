@@ -1,0 +1,13 @@
+{% extends "tlv/app.html" %}
+{% load i18n tlv_extras %}
+{% block title %}{% trans "Locutores" %}{% endblock %}
+{% block app %}
+<div class="page-head"><h1>{% trans "Locutores" %}</h1></div>
+<div class="panel"><div class="table-wrap"><table class="data">
+  <thead><tr><th>{% trans "Locutor" %}</th><th>{% trans "Correo electrónico" %}</th><th>{% trans "Identidad" %}</th><th>{% trans "Voces" %}</th><th>{% trans "Alta" %}</th></tr></thead>
+  {% for t in talents %}<tr><td><a href="{% url 'staff_talent' t.pk %}"><b>{{ t.stage_name }}</b></a><div class="small muted">{{ t.legal_name }}</div></td>
+    <td>{{ t.user.email }}{% if not t.user.email_verified %} <span class="chip warn plain">{% trans "sin confirmar" %}</span>{% endif %}{% if t.user.suspended %} <span class="chip bad">{% trans "Suspendido" %}</span>{% endif %}</td>
+    <td><span class="chip {{ t.identity_status|tone }}">{{ t.get_identity_status_display }}</span></td><td>{{ t.n_voices }}</td><td>{{ t.created_at|date:"d/m/Y" }}</td></tr>
+  {% empty %}<tr><td colspan="5" class="muted">{% trans "Sin resultados." %}</td></tr>{% endfor %}
+</table></div></div>
+{% endblock %}

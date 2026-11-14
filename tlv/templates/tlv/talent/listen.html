@@ -1,0 +1,47 @@
+{% extends "tlv/app.html" %}
+{% load i18n tlv_extras %}
+{% block title %}{% trans "Mi voz digital" %}{% endblock %}
+{% block app %}
+<div class="page-head"><div><h1>{% trans "Mi voz digital" %}</h1><p><span class="chip {{ voice.status|tone }}">{{ voice.get_status_display }}</span></p></div>
+  {% if voice.is_public %}<a class="btn ghost small" href="{% url 'voice' voice.slug %}">{% trans "Ver mi ficha pública" %}</a>{% endif %}</div>
+{% if voice.review_note and voice.status == "approved" %}<div class="note warn"><p>{{ voice.review_note }}</p></div>{% endif %}
+{% if clips %}
+<div class="panel"><h2>{% trans "Así suena tu voz digital" %}</h2>
+  {% for clip in clips %}<div class="clip" data-player>{% url 'media_generation' clip.generation_id 'mp3' as src %}{% include "tlv/parts/play.html" with src=src hue=voice.hue %}
+    <div class="meta"><b>{{ clip.title }}</b><span>{{ clip.generation.text|truncatechars:110 }}</span></div>{% voiceprint voice "mini" %}</div>{% endfor %}
+</div>
+{% elif voice.status == "draft" or voice.status == "in_review" or voice.status == "changes" %}
+<div class="empty">{% trans "Tu voz digital se creará cuando el equipo apruebe tu alta." %} <a href="{% url 'talent_home' %}">{% trans "Ver los pasos" %}</a></div>
+{% endif %}
+
+{% if voice.status == "approved" %}
+<div class="panel"><h2>{% trans "¿Te reconoces?" %}</h2>
+  <p>{% trans "Si la voz te convence, actívala: se publicará en el catálogo y los clientes podrán enviarte solicitudes. Si no, escríbenos y lo revisamos." %}</p>
+  <form method="post" action="{% url 'talent_voice_action' 'activar' %}">{% csrf_token %}<button class="btn ok">{% trans "Activar y publicar mi voz" %}</button></form></div>
+{% elif voice.status == "active" %}
+<div class="panel"><h2>{% trans "Pausar" %}</h2>
+  <p>{% trans "En pausa, tu voz sale del catálogo y no admite demos, solicitudes ni tomas nuevas. Puedes reactivarla cuando quieras." %}</p>
+  <form method="post" action="{% url 'talent_voice_action' 'pausar' %}">{% csrf_token %}<button class="btn ghost">{% trans "Pausar mi voz" %}</button></form></div>
+{% elif voice.status == "paused" %}
+<div class="panel"><h2>{% trans "Tu voz está en pausa" %}</h2>
+  <form method="post" action="{% url 'talent_voice_action' 'activar' %}">{% csrf_token %}<button class="btn ok">{% trans "Reactivar mi voz" %}</button></form></div>
+{% endif %}
+
+{% if voice.status == "active" or voice.status == "paused" or voice.status == "approved" %}
+<div class="panel"><h2>{% trans "Revocar la autorización" %}</h2>
+  <p>{% trans "Eliminamos tu modelo de voz del proveedor, cancelamos las solicitudes en curso y nadie podrá generar audios nuevos. Las licencias ya pagadas conservan los audios entregados. Esta acción no se puede deshacer: para volver tendrías que repetir el alta." %}</p>
+  <form method="post" action="{% url 'talent_voice_action' 'revocar' %}" data-confirm="{% trans "¿Seguro que quieres revocar tu voz digital? No se puede deshacer." %}">{% csrf_token %}
+    {% include "tlv/parts/fields.html" with form=revoke_form %}
+    <button class="btn danger">{% trans "Revocar mi voz digital" %}</button></form></div>
+{% endif %}
+
+{% if recent %}
+<div class="panel"><h2>{% trans "Últimos usos de tu voz" %}</h2>
+  <div class="table-wrap"><table class="data"><thead><tr><th>{% trans "Fecha" %}</th><th>{% trans "Tipo" %}</th><th>{% trans "Proyecto" %}</th><th>{% trans "Texto" %}</th><th></th></tr></thead>
+  {% for g in recent %}<tr data-player><td>{{ g.created_at|date:"d/m/Y H:i" }}</td><td>{{ g.get_kind_display }}</td>
+    <td>{% if g.request %}<a href="{% url 'talent_request' g.request_id %}">{{ g.request.project_name }}</a>{% else %}—{% endif %}</td>
+    <td class="small">{{ g.text|truncatechars:70 }}</td>
+    <td>{% if g.kind != "demo" %}{% url 'media_generation' g.pk 'mp3' as src %}{% include "tlv/parts/play.html" with src=src hue=voice.hue size="small" %}{% endif %}</td></tr>{% endfor %}
+  </table></div></div>
+{% endif %}
+{% endblock %}

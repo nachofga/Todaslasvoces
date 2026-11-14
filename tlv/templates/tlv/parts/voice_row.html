@@ -1,0 +1,16 @@
+{% load i18n tlv_extras %}
+<li class="voice-row" data-player>
+  {% with clip=voice.demo_clips.all.0 %}
+    {% if clip %}{% url 'media_generation' clip.generation_id 'mp3' as src %}{% trans "Escuchar" as lbl %}{% include "tlv/parts/play.html" with src=src hue=voice.hue label=lbl %}{% else %}<span></span>{% endif %}
+  {% endwith %}
+  <div>
+    <h3><a href="{% url 'voice' voice.slug %}">{{ voice.name }}</a></h3>
+    <div class="who">{{ voice.get_gender_display }} · {{ voice.get_age_display }}{% for l in voice.languages.all %} · {{ l.name }}{% endfor %}</div>
+    {% if voice.tagline %}<div class="small">{{ voice.tagline }}</div>{% endif %}
+  </div>
+  <div class="mid">
+    {% voiceprint voice %}
+    <div class="tags">{% for s in voice.styles.all|slice:":4" %}<span class="tag">{{ s.name }}</span>{% endfor %}</div>
+  </div>
+  <div class="price"><span class="small muted">{% trans "Licencias desde" %}</span><b>{{ voice.base_price|eur }}</b></div>
+</li>

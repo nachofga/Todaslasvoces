@@ -1,0 +1,16 @@
+{% extends "tlv/app.html" %}
+{% load i18n tlv_extras %}
+{% block title %}{% trans "Voces" %}{% endblock %}
+{% block app %}
+<div class="page-head"><h1>{% trans "Voces" %}</h1></div>
+<form method="get" class="row"><label for="estado" class="muted">{% trans "Estado" %}</label>
+  <select class="input" style="width:auto" id="estado" name="estado" onchange="this.form.submit()"><option value="">{% trans "Todos" %}</option>
+    {% for value, label in statuses %}<option value="{{ value }}" {% if status == value %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></form>
+<div class="panel"><div class="table-wrap"><table class="data">
+  <thead><tr><th>{% trans "Voz" %}</th><th>{% trans "Locutor" %}</th><th>{% trans "Estado" %}</th><th>{% trans "Motor" %}</th><th>{% trans "Enviada" %}</th></tr></thead>
+  {% for v in voices %}<tr><td><a href="{% url 'staff_voice' v.pk %}"><b>{{ v.name }}</b></a></td><td>{{ v.talent.legal_name }}</td>
+    <td><span class="chip {{ v.status|tone }}">{{ v.get_status_display }}</span>{% if v.blocked %} <span class="chip bad">{% trans "Bloqueada" %}</span>{% endif %}</td>
+    <td class="small">{{ v.engine|default:"—" }}</td><td>{{ v.submitted_at|date:"d/m/Y"|default:"—" }}</td></tr>
+  {% empty %}<tr><td colspan="5" class="muted">{% trans "Sin resultados." %}</td></tr>{% endfor %}
+</table></div></div>
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends "tlv/base.html" %}
+{% load i18n tlv_extras %}
+{% block title %}{{ voice.name }}{% endblock %}
+{% block main %}
+<div class="wrap">
+  {% if owner_preview %}<div class="note warn" style="margin-top:1rem">{% trans "Vista previa: esta ficha todavía no es pública." %} <span class="chip {{ voice.status|tone }}">{{ voice.get_status_display }}</span></div>{% endif %}
+  <div class="voice-head">
+    <div>
+      <p class="muted" style="margin:0 0 .4rem">{{ voice.get_gender_display }} · {{ voice.get_age_display }}{% for l in voice.languages.all %} · {{ l.name }}{% endfor %}</p>
+      <h1>{{ voice.name }}</h1>
+      {% if voice.tagline %}<p class="lead" style="margin:.6rem 0 0;font-size:1.15rem">{{ voice.tagline }}</p>{% endif %}
+    </div>
+    {% voiceprint voice "big" %}
+  </div>
+  <div class="cols-voice">
+    <div class="stack">
+      <section>
+        <h2>{% trans "Escúchala" %}</h2>
+        {% for clip in clips %}
+          <div class="clip" data-player>{% url 'media_generation' clip.generation_id 'mp3' as src %}{% include "tlv/parts/play.html" with src=src hue=voice.hue %}
+            <div class="meta"><b>{{ clip.title }} <span class="badge-ai">IA</span></b><span>{% trans "Demostración generada por IA" %} · {{ clip.generation.duration|dur }}</span></div>{% voiceprint voice "mini" %}</div>
+        {% endfor %}
+        {% for s in samples %}
+          <div class="clip" data-player>{% url 'media_sample' s.pk as src %}{% include "tlv/parts/play.html" with src=src hue=voice.hue %}
+            <div class="meta"><b>{{ s.title|default:_("Muestra original") }}</b><span>{% trans "Grabación original del locutor" %} · {{ s.duration|dur }}</span></div></div>
+        {% endfor %}
+        {% if not clips and not samples %}<p class="muted">{% trans "Esta voz todavía no tiene audios publicados." %}</p>{% endif %}
+      </section>
+
+      <section class="panel">
+        <h3>{% trans "Pruébala con tu texto" %}</h3>
+        {% if demo_gate %}
+          <form id="demo-form" method="post" action="{% url 'client_demo' voice.slug %}" data-error="{% trans "No se ha podido generar la demo." %}">{% csrf_token %}
+            <textarea class="input" name="text" maxlength="{{ cfg.demo_max_chars }}" data-count="1" rows="3" required placeholder="{% trans "Escribe una frase de tu guion…" %}"></textarea>
+            <div class="row" style="margin-top:.7rem">
+              <button class="btn" data-busy-text="{% trans "Generando…" %}">{% trans "Generar demo" %}</button>
+              <span class="hide row" data-player>{% include "tlv/parts/play.html" with src="" hue=voice.hue size="small" %}<span class="small muted">{% trans "Tu demo" %}</span></span>
+              <span id="demo-out" class="small" style="color:var(--bad)" role="alert"></span>
+            </div>
+          </form>
+          <p class="help">{% trans "Las demos son solo para evaluar la voz: no dan ningún derecho de uso y llevan marca de agua." %}</p>
+        {% elif user.is_authenticated %}
+          <p class="muted">{{ demo_gate.message }}</p>
+        {% else %}
+          <p>{% trans "Crea una cuenta de cliente para generar demos con tu propio texto." %}</p>
+          <a class="btn ghost" href="{% url 'signup_client' %}">{% trans "Crear cuenta de cliente" %}</a>
+        {% endif %}
+      </section>
+
+      {% if voice.description %}<section><h2>{% trans "Sobre esta voz" %}</h2><p>{{ voice.description|linebreaksbr }}</p></section>{% endif %}
+      <section>
+        <h2>{% trans "Características" %}</h2>
+        <dl class="dl">
+          <dt>{% trans "Idiomas" %}</dt><dd>{% for x in voice.languages.all %}{{ x.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</dd>
+          {% if voice.accents.exists %}<dt>{% trans "Acentos" %}</dt><dd>{% for x in voice.accents.all %}{{ x.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</dd>{% endif %}
+          {% if voice.trait_list %}<dt>{% trans "Rasgos" %}</dt><dd>{{ voice.trait_list|join:", " }}</dd>{% endif %}
+          {% if voice.styles.exists %}<dt>{% trans "Estilos" %}</dt><dd><span class="tags">{% for x in voice.styles.all %}<span class="tag">{{ x.name }}</span>{% endfor %}</span></dd>{% endif %}
+          {% if voice.project_types.exists %}<dt>{% trans "Especialidades" %}</dt><dd><span class="tags">{% for x in voice.project_types.all %}<span class="tag">{{ x.name }}</span>{% endfor %}</span></dd>{% endif %}
+        </dl>
+      </section>
+      <section>
+        <h2>{% trans "Usos autorizados y tarifas" %}</h2>
+        <p class="muted small">{% trans "Precio orientativo de una licencia de 12 meses en España, sin IVA. Cambia con el territorio y la duración." %}</p>
+        <div class="table-wrap"><table class="data">
+          {% for cat, price in allowed %}<tr><td><b>{{ cat.name }}</b><div class="small muted">{{ cat.description }}</div></td><td class="num">{{ price|eur }}</td></tr>{% endfor %}
+        </table></div>
+        {% if denied %}<h3 style="margin-top:1.2rem">{% trans "Usos no autorizados" %}</h3>
+          <p class="tags">{% for cat in denied %}<span class="tag" style="text-decoration:line-through">{{ cat.name }}</span>{% endfor %}</p>{% endif %}
+        {% if voice.restrictions %}<h3 style="margin-top:1.2rem">{% trans "Restricciones del locutor" %}</h3><p>{{ voice.restrictions|linebreaksbr }}</p>{% endif %}
+      </section>
+    </div>
+    <aside class="stack" style="position:sticky;top:84px">
+      <div class="quote"><span>{% trans "Licencias desde" %}</span><b>{{ from_price|eur }}</b><span>{% trans "sin IVA" %}</span></div>
+      {% if voice.accepts_new_uses %}
+        {% if user.is_authenticated and user.is_client %}<a class="btn" href="{% url 'client_request_new' voice.slug %}">{% trans "Solicitar licencia" %}</a>
+        {% elif not user.is_authenticated %}<a class="btn" href="{% url 'login' %}?next={% url 'client_request_new' voice.slug %}">{% trans "Entrar para solicitar licencia" %}</a>{% endif %}
+      {% else %}<div class="note warn">{% trans "Esta voz no admite usos nuevos ahora mismo." %}</div>{% endif %}
+      <div class="panel">
+        <h3>{% trans "Condiciones de contratación" %}</h3>
+        <ul class="facts small">
+          <li>{% trans "El locutor aprueba cada proyecto antes de autorizar su voz." %}</li>
+          <li>{% trans "La licencia cubre el guion, el territorio, los canales y la duración que indiques." %}</li>
+          <li>{% blocktrans trimmed with n=cfg.default_max_takes %}Incluye hasta {{ n }} tomas del mismo guion.{% endblocktrans %}</li>
+          <li>{% trans "Recibes WAV, MP3 y un certificado de licencia verificable." %}</li>
+          <li>{% trans "Pago por transferencia bancaria." %}</li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</div>
+{% endblock %}

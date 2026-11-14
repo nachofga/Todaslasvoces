@@ -1,0 +1,36 @@
+{% extends "tlv/app.html" %}
+{% load i18n tlv_extras %}
+{% block title %}{% trans "Usos y contrato" %}{% endblock %}
+{% block app %}
+<div class="page-head"><div><h1>{% trans "Usos autorizados y contrato" %}</h1>
+  <p>{% blocktrans trimmed with n=allowed_count total=consents|length %}Autorizas {{ n }} de {{ total }} categorías de uso.{% endblocktrans %}</p></div>
+  {% if contract %}<a class="btn ghost small" href="{% url 'talent_contract_pdf' contract.pk %}" target="_blank">{% trans "Descargar contrato firmado (PDF)" %}</a>{% endif %}</div>
+{% if contract %}<div class="note ok"><p>{% blocktrans trimmed with code=contract.code date=contract.signed_at|date:"d/m/Y H:i" %}Contrato {{ code }} firmado el {{ date }}.{% endblocktrans %} {% trans "Puedes cambiar tus autorizaciones cuando quieras: se aplican al momento a los usos nuevos." %}</p></div>{% endif %}
+<form method="post" class="stack">{% csrf_token %}
+  <div class="panel">
+    <div class="row between"><h2 style="margin:0">{% trans "Categorías de uso" %}</h2><button type="button" class="btn ghost small" data-check-all>{% trans "Marcar todas las habituales" %}</button></div>
+    <p class="muted small">{% trans "Marca solo los usos para los que aceptas que se use tu voz. Las delicadas vienen desmarcadas. Si dejas la tarifa vacía, se usa tu tarifa base." %}</p>
+    {% for c in consents %}
+    <div class="consent">
+      <input type="checkbox" id="allow-{{ c.category.code }}" name="allow-{{ c.category.code }}" {% if c.allowed %}checked{% endif %} {% if not c.category.sensitive %}data-regular{% endif %} style="width:1.2rem;height:1.2rem;margin-top:.25rem;accent-color:var(--ink)">
+      <label for="allow-{{ c.category.code }}"><b>{{ c.category.name }}</b>{% if c.category.sensitive %} <span class="chip warn plain">{% trans "Uso delicado" %}</span>{% endif %}<div class="small muted">{{ c.category.description }}</div></label>
+      <div class="extra">
+        <input class="input" name="price-{{ c.category.code }}" value="{{ c.price|default_if_none:'' }}" inputmode="decimal" placeholder="{% trans "Tarifa propia (€)" %}" aria-label="{% trans "Tarifa propia (€)" %} · {{ c.category.name }}">
+        <input class="input" name="notes-{{ c.category.code }}" value="{{ c.notes }}" maxlength="300" placeholder="{% trans "Condiciones (opcional)" %}" aria-label="{% trans "Condiciones (opcional)" %} · {{ c.category.name }}">
+      </div>
+    </div>
+    {% endfor %}
+    <button class="btn ghost" name="action" value="save" style="margin-top:1rem">{% trans "Guardar autorizaciones" %}</button>
+  </div>
+  {% if not contract %}
+  <div class="panel">
+    <h2>{% trans "Contrato" %}</h2>
+    <div class="note warn"><p>{% trans "Borrador pendiente de revisión jurídica. No es todavía un texto legal definitivo." %}</p></div>
+    <div class="contract-text" tabindex="0">{{ body }}</div>
+    <div style="margin-top:1.2rem">{% include "tlv/parts/fields.html" %}</div>
+    <button class="btn" name="action" value="sign">{% trans "Firmar el contrato" %}</button>
+    <p class="help">{% trans "La firma registra tu nombre, la fecha y hora, tu dirección IP y la huella del texto firmado." %}</p>
+  </div>
+  {% endif %}
+</form>
+{% endblock %}

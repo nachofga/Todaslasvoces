@@ -1,0 +1,7 @@
+{% extends "tlv/app.html" %}
+{% load i18n tlv_extras %}
+{% block title %}{% trans "Datos de empresa" %}{% endblock %}
+{% block app %}
+<div class="page-head"><div><h1>{% trans "Datos de empresa" %}</h1><p><span class="chip {{ client.status|tone }}">{{ client.get_status_display }}</span></p></div></div>
+<form method="post" class="panel" novalidate>{% csrf_token %}{% include "tlv/parts/fields.html" %}<button class="btn">{% trans "Guardar" %}</button></form>
+{% endblock %}

@@ -1,0 +1,61 @@
+# Plano de despliegue para Render (https://render.com). Al conectar el repositorio,
+# Render lee este fichero y crea la web, la base de datos y el disco.
+# Todo en Fráncfort (UE). Coste aproximado: web 7 $ + base de datos 6 $ + disco 1.25 $ al mes.
+databases:
+  - name: todaslasvoces-db
+    databaseName: todaslasvoces
+    user: todaslasvoces
+    plan: basic-256mb
+    region: frankfurt
+    postgresMajorVersion: "16"
+
+services:
+  - type: web
+    name: todaslasvoces
+    runtime: python
+    region: frankfurt
+    plan: starter
+    buildCommand: ./build.sh
+    startCommand: ./start.sh
+    healthCheckPath: /salud/
+    autoDeploy: true
+    disk:
+      name: datos
+      mountPath: /var/data
+      sizeGB: 5
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: TLV_PRODUCTION
+        value: "1"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: todaslasvoces-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: TLV_WATERMARK_KEY
+        generateValue: true
+      - key: TLV_SIGNING_SEED
+        generateValue: true
+      - key: TLV_MEDIA_ROOT
+        value: /var/data/media
+      # --- Rellena estos valores a mano en el panel de Render ---
+      - key: TLV_ADMIN_EMAIL          # correo del primer usuario de gestión
+        sync: false
+      - key: TLV_ADMIN_PASSWORD       # su contraseña (mínimo 10 caracteres)
+        sync: false
+      - key: ELEVENLABS_API_KEY       # sin ella, la web funciona con el motor de voz simulado
+        sync: false
+      - key: EMAIL_HOST               # p. ej. smtp-relay.brevo.com
+        sync: false
+      - key: EMAIL_HOST_USER
+        sync: false
+      - key: EMAIL_HOST_PASSWORD
+        sync: false
+      - key: DEFAULT_FROM_EMAIL       # p. ej. Todas las Voces <hola@tudominio.com>
+        sync: false
+      - key: TLV_SITE_URL             # solo si usas dominio propio: https://www.tudominio.com
+        sync: false
+      - key: ALLOWED_HOSTS            # solo si usas dominio propio: www.tudominio.com,tudominio.com
+        sync: false

@@ -1,0 +1,19 @@
+{% extends "tlv/app.html" %}
+{% load i18n %}
+{% block title %}{% trans "Categorías de uso" %}{% endblock %}
+{% block app %}
+<div class="page-head"><div><h1>{% trans "Categorías de uso" %}</h1><p>{% trans "Son las categorías que cada locutor acepta o rechaza una a una. La última fila sirve para añadir una nueva." %}</p></div></div>
+<form method="post" class="stack">{% csrf_token %}{{ formset.management_form }}
+  {% for form in formset %}<div class="panel">{% for hidden in form.hidden_fields %}{{ hidden }}{% endfor %}
+    <div class="grid g2">
+      <div class="field"><label>{% trans "Nombre (ES)" %}</label>{{ form.name_es }}{{ form.name_es.errors }}</div>
+      <div class="field"><label>{% trans "Nombre (EN)" %}</label>{{ form.name_en }}{{ form.name_en.errors }}</div>
+      <div class="field"><label>{% trans "Descripción (ES)" %}</label>{{ form.description_es }}</div>
+      <div class="field"><label>{% trans "Descripción (EN)" %}</label>{{ form.description_en }}</div>
+    </div>
+    <div class="row"><label class="row">{% trans "Multiplicador de precio" %} {{ form.price_factor }}</label><label class="row">{% trans "Orden" %} {{ form.order }}</label>
+      <label class="check">{{ form.sensitive }} <span>{% trans "Uso delicado" %}</span></label><label class="check">{{ form.active }} <span>{% trans "Activa" %}</span></label></div>
+    {{ form.non_field_errors }}{{ form.price_factor.errors }}</div>{% endfor %}
+  <div><button class="btn">{% trans "Guardar categorías" %}</button></div>
+</form>
+{% endblock %}

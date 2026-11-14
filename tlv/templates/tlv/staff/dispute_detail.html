@@ -1,0 +1,36 @@
+{% extends "tlv/app.html" %}
+{% load i18n tlv_extras %}
+{% block title %}{{ d.code }}{% endblock %}
+{% block app %}
+<div class="page-head"><div><h1>{{ d.code }}</h1><p><span class="chip {{ d.status|tone }}">{{ d.get_status_display }}</span> · {{ d.created_at|date:"d/m/Y H:i" }} · {{ d.reporter.email|default:d.reporter_email }}</p></div></div>
+<div class="grid g2">
+  <div class="panel"><h2>{% trans "Denuncia" %}</h2><p>{{ d.description|linebreaksbr }}</p>
+    {% if d.url %}<p><a href="{{ d.url }}" rel="noopener noreferrer nofollow" target="_blank">{{ d.url|truncatechars:80 }}</a></p>{% endif %}
+    {% if d.evidence %}<a class="btn ghost small" href="{% url 'private_file' 'prueba' d.pk %}">{% trans "Descargar la prueba" %}</a>{% endif %}</div>
+  <div class="panel"><h2>{% trans "Identificación del audio" %}</h2>
+    {% if d.detection.match %}<div class="note ok"><p>{% if d.detection.match == "hash" %}{% trans "Es exactamente un fichero entregado por la plataforma." %}{% else %}{% trans "Marca de agua reconocida." %}{% endif %}</p></div>
+      <dl class="dl"><dt>{% trans "Voz" %}</dt><dd>{{ d.detection.voice }}</dd><dt>{% trans "Tipo" %}</dt><dd>{{ d.detection.kind }}</dd>
+        <dt>{% trans "Solicitud" %}</dt><dd>{% if d.request %}<a href="{% url 'staff_request' d.request_id %}">{{ d.request.code }}</a>{% else %}—{% endif %}</dd>
+        <dt>{% trans "Cliente" %}</dt><dd>{{ d.detection.client|default:"—" }}</dd><dt>{% trans "Generado" %}</dt><dd>{{ d.detection.created }}</dd></dl>
+    {% elif d.evidence %}<p class="muted">{% trans "No se ha reconocido ninguna marca de agua de la plataforma en la prueba." %}{% if d.detection.score %} ({% trans "señal" %} {{ d.detection.score }}){% endif %}</p>
+    {% else %}<p class="muted">{% trans "La denuncia no incluye ningún audio." %}</p>{% endif %}
+    <p class="small muted">{% trans "Voz" %}: {{ d.voice.name|default:"—" }}</p></div>
+</div>
+<div class="panel"><h2>{% trans "Bloqueo temporal de usos nuevos" %}</h2>
+  <form method="post" class="row">{% csrf_token %}<input type="hidden" name="action" value="blocks">
+    <label class="check"><input type="checkbox" name="block_voice" {% if d.block_voice %}checked{% endif %} {% if not d.voice %}disabled{% endif %}> <span>{% trans "La voz" %}</span></label>
+    <label class="check"><input type="checkbox" name="block_request" {% if d.block_request %}checked{% endif %} {% if not d.request %}disabled{% endif %}> <span>{% trans "La licencia" %}</span></label>
+    <label class="check"><input type="checkbox" name="block_client" {% if d.block_client %}checked{% endif %} {% if not d.request %}disabled{% endif %}> <span>{% trans "El cliente" %}</span></label>
+    <button class="btn ghost small">{% trans "Aplicar" %}</button></form></div>
+<div class="panel"><h2>{% trans "Notas y comunicaciones" %}</h2>
+  <div class="thread">{% for n in notes %}<div class="msg {% if n.internal %}system{% endif %}"><header>{{ n.author.email|default:"—" }} · {{ n.created_at|date:"d/m/Y H:i" }}{% if n.internal %} · {% trans "nota interna" %}{% endif %}</header>{{ n.body|linebreaksbr }}
+    {% if n.file %}<div><a href="{% url 'private_file' 'nota' n.pk %}">{% trans "Descargar adjunto" %}</a></div>{% endif %}</div>{% endfor %}</div>
+  <form method="post" enctype="multipart/form-data" style="margin-top:1rem">{% csrf_token %}<input type="hidden" name="action" value="note">
+    <textarea class="input" name="note" rows="3" required></textarea>
+    <div class="row" style="margin-top:.5rem"><input class="input" style="max-width:18rem" type="file" name="file"><label class="check"><input type="checkbox" name="internal"> <span>{% trans "Nota interna (no la ve quien denuncia)" %}</span></label><button class="btn ghost small">{% trans "Añadir" %}</button></div></form></div>
+{% if d.is_open %}<div class="panel"><h2>{% trans "Resolver" %}</h2>
+  <form method="post" class="stack">{% csrf_token %}<textarea class="input" name="note" rows="3" required placeholder="{% trans "Explica la resolución. Se envía a las partes." %}"></textarea>
+    <label class="check"><input type="checkbox" name="keep"> <span>{% trans "Mantener los bloqueos después de resolver" %}</span></label>
+    <div class="row"><button class="btn danger" name="action" value="uphold">{% trans "Uso no autorizado confirmado" %}</button><button class="btn ghost" name="action" value="dismiss">{% trans "Sin incumplimiento" %}</button></div></form></div>
+{% else %}<div class="note"><p><b>{% trans "Resolución" %}:</b> {{ d.resolution|linebreaksbr }}</p></div>{% endif %}
+{% endblock %}

@@ -1,0 +1,110 @@
+{% extends "tlv/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Información legal" %}{% endblock %}
+{% block main %}
+{% get_current_language as LANG %}
+<div class="narrow legal">
+<div class="note warn"><p>{% trans "Borrador pendiente de revisión jurídica. No es todavía un texto legal definitivo." %}</p></div>
+
+{% if page == "condiciones" %}
+  {% if LANG == "en" %}
+  <h1>Terms of use</h1>
+  <p>{{ cfg.company_name }} operates Todas las Voces, a marketplace where professional voice actors license AI-generated versions of their own voice.</p>
+  <h2>1. Accounts</h2>
+  <p>Voice actors must be adults and may only upload recordings of their own voice. Clients must be companies or professionals and provide true billing details. We may verify identities and company details and suspend accounts that provide false information.</p>
+  <h2>2. Voice actors</h2>
+  <p>You keep ownership of your voice. You decide which use categories you authorise, approve every project individually, and may pause or revoke your digital voice at any time. Your relationship with the platform is governed by the agreement you sign electronically.</p>
+  <h2>3. Clients</h2>
+  <p>Demos are for evaluation only and grant no usage rights. A recording may only be used commercially with an active licence, and only for the script, purpose, territory, channels and duration approved by the voice actor. You may not use recordings to train AI models, create other voices or impersonate anyone.</p>
+  <h2>4. Prohibited uses</h2>
+  <p>Unlawful content, fraud, impersonation, defamation, sexual content, hate speech, and any use in a category the voice actor has not authorised are prohibited. The platform blocks such uses and may terminate accounts.</p>
+  <h2>5. Payments</h2>
+  <p>Licences are paid by bank transfer. The platform keeps a commission and pays the rest to the voice actor. Prices are shown excluding VAT.</p>
+  <h2>6. Traceability</h2>
+  <p>Every recording carries an invisible watermark and is entered in a signed log. We may use this information to investigate reports of unauthorised use.</p>
+  <h2>7. Liability and law</h2>
+  <p>The service is provided as described on the site. These terms are governed by Spanish law.</p>
+  {% else %}
+  <h1>Condiciones de uso</h1>
+  <p>{{ cfg.company_name }} gestiona Todas las Voces, un marketplace en el que locutores profesionales licencian versiones generadas con IA de su propia voz.</p>
+  <h2>1. Cuentas</h2>
+  <p>Los locutores deben ser mayores de edad y solo pueden subir grabaciones de su propia voz. Los clientes deben ser empresas o profesionales y facilitar datos de facturación veraces. Podemos verificar identidades y datos de empresa, y suspender las cuentas que den información falsa.</p>
+  <h2>2. Locutores</h2>
+  <p>Conservas la titularidad de tu voz. Tú decides qué categorías de uso autorizas, apruebas cada proyecto por separado y puedes pausar o revocar tu voz digital en cualquier momento. Tu relación con la plataforma se rige por el contrato que firmas electrónicamente.</p>
+  <h2>3. Clientes</h2>
+  <p>Las demos son solo para evaluar y no conceden derechos de uso. Una locución solo puede usarse comercialmente con una licencia activa y únicamente para el guion, la finalidad, el territorio, los canales y la duración aprobados por el locutor. No puedes usar las locuciones para entrenar modelos de IA, crear otras voces ni suplantar a nadie.</p>
+  <h2>4. Usos prohibidos</h2>
+  <p>Están prohibidos los contenidos ilícitos, el fraude, la suplantación, la difamación, el contenido sexual, el discurso de odio y cualquier uso en una categoría que el locutor no haya autorizado. La plataforma bloquea esos usos y puede cancelar las cuentas.</p>
+  <h2>5. Pagos</h2>
+  <p>Las licencias se pagan por transferencia bancaria. La plataforma retiene una comisión y liquida el resto al locutor. Los precios se muestran sin IVA.</p>
+  <h2>6. Trazabilidad</h2>
+  <p>Cada locución lleva una marca de agua invisible y queda apuntada en un registro firmado. Podemos usar esa información para investigar denuncias de uso no autorizado.</p>
+  <h2>7. Responsabilidad y ley aplicable</h2>
+  <p>El servicio se presta tal como se describe en la web. Estas condiciones se rigen por la ley española.</p>
+  {% endif %}
+
+{% elif page == "privacidad" %}
+  {% if LANG == "en" %}
+  <h1>Privacy policy</h1>
+  <p><b>Controller:</b> {{ cfg.company_name }}{% if cfg.company_tax_id %} · {{ cfg.company_tax_id }}{% endif %}{% if cfg.support_email %} · {{ cfg.support_email }}{% endif %}.</p>
+  <h2>What we process</h2>
+  <p>Account and contact details; for voice actors, identity document (deleted once reviewed), voice recordings, the digital voice model, contract and consent records, and payout details; for clients, company and billing details, scripts and licence requests. We also keep technical logs and the traceability log.</p>
+  <h2>Why and on what basis</h2>
+  <p>To provide the service (contract); to create the digital voice (the voice actor's explicit consent, which can be withdrawn at any time); to invoice and keep accounting records (legal obligation); to prevent and investigate misuse (legitimate interest).</p>
+  <h2>Voice as personal data</h2>
+  <p>A voice identifies a person. We only create a voice model with the voice actor's explicit consent and never use recordings to train general models or create other voices.</p>
+  <h2>Processors</h2>
+  <p>Hosting and database providers located in the European Union, an email provider, and the speech-synthesis provider that creates and runs the voice model. Where a provider processes data outside the EEA, we rely on the safeguards provided by law.</p>
+  <h2>Retention</h2>
+  <p>Recordings and voice models are deleted when the voice actor revokes authorisation or closes the account. Invoices and the traceability log are kept for the legally required periods.</p>
+  <h2>Your rights</h2>
+  <p>You can download a copy of your data and request erasure of your account from "Account and privacy". You can also exercise your rights of access, rectification, objection, restriction and portability by writing to us, and lodge a complaint with the Spanish Data Protection Agency (aepd.es).</p>
+  {% else %}
+  <h1>Política de privacidad</h1>
+  <p><b>Responsable:</b> {{ cfg.company_name }}{% if cfg.company_tax_id %} · {{ cfg.company_tax_id }}{% endif %}{% if cfg.support_email %} · {{ cfg.support_email }}{% endif %}.</p>
+  <h2>Qué datos tratamos</h2>
+  <p>Datos de cuenta y de contacto; de los locutores, documento de identidad (se borra al revisarlo), grabaciones de voz, el modelo de voz digital, contrato y registros de consentimiento y datos de cobro; de los clientes, datos de empresa y de facturación, guiones y solicitudes de licencia. También guardamos registros técnicos y el registro de trazabilidad.</p>
+  <h2>Para qué y con qué base</h2>
+  <p>Para prestar el servicio (contrato); para crear la voz digital (consentimiento expreso del locutor, que puede retirar cuando quiera); para facturar y llevar la contabilidad (obligación legal); para prevenir e investigar usos indebidos (interés legítimo).</p>
+  <h2>La voz como dato personal</h2>
+  <p>La voz identifica a una persona. Solo creamos un modelo de voz con el consentimiento expreso del locutor y nunca usamos las grabaciones para entrenar modelos generales ni para crear otras voces.</p>
+  <h2>Encargados del tratamiento</h2>
+  <p>Proveedores de alojamiento y base de datos situados en la Unión Europea, un proveedor de correo y el proveedor de síntesis de voz que crea y ejecuta el modelo. Cuando un proveedor trata datos fuera del EEE, nos apoyamos en las garantías previstas por la ley.</p>
+  <h2>Conservación</h2>
+  <p>Las grabaciones y los modelos de voz se eliminan cuando el locutor revoca la autorización o cierra la cuenta. Las facturas y el registro de trazabilidad se conservan durante los plazos legales.</p>
+  <h2>Tus derechos</h2>
+  <p>Puedes descargar una copia de tus datos y pedir la supresión de tu cuenta desde «Cuenta y privacidad». También puedes ejercer tus derechos de acceso, rectificación, oposición, limitación y portabilidad escribiéndonos, y reclamar ante la Agencia Española de Protección de Datos (aepd.es).</p>
+  {% endif %}
+
+{% elif page == "cookies" %}
+  {% if LANG == "en" %}
+  <h1>Cookies</h1>
+  <p>This site only uses the cookies it strictly needs to work: one to keep your session, one to protect forms (CSRF) and one to remember your language. We do not use advertising or analytics cookies, and fonts are served from our own server.</p>
+  {% else %}
+  <h1>Cookies</h1>
+  <p>Esta web solo usa las cookies estrictamente necesarias para funcionar: una para mantener tu sesión, otra para proteger los formularios (CSRF) y otra para recordar tu idioma. No usamos cookies de publicidad ni de analítica, y las tipografías se sirven desde nuestro propio servidor.</p>
+  {% endif %}
+
+{% else %}
+  {% if LANG == "en" %}
+  <h1>AI transparency</h1>
+  <p>Every recording delivered by Todas las Voces is synthetic speech generated by artificial intelligence from a voice model created with the voice actor's permission.</p>
+  <h2>How we label it</h2>
+  <p>Each file carries an invisible watermark with its identifier, metadata stating that it is AI-generated, and a licence certificate that can be verified on this site.</p>
+  <h2>What licensees must do</h2>
+  <p>Where the law requires it, the licensee must tell the audience that the voice is AI-generated. The licence certificate reminds them of this obligation.</p>
+  <h2>What we do not allow</h2>
+  <p>Cloning a voice without its owner's verified consent, impersonation, and any use outside the categories each voice actor has authorised.</p>
+  {% else %}
+  <h1>Transparencia sobre IA</h1>
+  <p>Todas las locuciones que entrega Todas las Voces son voz sintética generada con inteligencia artificial a partir de un modelo creado con el permiso del locutor.</p>
+  <h2>Cómo lo identificamos</h2>
+  <p>Cada fichero lleva una marca de agua invisible con su identificador, metadatos que indican que está generado por IA y un certificado de licencia que se puede verificar en esta web.</p>
+  <h2>Qué debe hacer quien usa una locución</h2>
+  <p>Cuando la normativa lo exija, el licenciatario debe informar al público de que la voz está generada por IA. El certificado de licencia le recuerda esta obligación.</p>
+  <h2>Lo que no permitimos</h2>
+  <p>Clonar una voz sin el consentimiento verificado de su titular, la suplantación y cualquier uso fuera de las categorías que cada locutor ha autorizado.</p>
+  {% endif %}
+{% endif %}
+</div>
+{% endblock %}

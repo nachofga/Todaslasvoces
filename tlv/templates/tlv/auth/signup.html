@@ -1,0 +1,21 @@
+{% extends "tlv/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Crear cuenta" %}{% endblock %}
+{% block main %}
+<div class="wrap section">
+  <h1>{% trans "Crear cuenta" %}</h1>
+  <div class="grid g2" style="margin-top:1.5rem">
+    <a class="panel" href="{% url 'signup_talent' %}" style="text-decoration:none;color:inherit">
+      <h2>{% trans "Soy locutor" %}</h2>
+      <p>{% trans "Quiero crear mi voz digital, decidir para qué se usa y cobrar por cada licencia." %}</p>
+      <span class="btn">{% trans "Crear cuenta de locutor" %}</span>
+    </a>
+    <a class="panel" href="{% url 'signup_client' %}" style="text-decoration:none;color:inherit">
+      <h2>{% trans "Soy cliente" %}</h2>
+      <p>{% trans "Represento a una empresa, agencia o productora y quiero contratar locuciones con licencia." %}</p>
+      <span class="btn">{% trans "Crear cuenta de cliente" %}</span>
+    </a>
+  </div>
+  <p style="margin-top:1.5rem">{% trans "¿Ya tienes cuenta?" %} <a href="{% url 'login' %}">{% trans "Entrar" %}</a></p>
+</div>
+{% endblock %}

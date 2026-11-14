@@ -1,0 +1,11 @@
+{% extends "tlv/app.html" %}
+{% load i18n tlv_extras %}
+{% block title %}{% trans "Ajustes y comisiones" %}{% endblock %}
+{% block app %}
+<div class="page-head"><div><h1>{% trans "Ajustes y comisiones" %}</h1><p>{% trans "La comisión se aplica a los cobros que se confirmen a partir de ahora. Cada locutor puede tener una comisión propia en su ficha." %}</p></div></div>
+<form method="post" class="panel" novalidate>{% csrf_token %}{% include "tlv/parts/fields.html" %}<button class="btn">{% trans "Guardar ajustes" %}</button></form>
+<div class="panel"><h2>{% trans "Multiplicadores de precio" %}</h2>
+  <p class="muted small">{% trans "Presupuesto = tarifa del locutor × categoría × territorio × duración. Se cambian desde el administrador de datos (/admin/)." %}</p>
+  <div class="grid g2"><table class="data">{% for k, v in cfg.territory_factors.items %}<tr><td>{{ k }}</td><td class="num">× {{ v }}</td></tr>{% endfor %}</table>
+    <table class="data">{% for k, v in cfg.duration_factors.items %}<tr><td>{% if k == "0" %}{% trans "Sin límite de tiempo" %}{% else %}{{ k }} {% trans "meses" %}{% endif %}</td><td class="num">× {{ v }}</td></tr>{% endfor %}</table></div></div>
+{% endblock %}

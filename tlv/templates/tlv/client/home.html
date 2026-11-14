@@ -1,0 +1,25 @@
+{% extends "tlv/app.html" %}
+{% load i18n tlv_extras %}
+{% block title %}{% trans "Mi panel" %}{% endblock %}
+{% block app %}
+<div class="page-head"><div><h1>{{ client.company_name }}</h1>
+  <p><span class="chip {{ client.status|tone }}">{{ client.get_status_display }}</span></p></div>
+  <a class="btn" href="{% url 'catalog' %}">{% trans "Buscar una voz" %}</a></div>
+{% if client.status == "pending" and cfg.require_client_validation %}<div class="note"><p><b>{% trans "Estamos validando los datos de tu empresa." %}</b> {% trans "Mientras tanto puedes escuchar el catálogo y generar demos. Te avisaremos por correo en cuanto puedas solicitar licencias." %}</p></div>{% endif %}
+{% if client.status == "rejected" %}<div class="note bad"><p><b>{% trans "No hemos podido validar tu empresa." %}</b> {{ client.status_note }} <a href="{% url 'client_profile' %}">{% trans "Revisar los datos" %}</a></p></div>{% endif %}
+<div class="grid g4">
+  <a class="stat {% if to_pay %}alert{% endif %}" href="{% url 'client_requests' %}?estado=approved"><b>{{ to_pay }}</b><span>{% trans "Pendientes de pago" %}</span></a>
+  <a class="stat {% if to_answer %}alert{% endif %}" href="{% url 'client_requests' %}"><b>{{ to_answer }}</b><span>{% trans "Esperan tu respuesta" %}</span></a>
+  <a class="stat" href="{% url 'client_requests' %}?estado=submitted"><b>{{ waiting }}</b><span>{% trans "Pendientes del locutor" %}</span></a>
+  <a class="stat" href="{% url 'client_requests' %}?estado=active"><b>{{ active }}</b><span>{% trans "Licencias activas" %}</span></a>
+</div>
+<div class="panel"><h2>{% trans "Últimas solicitudes" %}</h2>
+  {% if recent %}<div class="table-wrap"><table class="data">{% for r in recent %}<tr>
+    <td><a href="{% url 'client_request' r.pk %}"><b>{{ r.project_name }}</b></a><div class="small muted">{{ r.voice.name }} · {{ r.category.name }}</div></td>
+    <td class="num">{{ r.price|eur }}</td><td><span class="chip {{ r.status|tone }}">{{ r.get_status_display }}</span></td></tr>{% endfor %}</table></div>
+  {% else %}<p class="muted">{% trans "Todavía no has solicitado ninguna licencia. Elige una voz del catálogo para empezar." %}</p>{% endif %}</div>
+{% if demos %}<div class="panel"><h2>{% trans "Tus últimas demos" %}</h2>
+  {% for g in demos %}<div class="clip" data-player>{% url 'media_generation' g.pk 'mp3' as src %}{% include "tlv/parts/play.html" with src=src hue=g.voice.hue size="small" %}
+    <div class="meta"><b><a href="{% url 'voice' g.voice.slug %}">{{ g.voice.name }}</a></b><span>{{ g.text|truncatechars:90 }}</span></div><span class="small muted">{{ g.created_at|date:"d/m H:i" }}</span></div>{% endfor %}
+  <p class="help">{% trans "Las demos son solo para evaluar la voz: no dan ningún derecho de uso y llevan marca de agua." %}</p></div>{% endif %}
+{% endblock %}

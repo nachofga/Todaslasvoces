@@ -1,0 +1,65 @@
+{% extends "tlv/base.html" %}
+{% load i18n tlv_extras %}
+{% block main %}
+<section class="hero"><div class="wrap hero-grid">
+  <div>
+    <h1><span class="v1">{% trans "Voces de locutores reales," %}</span><span class="v2">{% trans "generadas con IA," %}</span><span class="v3">{% trans "con su permiso firmado." %}</span></h1>
+    <p class="lead">{% trans "Elige una voz profesional, escribe tu guion y recibe la locución con su licencia. El locutor aprueba cada proyecto y cobra por cada uso." %}</p>
+    <div class="row">
+      <a class="btn" href="{% url 'catalog' %}">{% trans "Escuchar el catálogo" %}</a>
+      <a class="btn ghost" href="{% url 'signup_talent' %}">{% trans "Soy locutor: crear mi voz digital" %}</a>
+    </div>
+  </div>
+  <div class="listen">
+    <h2>{% trans "Escucha ahora" %}</h2>
+    {% for voice in voices %}{% with clip=voice.demo_clips.all.0 %}
+      <div class="clip" data-player>
+        {% if clip %}{% url 'media_generation' clip.generation_id 'mp3' as src %}{% include "tlv/parts/play.html" with src=src hue=voice.hue %}{% endif %}
+        <div class="meta"><b><a href="{% url 'voice' voice.slug %}" style="color:inherit">{{ voice.name }}</a></b><span>{{ voice.tagline|default:voice.get_gender_display }}</span></div>
+        {% voiceprint voice "mini" %}
+      </div>
+    {% endwith %}{% empty %}
+      <p class="muted">{% trans "Todavía no hay voces publicadas. Las primeras están en revisión." %}</p>
+    {% endfor %}
+    <p class="small muted" style="margin:.6rem 0 .4rem"><span class="badge-ai">IA</span> {% trans "Demostraciones generadas con inteligencia artificial y autorizadas por cada locutor." %}</p>
+  </div>
+</div></section>
+
+<section class="section alt"><div class="wrap grid g2">
+  <div>
+    <h2>{% trans "Si necesitas una locución" %}</h2>
+    <ol class="steps">
+      <li><b>{% trans "Busca y escucha" %}</b><span>{% trans "Filtra por idioma, acento, estilo y uso permitido. Prueba cada voz con tu propio texto." %}</span></li>
+      <li><b>{% trans "Solicita la licencia" %}</b><span>{% trans "Indica el guion, la finalidad, el territorio, los canales y la duración. Verás el presupuesto al momento." %}</span></li>
+      <li><b>{% trans "El locutor decide" %}</b><span>{% trans "Aprueba, rechaza o te pide más información antes de autorizar su voz." %}</span></li>
+      <li><b>{% trans "Paga, genera y descarga" %}</b><span>{% trans "Recibes el audio en WAV y MP3 con su certificado de licencia." %}</span></li>
+    </ol>
+  </div>
+  <div>
+    <h2>{% trans "Si eres locutor" %}</h2>
+    <ol class="steps">
+      <li><b>{% trans "Sube tus grabaciones" %}</b><span>{% trans "Entre 2 y 5 minutos de tu voz. Comprobamos la calidad y que la voz es tuya." %}</span></li>
+      <li><b>{% trans "Decide para qué se puede usar" %}</b><span>{% trans "17 categorías de uso que aceptas o rechazas una a una, con tu tarifa." %}</span></li>
+      <li><b>{% trans "Firma y activa tu voz digital" %}</b><span>{% trans "La escuchas antes de publicarla. Puedes pausarla o retirarla cuando quieras." %}</span></li>
+      <li><b>{% trans "Aprueba cada proyecto y cobra" %}</b><span>{% trans "Nadie usa tu voz sin tu visto bueno. Ves cada uso y cada ingreso en tu panel." %}</span></li>
+    </ol>
+  </div>
+</div></section>
+
+<section class="section"><div class="wrap grid g2">
+  <div>
+    <h2>{% trans "Lo que protege cada voz" %}</h2>
+    <ul class="facts">
+      <li><b>{% trans "Consentimiento por categoría y por proyecto." %}</b> {% trans "El sistema bloquea cualquier uso que el locutor no haya autorizado." %}</li>
+      <li><b>{% trans "Marca de agua invisible en cada audio." %}</b> {% trans "Permite saber de qué licencia sale una locución aunque la recorten o la compriman." %}</li>
+      <li><b>{% trans "Registro firmado de cada operación." %}</b> {% trans "Cada audio queda vinculado con el locutor, el cliente, el proyecto, el contrato y el modelo de IA." %}</li>
+      <li><b>{% trans "Certificado verificable." %}</b> {% trans "Cualquiera puede comprobar con un código si una licencia es auténtica y sigue vigente." %}</li>
+    </ul>
+  </div>
+  <div class="panel">
+    <h3>{% trans "¿Has oído una voz usada sin permiso?" %}</h3>
+    <p>{% trans "Cuéntanoslo. Si nos envías el audio, comprobamos su marca de agua y abrimos una incidencia." %}</p>
+    <div class="row"><a class="btn ghost" href="{% url 'report' %}">{% trans "Denunciar un uso" %}</a><a href="{% url 'verify' %}">{% trans "Verificar una licencia" %}</a></div>
+  </div>
+</div></section>
+{% endblock %}

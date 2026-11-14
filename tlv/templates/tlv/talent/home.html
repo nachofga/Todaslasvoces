@@ -1,0 +1,52 @@
+{% extends "tlv/app.html" %}
+{% load i18n tlv_extras %}
+{% block title %}{% trans "Mi panel" %}{% endblock %}
+{% block app %}
+<div class="page-head">
+  <div><h1>{{ voice.name }}</h1><p><span class="chip {{ voice.status|tone }}">{{ voice.get_status_display }}</span>{% if voice.blocked %} <span class="chip bad">{% trans "Bloqueada por una incidencia" %}</span>{% endif %}</p></div>
+  {% voiceprint voice %}
+</div>
+
+{% if voice.status == "draft" or voice.status == "changes" %}
+  {% if voice.status == "changes" and voice.review_note %}<div class="note warn"><p><b>{% trans "El equipo te pide cambios:" %}</b> {{ voice.review_note }}</p></div>{% endif %}
+  <h2>{% trans "Pasos para crear tu voz digital" %}</h2>
+  <ol class="onboard">
+    {% for key, done in ready.steps %}
+    <li class="{% if done %}done{% endif %}">
+      {% if key == "profile" %}<div><b>{% trans "Completa tu perfil y los datos de tu voz" %}</b><span>{% trans "Nombre profesional, idiomas, estilos y tarifa orientativa." %}</span></div><a class="btn ghost small" href="{% url 'talent_profile' %}">{% if done %}{% trans "Editar" %}{% else %}{% trans "Completar" %}{% endif %}</a>
+      {% elif key == "identity" %}<div><b>{% trans "Verifica tu identidad" %}</b><span>{% trans "Sube tu documento. Solo lo ve el equipo de verificación." %}</span></div><a class="btn ghost small" href="{% url 'talent_identity' %}">{% if done %}{% trans "Ver" %}{% else %}{% trans "Subir" %}{% endif %}</a>
+      {% elif key == "samples" %}<div><b>{% trans "Sube tus muestras de voz" %}</b><span>{% blocktrans trimmed with have=ready.seconds|floatformat:0 need=ready.needed %}Llevas {{ have }} s válidos de {{ need }} s necesarios.{% endblocktrans %}</span></div><a class="btn ghost small" href="{% url 'talent_samples' %}">{% trans "Muestras" %}</a>
+      {% elif key == "verification" %}<div><b>{% trans "Demuestra que la voz es tuya" %}</b><span>{% trans "Graba en directo una frase aleatoria." %}</span></div><a class="btn ghost small" href="{% url 'talent_verification' %}">{% if done %}{% trans "Ver" %}{% else %}{% trans "Grabar" %}{% endif %}</a>
+      {% else %}<div><b>{% trans "Elige los usos y firma el contrato" %}</b><span>{% trans "Aceptas o rechazas cada categoría de uso, una a una." %}</span></div><a class="btn ghost small" href="{% url 'talent_contract' %}">{% if done %}{% trans "Ver" %}{% else %}{% trans "Firmar" %}{% endif %}</a>{% endif %}
+    </li>
+    {% endfor %}
+  </ol>
+  <form method="post" action="{% url 'talent_voice_action' 'enviar' %}">{% csrf_token %}
+    <button class="btn" {% if not ready.ready %}disabled{% endif %}>{% trans "Enviar mi voz a revisión" %}</button>
+    {% if not ready.ready %}<span class="muted small">{% trans "Completa todos los pasos para poder enviarla." %}</span>{% endif %}
+  </form>
+{% elif voice.status == "in_review" %}
+  <div class="note"><p><b>{% trans "Tu voz está en revisión." %}</b> {% trans "Comprobamos tu identidad, las muestras y la prueba de titularidad. Te avisaremos por correo, normalmente en uno o dos días laborables." %}</p></div>
+{% elif voice.status == "approved" %}
+  <div class="note ok"><p><b>{% trans "Tu voz digital está creada." %}</b> {% trans "Escúchala y actívala para publicarla en el catálogo." %}</p><a class="btn" href="{% url 'talent_listen' %}">{% trans "Escuchar mi voz digital" %}</a></div>
+{% elif voice.status == "revoked" %}
+  <div class="note bad"><p>{% trans "Has retirado la autorización de esta voz. Tu modelo de voz se ha eliminado." %}</p></div>
+{% endif %}
+
+{% if voice.status == "active" or voice.status == "paused" or voice.status == "revoked" %}
+<div class="grid g4">
+  <a class="stat {% if pending_count %}alert{% endif %}" href="{% url 'talent_requests' %}"><b>{{ pending_count }}</b><span>{% trans "Solicitudes por decidir" %}</span></a>
+  <div class="stat"><b>{{ licenses }}</b><span>{% trans "Licencias activas" %}</span></div>
+  <div class="stat"><b>{{ earned|eur }}</b><span>{% trans "Ingresos generados" %}</span></div>
+  <div class="stat"><b>{{ to_collect|eur }}</b><span>{% trans "Pendiente de cobro" %}</span></div>
+</div>
+{% endif %}
+
+{% if pending %}
+<div class="panel"><h2>{% trans "Solicitudes que esperan tu decisión" %}</h2>
+  <div class="table-wrap"><table class="data">
+    {% for r in pending %}<tr><td><a href="{% url 'talent_request' r.pk %}"><b>{{ r.project_name }}</b></a><div class="small muted">{{ r.client.company_name }} · {{ r.category.name }}</div></td>
+      <td class="num">{{ r.quoted_price|eur }}</td><td><span class="chip {{ r.status|tone }}">{{ r.get_status_display }}</span></td></tr>{% endfor %}
+  </table></div></div>
+{% endif %}
+{% endblock %}

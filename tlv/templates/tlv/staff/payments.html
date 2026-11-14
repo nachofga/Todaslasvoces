@@ -1,0 +1,18 @@
+{% extends "tlv/app.html" %}
+{% load i18n tlv_extras %}
+{% block title %}{% trans "Cobros" %}{% endblock %}
+{% block app %}
+<div class="page-head"><div><h1>{% trans "Cobros" %}</h1><p>{% trans "Confirma un cobro solo cuando veas la transferencia en el banco. Al confirmar se emite la licencia, la factura y el reparto." %}</p></div></div>
+<div class="panel"><h2>{% trans "Pendientes de confirmar" %}</h2>
+  {% if open %}<div class="table-wrap"><table class="data">
+    <thead><tr><th>{% trans "Concepto" %}</th><th>{% trans "Cliente" %}</th><th>{% trans "Proyecto" %}</th><th class="num">{% trans "Total" %}</th><th>{% trans "Estado" %}</th><th></th></tr></thead>
+    {% for p in open %}<tr><td class="mono"><b>{{ p.reference }}</b></td><td>{{ p.request.client.company_name }}</td>
+      <td><a href="{% url 'staff_request' p.request_id %}">{{ p.request.project_name }}</a></td><td class="num">{{ p.total|eur }}</td>
+      <td><span class="chip {{ p.status|tone }}">{{ p.get_status_display }}</span>{% if p.receipt %} <a href="{% url 'private_file' 'justificante' p.pk %}">{% trans "Justificante" %}</a>{% endif %}</td>
+      <td><form method="post" data-confirm="{% trans "¿Has visto esta transferencia en el banco?" %}">{% csrf_token %}<input type="hidden" name="payment" value="{{ p.pk }}"><button class="btn ok small">{% trans "Confirmar cobro" %}</button></form></td></tr>{% endfor %}
+  </table></div>{% else %}<p class="muted">{% trans "No hay cobros pendientes." %}</p>{% endif %}</div>
+<div class="panel"><h2>{% trans "Confirmados" %}</h2><div class="table-wrap"><table class="data">
+  {% for p in done %}<tr><td class="mono">{{ p.reference }}</td><td>{{ p.request.client.company_name }}</td><td><a href="{% url 'staff_request' p.request_id %}">{{ p.request.project_name }}</a></td>
+    <td class="num">{{ p.total|eur }}</td><td>{{ p.confirmed_at|date:"d/m/Y" }}</td><td>{{ p.invoice.number }}</td></tr>
+  {% empty %}<tr><td class="muted">—</td></tr>{% endfor %}</table></div></div>
+{% endblock %}

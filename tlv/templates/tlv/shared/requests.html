@@ -1,0 +1,22 @@
+{% extends "tlv/app.html" %}
+{% load i18n tlv_extras %}
+{% block title %}{% trans "Solicitudes" %}{% endblock %}
+{% block app %}
+<div class="page-head"><h1>{% if role == "client" %}{% trans "Solicitudes y licencias" %}{% else %}{% trans "Solicitudes" %}{% endif %}</h1>
+  {% if role == "client" %}<a class="btn" href="{% url 'catalog' %}">{% trans "Buscar una voz" %}</a>{% endif %}</div>
+<form method="get" class="row"><label for="estado" class="muted">{% trans "Estado" %}</label>
+  <select class="input" style="width:auto" id="estado" name="estado" onchange="this.form.submit()"><option value="">{% trans "Todos" %}</option>
+    {% for value, label in statuses %}<option value="{{ value }}" {% if status == value %}selected{% endif %}>{{ label }}</option>{% endfor %}</select>
+  <noscript><button class="btn small">{% trans "Filtrar" %}</button></noscript></form>
+{% if requests %}
+<div class="panel"><div class="table-wrap"><table class="data">
+  <thead><tr><th>{% trans "Proyecto" %}</th><th>{% if role == "client" %}{% trans "Voz" %}{% else %}{% trans "Cliente" %}{% endif %}</th>{% if role == "staff" %}<th>{% trans "Voz" %}</th>{% endif %}<th>{% trans "Uso" %}</th><th class="num">{% trans "Precio" %}</th><th>{% trans "Estado" %}</th><th>{% trans "Fecha" %}</th></tr></thead>
+  {% for r in requests %}<tr>
+    <td>{% if role == "client" %}<a href="{% url 'client_request' r.pk %}">{% elif role == "talent" %}<a href="{% url 'talent_request' r.pk %}">{% else %}<a href="{% url 'staff_request' r.pk %}">{% endif %}<b>{{ r.project_name }}</b></a><div class="small muted">{{ r.code }}</div></td>
+    <td>{% if role == "client" %}{{ r.voice.name }}{% else %}{{ r.client.company_name }}{% endif %}</td>{% if role == "staff" %}<td>{{ r.voice.name }}</td>{% endif %}
+    <td>{{ r.category.name }}</td><td class="num">{{ r.price|eur }}</td>
+    <td><span class="chip {{ r.status|tone }}">{{ r.get_status_display }}</span>{% if r.blocked %} <span class="chip bad">{% trans "Bloqueada" %}</span>{% endif %}</td>
+    <td>{{ r.created_at|date:"d/m/Y" }}</td></tr>{% endfor %}
+</table></div></div>
+{% else %}<div class="empty">{% if role == "client" %}{% trans "Todavía no has solicitado ninguna licencia. Elige una voz del catálogo para empezar." %}{% else %}{% trans "No hay solicitudes con este filtro." %}{% endif %}</div>{% endif %}
+{% endblock %}

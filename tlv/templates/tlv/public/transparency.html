@@ -1,0 +1,18 @@
+{% extends "tlv/base.html" %}
+{% load i18n tlv_extras %}
+{% block title %}{% trans "Registro de trazabilidad" %}{% endblock %}
+{% block main %}
+<div class="narrow section">
+  <h1>{% trans "Registro de trazabilidad" %}</h1>
+  <p>{% trans "Cada consentimiento, aprobación, cobro y audio generado se apunta en un registro encadenado: cada entrada incluye la huella de la anterior y va firmada. Si alguien modificara una entrada, la cadena dejaría de cuadrar." %}</p>
+  <div class="grid g3">
+    <div class="stat"><b>{{ status.entries|num }}</b><span>{% trans "Entradas" %}</span></div>
+    <div class="stat"><b>{% if status.ok %}{% trans "Íntegro" %}{% else %}{% trans "Roto" %}{% endif %}</b><span>{% trans "Estado de la cadena" %}</span></div>
+    <div class="stat"><b>{% if last %}{{ last.created_at|date:"d/m/Y" }}{% else %}—{% endif %}</b><span>{% trans "Última entrada" %}</span></div>
+  </div>
+  {% if last %}<p class="small muted" style="margin-top:1rem">{% trans "Huella de la última entrada" %}: <span class="mono">{{ last.hash }}</span></p>{% endif %}
+  <h2 style="margin-top:2rem">{% trans "Clave pública de firma" %}</h2>
+  <p class="small muted">Ed25519 · ID {{ key_id }}</p>
+  <pre class="key">{{ public_key }}</pre>
+</div>
+{% endblock %}

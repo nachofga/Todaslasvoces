@@ -1,0 +1,13 @@
+{% for field in form.visible_fields %}
+  {% if field.field.widget.input_type == "checkbox" and not field.field.widget.allow_multiple_selected %}
+    <div class="field"><label class="check">{{ field }} <span>{{ field.label }}</span></label>{{ field.errors }}</div>
+  {% elif field.field.widget.allow_multiple_selected and field.field.widget.input_type == "checkbox" %}
+    <fieldset class="field"><legend class="label">{{ field.label }}</legend><div class="checks">{{ field }}</div>
+      {% if field.help_text %}<div class="help">{{ field.help_text }}</div>{% endif %}{{ field.errors }}</fieldset>
+  {% else %}
+    <div class="field"><label for="{{ field.id_for_label }}">{{ field.label }}</label>{{ field }}
+      {% if field.help_text %}<div class="help">{{ field.help_text }}</div>{% endif %}{{ field.errors }}</div>
+  {% endif %}
+{% endfor %}
+{% for hidden in form.hidden_fields %}{{ hidden }}{% endfor %}
+{{ form.non_field_errors }}

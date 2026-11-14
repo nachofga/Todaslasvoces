@@ -1,0 +1,32 @@
+{% extends "tlv/base.html" %}
+{% load i18n tlv_extras %}
+{% block title %}{% trans "Catálogo de voces" %}{% endblock %}
+{% block main %}
+<div class="wrap" style="padding-top:2rem">
+  <div class="page-head"><div><h1>{% trans "Catálogo de voces" %}</h1>
+    <p>{% blocktrans trimmed count n=page.paginator.count %}{{ n }} voz disponible{% plural %}{{ n }} voces disponibles{% endblocktrans %}</p></div></div>
+  <form class="filters" method="get">
+    <div class="field"><label for="q">{% trans "Buscar" %}</label><input class="input" id="q" name="q" value="{{ request.GET.q }}" placeholder="{% trans "Nombre, estilo, rasgo…" %}"></div>
+    {% for param, label, options in filters %}
+      <div class="field"><label for="f-{{ param }}">{{ label }}</label>
+        <select class="input" id="f-{{ param }}" name="{{ param }}"><option value="">{% trans "Cualquiera" %}</option>
+          {% for value, text in options %}<option value="{{ value }}" {% if request.GET|get:param == value %}selected{% endif %}>{{ text }}</option>{% endfor %}
+        </select></div>
+    {% endfor %}
+    <div class="field"><label for="precio">{% trans "Precio máximo (€)" %}</label><input class="input" id="precio" name="precio" type="number" min="0" step="10" value="{{ request.GET.precio }}"></div>
+    <div class="field"><label for="orden">{% trans "Ordenar por" %}</label>
+      <select class="input" id="orden" name="orden"><option value="">{% trans "Más recientes" %}</option><option value="precio" {% if request.GET.orden == 'precio' %}selected{% endif %}>{% trans "Precio" %}</option></select></div>
+    <div class="row"><button class="btn">{% trans "Filtrar" %}</button>{% if has_filters %}<a href="{% url 'catalog' %}">{% trans "Quitar filtros" %}</a>{% endif %}</div>
+  </form>
+  {% if page.object_list %}
+    <ul class="voices">{% for voice in page.object_list %}{% include "tlv/parts/voice_row.html" %}{% endfor %}</ul>
+    {% if page.paginator.num_pages > 1 %}<div class="pager">
+      {% if page.has_previous %}<a class="btn ghost small" href="?{% qs pagina=page.previous_page_number %}">{% trans "Anterior" %}</a>{% endif %}
+      <span class="muted">{{ page.number }} / {{ page.paginator.num_pages }}</span>
+      {% if page.has_next %}<a class="btn ghost small" href="?{% qs pagina=page.next_page_number %}">{% trans "Siguiente" %}</a>{% endif %}
+    </div>{% endif %}
+  {% else %}
+    <div class="empty"><p>{% if has_filters %}{% trans "Ninguna voz encaja con estos filtros. Prueba a quitar alguno." %}{% else %}{% trans "Todavía no hay voces publicadas." %}{% endif %}</p></div>
+  {% endif %}
+</div>
+{% endblock %}

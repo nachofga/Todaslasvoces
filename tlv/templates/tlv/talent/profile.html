@@ -1,0 +1,14 @@
+{% extends "tlv/app.html" %}
+{% load i18n %}
+{% block title %}{% trans "Perfil y voz" %}{% endblock %}
+{% block app %}
+<div class="page-head"><div><h1>{% trans "Perfil y voz" %}</h1><p>{% trans "Lo que marques aquí es lo que verán los clientes en tu ficha del catálogo." %}</p></div>
+  {% if voice.is_public %}<a class="btn ghost small" href="{% url 'voice' voice.slug %}">{% trans "Ver mi ficha pública" %}</a>{% endif %}</div>
+<form method="post" class="stack" novalidate>{% csrf_token %}
+  <div class="panel"><h2>{% trans "Tu voz" %}</h2>{% include "tlv/parts/fields.html" with form=vform %}</div>
+  <div class="panel"><h2>{% trans "Tus datos" %}</h2>
+    <p class="muted small">{% trans "El nombre legal, el NIF y los datos de cobro no se publican: se usan para el contrato y para pagarte." %}</p>
+    {% include "tlv/parts/fields.html" with form=pform %}</div>
+  <div><button class="btn">{% trans "Guardar" %}</button></div>
+</form>
+{% endblock %}

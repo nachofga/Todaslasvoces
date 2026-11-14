@@ -1,0 +1,28 @@
+{% extends "tlv/app.html" %}
+{% load i18n tlv_extras %}
+{% block title %}{{ talent.stage_name }}{% endblock %}
+{% block app %}
+<div class="page-head"><div><h1>{{ talent.stage_name }}</h1><p>{{ talent.legal_name }} · {{ talent.user.email }}</p></div>
+  <span class="chip {{ talent.identity_status|tone }}">{% trans "Identidad" %}: {{ talent.get_identity_status_display }}</span></div>
+<div class="grid g2">
+  <div class="panel"><h2>{% trans "Datos" %}</h2><dl class="dl">
+    <dt>NIF</dt><dd>{{ talent.tax_id|default:"—" }}</dd><dt>{% trans "Teléfono" %}</dt><dd>{{ talent.phone|default:"—" }}</dd>
+    <dt>{% trans "Ubicación" %}</dt><dd>{{ talent.city }} {{ talent.country }}</dd>
+    <dt>IBAN</dt><dd class="mono">{{ talent.payout_iban|default:"—" }}</dd>
+    <dt>{% trans "Correo confirmado" %}</dt><dd>{{ talent.user.email_verified|yesno:_("Sí,No") }}</dd></dl></div>
+  <div class="panel"><h2>{% trans "Verificación de identidad" %}</h2>
+    {% if talent.identity_document %}<p><a class="btn ghost small" href="{% url 'private_file' 'identidad' talent.pk %}">{% trans "Abrir el documento" %}</a></p>
+      <p class="small muted">{% blocktrans trimmed with n=talent.legal_name %}Comprueba que el nombre es «{{ n }}» y que el documento es válido. Al decidir, el documento se borra.{% endblocktrans %}</p>
+      <form method="post" class="stack">{% csrf_token %}<input class="input" name="note" placeholder="{% trans "Motivo (si se rechaza)" %}">
+        <div class="row"><button class="btn ok" name="action" value="verify">{% trans "Identidad correcta" %}</button><button class="btn danger" name="action" value="reject">{% trans "Rechazar" %}</button></div></form>
+    {% else %}<p class="muted">{% if talent.identity_status == "verified" %}{% trans "Verificada. El documento ya se ha borrado." %}{% else %}{% trans "El locutor no ha subido ningún documento." %}{% endif %}</p>{% endif %}
+  </div>
+</div>
+<div class="panel"><h2>{% trans "Condiciones económicas" %}</h2>
+  <form method="post">{% csrf_token %}{% include "tlv/parts/fields.html" %}<button class="btn ghost">{% trans "Guardar" %}</button></form>
+  <p class="help">{% trans "Si la comisión específica se deja vacía, se aplica la comisión general de la plataforma." %}</p></div>
+<div class="panel"><h2>{% trans "Voces" %}</h2>
+  {% for v in voices %}<div class="clip"><div class="meta"><b><a href="{% url 'staff_voice' v.pk %}">{{ v.name }}</a></b></div><span class="chip {{ v.status|tone }}">{{ v.get_status_display }}</span></div>{% endfor %}</div>
+<form method="post" class="row" data-confirm="{% trans "¿Cambiar el estado de suspensión de esta cuenta?" %}">{% csrf_token %}<input class="input" style="max-width:20rem" name="note" placeholder="{% trans "Motivo" %}">
+  <button class="btn ghost small" name="action" value="suspend">{% if talent.user.suspended %}{% trans "Reactivar la cuenta" %}{% else %}{% trans "Suspender la cuenta" %}{% endif %}</button></form>
+{% endblock %}

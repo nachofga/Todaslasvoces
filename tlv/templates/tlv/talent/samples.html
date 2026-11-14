@@ -1,0 +1,19 @@
+{% extends "tlv/app.html" %}
+{% load i18n tlv_extras %}
+{% block title %}{% trans "Muestras de voz" %}{% endblock %}
+{% block app %}
+<div class="page-head"><div><h1>{% trans "Muestras de voz" %}</h1>
+  <p>{% blocktrans trimmed with have=ready.seconds|floatformat:0 need=ready.needed %}{{ have }} s válidos de {{ need }} s necesarios para crear tu voz.{% endblocktrans %}</p></div></div>
+<div class="grid g2">
+  <div class="panel"><h2>{% trans "Cómo grabar" %}</h2><ul class="facts small">{% for line in guide %}<li>{{ line }}</li>{% endfor %}</ul></div>
+  <div class="panel"><h2>{% trans "Subir una grabación" %}</h2>
+    <form method="post" enctype="multipart/form-data">{% csrf_token %}<input type="hidden" name="action" value="upload">
+      {% include "tlv/parts/fields.html" %}
+      <button class="btn" data-busy="{% trans "Analizando el audio…" %}">{% trans "Subir y comprobar" %}</button></form></div>
+</div>
+<div class="panel"><h2>{% trans "Muestras para crear tu voz digital" %}</h2>
+  {% for s in training %}{% include "tlv/talent/_sample.html" %}{% empty %}<p class="muted">{% trans "Todavía no has subido ninguna." %}</p>{% endfor %}</div>
+<div class="panel"><h2>{% trans "Muestras originales para el catálogo" %}</h2>
+  <p class="muted small">{% trans "Opcionales. Los clientes las escuchan junto a las demostraciones de IA para comparar." %}</p>
+  {% for s in showcase %}{% include "tlv/talent/_sample.html" %}{% empty %}<p class="muted">{% trans "Ninguna todavía." %}</p>{% endfor %}</div>
+{% endblock %}

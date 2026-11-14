@@ -1,0 +1,68 @@
+{% load i18n static tlv_extras %}<!doctype html>
+{% get_current_language as LANG %}
+<html lang="{{ LANG }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{% trans "Voces profesionales con IA y con permiso" %}{% endblock %} · Todas las Voces</title>
+  <meta name="description" content="{% trans "Marketplace de voces profesionales generadas con IA, con el consentimiento y la licencia del locutor." %}">
+  <link rel="preload" href="{% static 'tlv/fonts/bricolage-grotesque-latin-standard-normal.woff2' %}" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="{% static 'tlv/css/app.css' %}">
+  <link rel="icon" href="{% static 'tlv/img/favicon.svg' %}" type="image/svg+xml">
+</head>
+<body>
+{% if ENGINE_SIMULATED %}<div class="banner">{% trans "Modo de pruebas: el motor de voz es simulado. Las voces que se oyen no son clones reales." %}</div>{% endif %}
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="{% url 'home' %}">
+      <span class="brand-mark" aria-hidden="true"><i style="--h:8;--b:55"></i><i style="--h:46;--b:100"></i><i style="--h:162;--b:70"></i><i style="--h:222;--b:90"></i><i style="--h:292;--b:45"></i></span>
+      Todas las Voces
+    </a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="nav">{% trans "Menú" %}</button>
+    <nav class="nav" id="nav">
+      <a class="{{ request|active_nav:'/voces/' }}" href="{% url 'catalog' %}">{% trans "Voces" %}</a>
+      <a class="{{ request|active_nav:'/como-funciona/' }}" href="{% url 'how' %}">{% trans "Cómo funciona" %}</a>
+      {% if user.is_authenticated %}
+        <a href="{% url 'dashboard' %}">{% trans "Mi panel" %}</a>
+        <a class="bell" href="{% url 'notifications' %}">{% trans "Avisos" %}{% if unread_count %}<b>{{ unread_count }}</b>{% endif %}</a>
+        <form method="post" action="{% url 'logout' %}">{% csrf_token %}<button class="linklike">{% trans "Salir" %}</button></form>
+      {% else %}
+        <a href="{% url 'login' %}">{% trans "Entrar" %}</a>
+        <a class="btn small" href="{% url 'signup' %}">{% trans "Crear cuenta" %}</a>
+      {% endif %}
+      <form class="lang" method="post" action="{% url 'set_language' %}" aria-label="{% trans "Idioma" %}">{% csrf_token %}
+        <input type="hidden" name="next" value="{{ request.get_full_path }}">
+        <button name="language" value="es" aria-pressed="{% if LANG == 'es' %}true{% else %}false{% endif %}">ES</button>
+        <button name="language" value="en" aria-pressed="{% if LANG == 'en' %}true{% else %}false{% endif %}">EN</button>
+      </form>
+    </nav>
+  </div>
+</header>
+<main>
+  {% if messages %}<div class="wrap"><ul class="flash" role="status">{% for m in messages %}<li class="{{ m.tags }}">{{ m }}</li>{% endfor %}</ul></div>{% endif %}
+  {% block main %}{% endblock %}
+</main>
+<footer class="footer">
+  <div class="wrap cols">
+    <div>
+      <b>Todas las Voces</b>
+      <p class="small">{% trans "Voces de locutores reales, generadas con IA y usadas solo con su permiso." %}</p>
+    </div>
+    <div><b>{% trans "Plataforma" %}</b><ul>
+      <li><a href="{% url 'catalog' %}">{% trans "Catálogo de voces" %}</a></li>
+      <li><a href="{% url 'how' %}">{% trans "Cómo funciona" %}</a></li>
+      <li><a href="{% url 'verify' %}">{% trans "Verificar una licencia" %}</a></li>
+      <li><a href="{% url 'report' %}">{% trans "Denunciar un uso no autorizado" %}</a></li>
+    </ul></div>
+    <div><b>{% trans "Legal" %}</b><ul>
+      <li><a href="{% url 'legal' 'condiciones' %}">{% trans "Condiciones de uso" %}</a></li>
+      <li><a href="{% url 'legal' 'privacidad' %}">{% trans "Privacidad" %}</a></li>
+      <li><a href="{% url 'legal' 'cookies' %}">{% trans "Cookies" %}</a></li>
+      <li><a href="{% url 'legal' 'ia' %}">{% trans "Transparencia sobre IA" %}</a></li>
+      <li><a href="{% url 'transparency' %}">{% trans "Registro de trazabilidad" %}</a></li>
+    </ul></div>
+  </div>
+</footer>
+<script src="{% static 'tlv/js/app.js' %}" defer></script>
+</body>
+</html>

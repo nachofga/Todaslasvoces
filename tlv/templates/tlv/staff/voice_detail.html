@@ -1,0 +1,50 @@
+{% extends "tlv/app.html" %}
+{% load i18n tlv_extras %}
+{% block title %}{{ voice.name }}{% endblock %}
+{% block app %}
+<div class="page-head"><div><h1>{{ voice.name }}</h1>
+  <p><a href="{% url 'staff_talent' voice.talent_id %}">{{ voice.talent.legal_name }}</a> · <span class="chip {{ voice.status|tone }}">{{ voice.get_status_display }}</span>{% if voice.blocked %} <span class="chip bad">{% trans "Bloqueada" %}</span>{% endif %}</p></div>
+  {% voiceprint voice %}</div>
+<div class="panel"><h2>{% trans "Comprobaciones antes de aprobar" %}</h2>
+  <dl class="dl">
+    <dt>{% trans "Identidad" %}</dt><dd><span class="chip {{ voice.talent.identity_status|tone }}">{{ voice.talent.get_identity_status_display }}</span> <a href="{% url 'staff_talent' voice.talent_id %}">{% trans "Revisar" %}</a></dd>
+    <dt>{% trans "Contrato" %}</dt><dd>{% if contract %}{{ contract.code }} · {{ contract.signed_at|date:"d/m/Y H:i" }} · <a href="{% url 'staff_contract_pdf' contract.pk %}" target="_blank">PDF</a>{% else %}<span class="chip bad">{% trans "Sin firmar" %}</span>{% endif %}</dd>
+    <dt>{% trans "Muestras válidas" %}</dt><dd>{{ ready.seconds|floatformat:0 }} s / {{ ready.needed }} s</dd>
+    <dt>{% trans "Prueba de titularidad" %}</dt><dd>{% if verification %}<span class="chip {{ verification.status|tone }}">{{ verification.get_status_display }}</span>
+      {% trans "frase" %} {{ verification.text_score|default_if_none:"—" }} / 100 · {% trans "parecido de voz" %} {{ verification.speaker_score|default_if_none:"—" }} / 100 <span class="small muted">({% trans "orientativo" %})</span>{% else %}—{% endif %}</dd>
+    <dt>{% trans "Modelo de IA" %}</dt><dd>{% if voice.external_voice_id %}{{ voice.engine }} · {{ voice.engine_model }} · <span class="mono">{{ voice.external_voice_id }}</span>{% else %}{% trans "Todavía no clonada" %}{% endif %}</dd>
+  </dl>
+</div>
+{% if verification and verification.recording %}
+<div class="panel"><h2>{% trans "Prueba de titularidad" %}</h2>
+  <p class="muted small">{% trans "Escucha la frase grabada en directo y compárala con las muestras: debe ser la misma persona y decir la frase pedida." %}</p>
+  <p class="phrase" style="font-size:1.1rem">{{ verification.phrase }}</p>
+  {% if verification.transcript %}<p class="small"><b>{% trans "Transcripción automática" %}:</b> {{ verification.transcript }}</p>{% endif %}
+  <div class="clip" data-player>{% url 'media_verification' verification.pk as src %}{% include "tlv/parts/play.html" with src=src hue=voice.hue %}<div class="meta"><b>{% trans "Frase grabada en directo" %}</b><span>{{ verification.completed_at|date:"d/m/Y H:i" }}</span></div></div>
+  {% if verification.status == "review" %}<form method="post" class="row" style="margin-top:.8rem">{% csrf_token %}<input type="hidden" name="action" value="verification">
+    <button class="btn ok small" name="result" value="ok">{% trans "Es la misma voz" %}</button><button class="btn danger small" name="result" value="no">{% trans "No coincide" %}</button></form>{% endif %}
+</div>
+{% endif %}
+<div class="panel"><h2>{% trans "Muestras" %}</h2>
+  {% for s in samples %}<div class="clip" data-player>{% url 'media_sample' s.pk as src %}{% include "tlv/parts/play.html" with src=src hue=voice.hue size="small" %}
+    <div class="meta"><b>{{ s.get_kind_display }} · {{ s.original_name|default:"—" }}</b><span>{{ s.duration|dur }} · {{ s.sample_rate|num }} Hz · SNR {{ s.checks.metrics.snr_db|default:"—" }} dB · {% trans "pico" %} {{ s.checks.metrics.peak_db|default:"—" }} dB</span>
+      {% for issue in s.issues %}<div class="small" style="color:var(--{% if issue.level == 'error' %}bad{% else %}warn{% endif %})">{{ issue.text }}</div>{% endfor %}</div>
+    {% if s.ok %}<span class="chip ok">{% trans "Válida" %}</span>{% else %}<span class="chip bad">{% trans "No válida" %}</span>{% endif %}</div>
+  {% empty %}<p class="muted">—</p>{% endfor %}</div>
+<div class="panel"><h2>{% trans "Usos autorizados" %}</h2><p class="tags">
+  {% for c in consents %}<span class="tag" {% if not c.allowed %}style="text-decoration:line-through;opacity:.6"{% endif %}>{{ c.category.name }}</span>{% endfor %}</p>
+  {% if voice.restrictions %}<p><b>{% trans "Restricciones" %}:</b> {{ voice.restrictions }}</p>{% endif %}</div>
+{% if clips %}<div class="panel"><h2>{% trans "Demostraciones de IA" %}</h2>
+  {% for clip in clips %}<div class="clip" data-player>{% url 'media_generation' clip.generation_id 'mp3' as src %}{% include "tlv/parts/play.html" with src=src hue=voice.hue size="small" %}<div class="meta"><b>{{ clip.title }}</b><span>{{ clip.language }}</span></div></div>{% endfor %}</div>{% endif %}
+<div class="panel"><h2>{% trans "Decisión" %}</h2>
+  {% if voice.status == "in_review" %}
+    <p>{% trans "Al aprobar se envían las muestras al motor de voz, se crea el modelo y se generan las demostraciones. El locutor tendrá que escucharlas y activar la voz." %}</p>
+    <form method="post" class="stack">{% csrf_token %}<textarea class="input" name="note" rows="2" placeholder="{% trans "Qué debe cambiar el locutor (si pides cambios)" %}"></textarea>
+      <div class="row"><button class="btn ok" name="action" value="approve" data-busy="{% trans "Clonando la voz…" %}">{% trans "Aprobar y clonar la voz" %}</button>
+        <button class="btn ghost" name="action" value="changes">{% trans "Pedir cambios" %}</button></div></form>
+  {% else %}<p class="muted">{% trans "Esta voz no está pendiente de revisión." %}</p>{% endif %}
+  <form method="post" class="row" style="margin-top:1rem">{% csrf_token %}<input class="input" style="max-width:20rem" name="note" placeholder="{% trans "Motivo" %}">
+    <button class="btn ghost small" name="action" value="block">{% if voice.blocked %}{% trans "Quitar bloqueo" %}{% else %}{% trans "Bloquear usos nuevos" %}{% endif %}</button>
+    {% if voice.external_voice_id %}<button class="btn ghost small" name="action" value="demos" data-busy="{% trans "Generando…" %}">{% trans "Regenerar demostraciones" %}</button>{% endif %}</form>
+</div>
+{% endblock %}

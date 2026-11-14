@@ -1,0 +1,14 @@
+{% extends "tlv/app.html" %}
+{% load i18n tlv_extras %}
+{% block title %}{% trans "Registro" %}{% endblock %}
+{% block app %}
+<div class="page-head"><div><h1>{% trans "Registro de trazabilidad" %}</h1><p>{% trans "Cada entrada guarda la huella de la anterior y va firmada. Aquí puedes comprobar que nadie ha tocado nada." %}</p></div>
+  <form method="post">{% csrf_token %}<button class="btn" data-busy="{% trans "Comprobando…" %}">{% trans "Comprobar la cadena" %}</button></form></div>
+{% if status %}<div class="note {% if status.ok %}ok{% else %}bad{% endif %}"><p>{% if status.ok %}<b>{% trans "Registro íntegro." %}</b> {{ status.entries|num }} {% trans "entradas comprobadas." %}{% else %}<b>{% trans "El registro está roto" %}</b> ({% trans "entrada" %} #{{ status.broken_at }}): {{ status.reason }}{% endif %}</p></div>{% endif %}
+<form method="get" class="row"><input class="input" style="max-width:16rem" name="evento" value="{{ request.GET.evento }}" placeholder="{% trans "Filtrar por evento (p. ej. audio)" %}"><button class="btn ghost small">{% trans "Filtrar" %}</button><span class="small muted">{% trans "Clave" %} {{ key_id }}</span></form>
+<div class="panel"><div class="table-wrap"><table class="data">
+  <thead><tr><th>#</th><th>{% trans "Fecha" %}</th><th>{% trans "Evento" %}</th><th>{% trans "Quién" %}</th><th>{% trans "Datos" %}</th></tr></thead>
+  {% for e in entries %}<tr><td>{{ e.seq }}</td><td class="small">{{ e.created_at|date:"d/m/Y H:i:s" }}</td><td><b>{{ e.event }}</b></td><td class="small">{{ e.actor.email|default:"—" }}</td>
+    <td class="mono">{{ e.payload }}<div class="muted">{{ e.hash|slice:":20" }}…</div></td></tr>{% endfor %}
+</table></div></div>
+{% endblock %}

@@ -1,0 +1,121 @@
+{% extends "tlv/app.html" %}
+{% load i18n tlv_extras %}
+{% block title %}{{ req.project_name }}{% endblock %}
+{% block app %}
+<div class="page-head"><div><h1>{{ req.project_name }}</h1>
+  <p>{{ req.code }} · <span class="chip {{ req.status|tone }}">{{ req.get_status_display }}</span>{% if req.blocked %} <span class="chip bad">{% trans "Bloqueada por una incidencia" %}</span>{% endif %}</p></div>
+  <div class="quote" style="padding:.7rem 1rem"><span>{% trans "Precio sin IVA" %}</span><b style="font-size:1.5rem">{{ req.price|eur }}</b></div></div>
+
+{# --- Lo que toca hacer ahora, según el papel --- #}
+{% if role == "talent" and req.open_for_talent %}
+<div class="panel"><h2>{% trans "Tu decisión" %}</h2>
+  <p class="muted">{% trans "Lee el guion y las condiciones. Si apruebas, el cliente podrá pagar y generar la locución solo con este guion y para este uso." %}</p>
+  <form method="post" class="stack">{% csrf_token %}
+    <div class="grid g2">
+      <div class="field"><label for="id_price">{{ decision.price.label }}</label>{{ decision.price }}<div class="help">{% blocktrans trimmed with p=req.quoted_price|eur %}Presupuesto calculado con tus tarifas: {{ p }}. Si lo cambias, el cliente tendrá que aceptarlo.{% endblocktrans %}</div>{{ decision.price.errors }}</div>
+      <div class="field"><label for="id_note">{{ decision.note.label }}</label>{{ decision.note }}<div class="help">{% trans "Obligatorio para rechazar o pedir información." %}</div>{{ decision.note.errors }}</div>
+    </div>
+    <div class="row"><button class="btn ok" name="action" value="approve">{% trans "Aprobar" %}</button>
+      <button class="btn ghost" name="action" value="info">{% trans "Pedir más información" %}</button>
+      <button class="btn danger" name="action" value="reject" data-confirm="{% trans "¿Rechazar esta solicitud?" %}">{% trans "Rechazar" %}</button></div>
+  </form></div>
+{% endif %}
+
+{% if role == "client" %}
+  {% if req.status == "counter" %}
+  <div class="panel"><h2>{% trans "El locutor propone otro precio" %}</h2>
+    <p>{% blocktrans trimmed with a=req.counter_price|eur b=req.quoted_price|eur %}Propone <b>{{ a }}</b> en lugar de {{ b }} (sin IVA).{% endblocktrans %}</p>
+    <form method="post" class="row">{% csrf_token %}<input type="hidden" name="form" value="counter">
+      <button class="btn ok" name="answer" value="accept">{% trans "Aceptar el precio" %}</button>
+      <button class="btn ghost" name="answer" value="decline" data-confirm="{% trans "Si no aceptas, la solicitud se cancela." %}">{% trans "No aceptar" %}</button></form></div>
+  {% elif req.status == "info" %}
+  <div class="note warn"><p><b>{% trans "El locutor necesita más información." %}</b> {% trans "Respóndele en la conversación de abajo para que pueda decidir." %}</p></div>
+  {% elif req.status == "approved" and payment %}
+  <div class="panel"><h2>{% trans "Paga por transferencia para activar la licencia" %}</h2>
+    <dl class="dl"><dt>{% trans "Importe" %}</dt><dd><b>{{ payment.total|eur }}</b> ({{ payment.net|eur }} + {{ payment.vat|eur }} IVA)</dd>
+      <dt>{% trans "Beneficiario" %}</dt><dd>{{ cfg.bank_holder|default:cfg.company_name }}</dd>
+      <dt>IBAN</dt><dd class="mono">{{ cfg.bank_iban|default:"—" }}</dd>
+      <dt>{% trans "Concepto" %}</dt><dd><b class="mono">{{ payment.reference }}</b></dd></dl>
+    {% if payment.status == "reported" %}<div class="note" style="margin-top:1rem"><p>{% trans "Nos has avisado de la transferencia. Activaremos la licencia en cuanto la veamos en el banco (uno o dos días laborables)." %}</p></div>
+    {% else %}<form method="post" enctype="multipart/form-data" style="margin-top:1rem">{% csrf_token %}<input type="hidden" name="form" value="transfer">
+      {% include "tlv/parts/fields.html" with form=transfer_form %}<button class="btn">{% trans "Ya he hecho la transferencia" %}</button></form>{% endif %}
+  </div>
+  {% elif req.status == "active" %}
+  <div class="panel"><h2>{% trans "Tu locución" %}</h2>
+    {% if can_take %}<form method="post">{% csrf_token %}<input type="hidden" name="form" value="take">
+      <button class="btn" data-busy="{% trans "Generando el audio…" %}">{% if takes %}{% trans "Generar otra toma" %}{% else %}{% trans "Generar la locución" %}{% endif %}</button>
+      <span class="muted small">{% blocktrans trimmed with used=req.takes_used max=req.max_takes %}{{ used }} de {{ max }} tomas usadas.{% endblocktrans %}</span></form>
+    {% else %}<div class="note warn"><p>{{ can_take.message }}</p></div>{% endif %}
+    <p class="help">{% trans "Cada toma interpreta el mismo guion aprobado de forma ligeramente distinta. Para otro guion necesitas una licencia nueva." %}</p>
+  </div>
+  {% endif %}
+{% endif %}
+
+{% if takes %}
+<div class="panel"><h2>{% trans "Locuciones generadas" %}</h2>
+  {% for g in takes %}<div class="clip" data-player>{% url 'media_generation' g.pk 'mp3' as src %}{% include "tlv/parts/play.html" with src=src hue=req.voice.hue %}
+    <div class="meta"><b>{% trans "Toma" %} {{ g.take }}</b><span>{{ g.duration|dur }} · {{ g.created_at|date:"d/m/Y H:i" }} · ID {{ g.watermark_id }}</span></div>
+    {% if role != "talent" and can_download or role == "staff" %}<a class="btn ghost small" href="{% url 'media_generation' g.pk 'wav' %}?descargar=1">WAV</a><a class="btn ghost small" href="{{ src }}?descargar=1">MP3</a>{% endif %}</div>{% endfor %}
+</div>
+{% endif %}
+
+{% if req.license %}
+<div class="panel"><div class="row between"><h2 style="margin:0">{% trans "Licencia" %} {{ req.license.code }}</h2><span class="chip {{ req.license.status|tone }}">{{ req.license.get_status_display }}</span></div>
+  <p class="muted" style="margin-top:.5rem">{% trans "Emitida" %}: {{ req.license.issued_at|date:"d/m/Y" }} · {% trans "Válida hasta" %}: {% if req.license.valid_until %}{{ req.license.valid_until|date:"d/m/Y" }}{% else %}{% trans "Sin límite de tiempo" %}{% endif %}</p>
+  {% if role == "client" %}<div class="row"><a class="btn ghost small" href="{% url 'client_certificate' req.pk %}" target="_blank">{% trans "Certificado de licencia (PDF)" %}</a>
+    <a class="btn ghost small" href="{% url 'client_invoice' req.pk %}" target="_blank">{% trans "Factura (PDF)" %}</a>
+    <a href="{% url 'verify_code' req.license.code %}">{% trans "Página pública de verificación" %}</a></div>{% endif %}
+</div>
+{% endif %}
+
+{% if split %}
+<div class="panel"><h2>{% trans "Reparto" %}</h2><dl class="dl">
+  <dt>{% trans "Importe de la licencia (sin IVA)" %}</dt><dd>{{ split.net|eur }}</dd>
+  <dt>{% trans "Comisión de la plataforma" %} ({{ split.fee_percent|num:0 }} %)</dt><dd>{{ split.platform_amount|eur }}</dd>
+  {% if split.representative_amount %}<dt>{% trans "Representante" %}</dt><dd>{{ split.representative_amount|eur }}</dd>{% endif %}
+  <dt>{% if role == "talent" %}{% trans "Tu parte" %}{% else %}{% trans "Locutor" %}{% endif %}</dt><dd><b>{{ split.talent_amount|eur }}</b> <span class="chip {{ split.talent_payout|tone }}">{{ split.get_talent_payout_display }}</span></dd>
+</dl></div>
+{% endif %}
+
+<div class="grid g2">
+  <div class="panel"><h2>{% trans "Condiciones solicitadas" %}</h2><dl class="dl">
+    <dt>{% trans "Voz" %}</dt><dd><a href="{% url 'voice' req.voice.slug %}">{{ req.voice.name }}</a></dd>
+    <dt>{% trans "Cliente" %}</dt><dd>{{ req.client.company_name }}</dd>
+    <dt>{% trans "Categoría de uso" %}</dt><dd>{{ req.category.name }}</dd>
+    <dt>{% trans "Finalidad" %}</dt><dd>{{ req.purpose|linebreaksbr }}</dd>
+    <dt>{% trans "Sector o marca" %}</dt><dd>{{ req.sector }}</dd>
+    <dt>{% trans "Territorio" %}</dt><dd>{{ req.get_territory_display }}</dd>
+    <dt>{% trans "Canales de difusión" %}</dt><dd>{{ req.channel_labels|join:", " }}</dd>
+    <dt>{% trans "Duración" %}</dt><dd>{{ req.get_duration_months_display }}</dd>
+    {% if req.conditions %}<dt>{% trans "Otras condiciones" %}</dt><dd>{{ req.conditions|linebreaksbr }}</dd>{% endif %}
+    {% if req.decision_note %}<dt>{% trans "Motivo" %}</dt><dd>{{ req.decision_note }}</dd>{% endif %}
+  </dl></div>
+  <div class="panel"><h2>{% trans "Guion" %}</h2><div class="script">{{ req.script }}</div>
+    <p class="help">{{ req.script|length|num }} {% trans "caracteres" %}</p></div>
+</div>
+
+<div class="panel"><h2>{% trans "Conversación" %}</h2>
+  <div class="thread">{% for m in thread %}
+    <div class="msg {% if m.system %}system{% elif m.author_id == user.pk %}mine{% endif %}">
+      <header>{% if m.system %}{% trans "Sistema" %}{% else %}{{ m.author.display_name|default:"—" }}{% endif %} · {{ m.created_at|date:"d/m/Y H:i" }}</header>
+      {{ m.body|linebreaksbr }}{% if m.attachment %}<div><a href="{% url 'private_file' 'adjunto' m.pk %}">{% trans "Descargar adjunto" %}</a></div>{% endif %}</div>
+  {% empty %}<p class="muted">{% trans "Todavía no hay mensajes." %}</p>{% endfor %}</div>
+  {% if msg_form %}<form method="post" enctype="multipart/form-data" style="margin-top:1rem">{% csrf_token %}<input type="hidden" name="form" value="message">
+    {% include "tlv/parts/fields.html" with form=msg_form %}<button class="btn ghost">{% trans "Enviar mensaje" %}</button></form>{% endif %}
+</div>
+
+{% if role == "client" and req.status == "submitted" or role == "client" and req.status == "info" or role == "client" and req.status == "approved" and payment.status == "pending" %}
+<form method="post" data-confirm="{% trans "¿Cancelar esta solicitud?" %}">{% csrf_token %}<input type="hidden" name="form" value="cancel"><button class="btn ghost small">{% trans "Cancelar la solicitud" %}</button></form>
+{% endif %}
+
+{% if role == "staff" %}
+<div class="panel"><h2>{% trans "Acciones de gestión" %}</h2>
+  {% if payment %}<p>{% trans "Cobro" %} <b class="mono">{{ payment.reference }}</b>: <span class="chip {{ payment.status|tone }}">{{ payment.get_status_display }}</span> · {{ payment.total|eur }}
+    {% if payment.receipt %} · <a href="{% url 'private_file' 'justificante' payment.pk %}">{% trans "Justificante" %}</a>{% endif %}
+    {% if payment.status != "confirmed" and req.status == "approved" %} · <a href="{% url 'staff_payments' %}">{% trans "Ir a confirmar cobros" %}</a>{% endif %}</p>{% endif %}
+  <form method="post" class="row">{% csrf_token %}<input class="input" style="max-width:22rem" name="note" placeholder="{% trans "Motivo" %}">
+    <button class="btn ghost small" name="action" value="block">{% if req.blocked %}{% trans "Quitar bloqueo" %}{% else %}{% trans "Bloquear usos nuevos" %}{% endif %}</button>
+    {% if req.license and req.license.status == "active" %}<button class="btn danger small" name="action" value="revoke" data-confirm="{% trans "¿Anular la licencia?" %}">{% trans "Anular licencia" %}</button>{% endif %}</form>
+</div>
+{% endif %}
+{% endblock %}

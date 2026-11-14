@@ -1,0 +1,42 @@
+{% extends "tlv/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Cómo funciona" %}{% endblock %}
+{% block main %}
+<div class="wrap section">
+  <h1>{% trans "Cómo funciona" %}</h1>
+  <p class="lead" style="font-size:1.15rem">{% trans "Todas las Voces conecta a locutores profesionales con empresas que necesitan locuciones. La voz la pone una persona; la IA solo la reproduce cuando esa persona lo autoriza." %}</p>
+  <div class="grid g2" style="margin-top:2rem">
+    <section class="panel">
+      <h2>{% trans "Para clientes" %}</h2>
+      <ol class="steps">
+        <li><b>{% trans "Crea tu cuenta de empresa" %}</b><span>{% trans "Validamos tus datos antes de que puedas pedir licencias." %}</span></li>
+        <li><b>{% trans "Escucha y prueba" %}</b><span>{% trans "Muestras originales, demostraciones de IA y demos cortas con tu texto. Las demos no dan derechos de uso." %}</span></li>
+        <li><b>{% trans "Solicita la licencia" %}</b><span>{% trans "Guion, finalidad, sector, territorio, canales y duración. El presupuesto se calcula con la tarifa del locutor." %}</span></li>
+        <li><b>{% trans "Espera la aprobación" %}</b><span>{% trans "El locutor puede aprobar, rechazar, pedir información o proponer otro precio." %}</span></li>
+        <li><b>{% trans "Paga por transferencia" %}</b><span>{% trans "Cuando confirmamos el pago, la licencia queda activa y se emite la factura." %}</span></li>
+        <li><b>{% trans "Genera y descarga" %}</b><span>{% trans "Audio final en WAV y MP3 y certificado de licencia con código de verificación." %}</span></li>
+      </ol>
+    </section>
+    <section class="panel">
+      <h2>{% trans "Para locutores" %}</h2>
+      <ol class="steps">
+        <li><b>{% trans "Crea tu cuenta y verifica tu identidad" %}</b><span>{% trans "Un documento de identidad que solo ve el equipo de verificación y que se borra al revisarlo." %}</span></li>
+        <li><b>{% trans "Sube tus muestras" %}</b><span>{% trans "El sistema comprueba duración, ruido, saturación y calidad de cada grabación." %}</span></li>
+        <li><b>{% trans "Demuestra que la voz es tuya" %}</b><span>{% trans "Grabas en directo una frase aleatoria que nadie puede tener preparada." %}</span></li>
+        <li><b>{% trans "Elige los usos y firma" %}</b><span>{% trans "Aceptas o rechazas cada categoría de uso y firmas el contrato electrónicamente." %}</span></li>
+        <li><b>{% trans "Escucha tu voz digital y actívala" %}</b><span>{% trans "No se publica hasta que tú la apruebas. Después puedes pausarla o revocarla." %}</span></li>
+        <li><b>{% trans "Aprueba proyectos y cobra" %}</b><span>{% trans "Cada solicitud pasa por ti. En tu panel ves usos, ingresos y pagos." %}</span></li>
+      </ol>
+    </section>
+  </div>
+  <section style="margin-top:2.5rem">
+    <h2>{% trans "Preguntas frecuentes" %}</h2>
+    <div class="grid g2">
+      <div><h3>{% trans "¿De quién es la voz?" %}</h3><p>{% trans "Del locutor, siempre. La plataforma recibe una autorización limitada y revocable, nunca la propiedad de la voz." %}</p></div>
+      <div><h3>{% trans "¿Qué pasa si el locutor revoca su voz?" %}</h3><p>{% trans "Se elimina su modelo de voz y no se admiten usos nuevos. Las licencias ya pagadas siguen valiendo para los audios ya entregados." %}</p></div>
+      <div><h3>{% trans "¿Cómo se sabe de dónde sale un audio?" %}</h3><p>{% trans "Cada locución lleva una marca de agua invisible y queda apuntada en un registro firmado junto con su licencia." %}</p></div>
+      <div><h3>{% trans "¿Hay que avisar de que la voz es de IA?" %}</h3><p>{% trans "Sí, cuando la normativa lo exija. El certificado de licencia lo recuerda y los ficheros lo indican en sus metadatos." %}</p></div>
+    </div>
+  </section>
+</div>
+{% endblock %}

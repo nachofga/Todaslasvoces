@@ -1,0 +1,17 @@
+{% extends "tlv/app.html" %}
+{% load i18n tlv_extras %}
+{% block title %}{% trans "Clientes" %}{% endblock %}
+{% block app %}
+<div class="page-head"><h1>{% trans "Clientes" %}</h1></div>
+{% for c in clients %}
+<div class="panel"><div class="row between"><h3 style="margin:0">{{ c.company_name }}</h3>
+  <span><span class="chip {{ c.status|tone }}">{{ c.get_status_display }}</span>{% if c.blocked %} <span class="chip bad">{% trans "Bloqueado" %}</span>{% endif %}</span></div>
+  <p class="small muted" style="margin:.3rem 0 .6rem">{{ c.tax_id }} · {{ c.contact_name }} · {{ c.user.email }}{% if not c.user.email_verified %} ({% trans "sin confirmar" %}){% endif %} · {{ c.billing_address }}, {{ c.postal_code }} {{ c.city }}, {{ c.country }} · {{ c.n }} {% trans "solicitudes" %}</p>
+  <form method="post" class="row">{% csrf_token %}<input type="hidden" name="client" value="{{ c.pk }}">
+    <input class="input" style="max-width:20rem" name="note" placeholder="{% trans "Motivo" %}" value="{{ c.status_note }}">
+    {% if c.status != "verified" %}<button class="btn ok small" name="action" value="verify">{% trans "Validar" %}</button>{% endif %}
+    {% if c.status != "rejected" %}<button class="btn ghost small" name="action" value="reject">{% trans "Rechazar" %}</button>{% endif %}
+    <button class="btn ghost small" name="action" value="block">{% if c.blocked %}{% trans "Quitar bloqueo" %}{% else %}{% trans "Bloquear" %}{% endif %}</button></form>
+</div>
+{% empty %}<div class="empty">{% trans "Todavía no hay clientes." %}</div>{% endfor %}
+{% endblock %}

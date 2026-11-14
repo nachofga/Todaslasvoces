@@ -1,0 +1,34 @@
+{% extends "tlv/app.html" %}
+{% load i18n tlv_extras %}
+{% block title %}{% trans "Prueba de titularidad" %}{% endblock %}
+{% block app %}
+<div class="page-head"><div><h1>{% trans "Prueba de titularidad" %}</h1>
+  <p>{% trans "Para asegurarnos de que la voz de las muestras es la tuya, graba ahora, en directo, la frase que te damos." %}</p></div></div>
+{% if v and v.status != "pending" %}
+  <div class="note {% if v.status == 'passed' %}ok{% elif v.status == 'failed' %}bad{% endif %}">
+    <p><span class="chip {{ v.status|tone }}">{{ v.get_status_display }}</span> {{ v.detail }}</p>
+    {% if v.recording %}<div class="clip" data-player>{% url 'media_verification' v.pk as src %}{% include "tlv/parts/play.html" with src=src hue=voice.hue size="small" %}<div class="meta"><b>{% trans "Tu grabación" %}</b><span>{{ v.completed_at|date:"d/m/Y H:i" }}</span></div></div>{% endif %}
+  </div>
+  {% if voice.editable %}<form method="post">{% csrf_token %}<input type="hidden" name="action" value="new"><button class="btn ghost">{% trans "Repetir con una frase nueva" %}</button></form>{% endif %}
+{% elif v and not v.expired %}
+  <div class="panel" id="recorder" data-mic-error="{% trans "No hemos podido usar el micrófono. Sube un fichero grabado ahora." %}">
+    <p class="muted">{% trans "Lee esta frase con tu voz natural, a tu ritmo habitual:" %}</p>
+    <p class="phrase">{{ v.phrase }}</p>
+    <p class="small muted">{% blocktrans trimmed with t=v.expires_at|date:"H:i" %}La frase caduca a las {{ t }}.{% endblocktrans %}</p>
+    <form method="post" enctype="multipart/form-data">{% csrf_token %}
+      <div data-live class="row">
+        <button type="button" class="btn danger" data-start><span class="rec-dot" style="background:#fff"></span> {% trans "Empezar a grabar" %}</button>
+        <button type="button" class="btn hide" data-stop>{% trans "Parar" %}</button>
+        <span class="rec-dot"></span><span data-status class="muted">0:00</span>
+        <audio controls class="hide" style="max-width:100%"></audio>
+        <button class="btn ok hide" data-send data-busy="{% trans "Comprobando…" %}">{% trans "Enviar esta grabación" %}</button>
+      </div>
+      <div data-fallback class="hide field" style="margin-top:1rem"><label for="rec-file">{% trans "O sube un fichero que acabes de grabar" %}</label>
+        <input class="input" id="rec-file" type="file" name="recording" accept="audio/*"><button class="btn" style="margin-top:.6rem">{% trans "Enviar fichero" %}</button></div>
+    </form>
+  </div>
+{% else %}
+  <div class="panel"><p>{% trans "Cuando estés delante del micrófono, pide tu frase. Tendrás 15 minutos para grabarla." %}</p>
+    <form method="post">{% csrf_token %}<input type="hidden" name="action" value="new"><button class="btn">{% trans "Darme una frase" %}</button></form></div>
+{% endif %}
+{% endblock %}

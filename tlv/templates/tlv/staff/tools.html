@@ -1,0 +1,21 @@
+{% extends "tlv/app.html" %}
+{% load i18n tlv_extras %}
+{% block title %}{% trans "Herramientas" %}{% endblock %}
+{% block app %}
+<div class="page-head"><h1>{% trans "Herramientas" %}</h1></div>
+<div class="panel"><h2>{% trans "¿De dónde sale este audio?" %}</h2>
+  <p class="muted">{% trans "Sube un audio (aunque esté recortado o comprimido) para buscar su marca de agua y saber a qué licencia pertenece. Hacen falta unos 10 segundos seguidos para una lectura fiable." %}</p>
+  <form method="post" enctype="multipart/form-data">{% csrf_token %}{% include "tlv/parts/fields.html" %}<button class="btn" data-busy="{% trans "Analizando el audio…" %}">{% trans "Identificar" %}</button></form>
+  {% if result %}
+    {% if result.generation %}{% with g=result.generation %}<div class="note ok" style="margin-top:1rem"><p><b>{% if result.match == "hash" %}{% trans "Es exactamente un fichero entregado por la plataforma." %}{% else %}{% trans "Marca de agua reconocida." %}{% endif %}</b></p>
+      <dl class="dl"><dt>{% trans "Voz" %}</dt><dd>{{ g.voice.name }}</dd><dt>{% trans "Tipo" %}</dt><dd>{{ g.get_kind_display }}</dd><dt>{% trans "Generado" %}</dt><dd>{{ g.created_at|date:"d/m/Y H:i" }}</dd>
+        <dt>{% trans "Solicitud" %}</dt><dd>{% if g.request %}<a href="{% url 'staff_request' g.request_id %}">{{ g.request.code }}</a> · {{ g.request.client.company_name }}{% else %}{{ g.user.email|default:"—" }}{% endif %}</dd>
+        <dt>ID</dt><dd>{{ g.watermark_id }}</dd></dl></div>{% endwith %}
+    {% else %}<div class="note warn" style="margin-top:1rem"><p>{% if result.error %}{{ result.error }}{% else %}{% trans "No se ha reconocido ninguna marca de agua de la plataforma." %} ({% trans "señal" %} {{ result.score }}, {{ result.seconds }} s){% endif %}</p></div>{% endif %}
+  {% endif %}</div>
+<div class="panel"><h2>{% trans "Motor de voz" %}</h2>
+  <p>{% if ENGINE_SIMULATED %}{% trans "Ahora mismo se usa el motor simulado: no clona voces reales. Para conectar ElevenLabs, añade ELEVENLABS_API_KEY en la configuración del servidor." %}{% else %}{% trans "Motor real conectado." %}{% endif %}</p>
+  <a class="btn ghost small" href="?motor=1">{% trans "Comprobar la conexión y el consumo" %}</a>
+  {% if engine_error %}<div class="note bad" style="margin-top:1rem"><p>{{ engine_error }}</p></div>{% endif %}
+  {% if engine_status %}<dl class="dl" style="margin-top:1rem">{% for k, v in engine_status.items %}<dt>{{ k }}</dt><dd>{{ v|default_if_none:"—" }}</dd>{% endfor %}</dl>{% endif %}</div>
+{% endblock %}

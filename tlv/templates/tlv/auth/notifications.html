@@ -1,0 +1,10 @@
+{% extends "tlv/app.html" %}
+{% load i18n %}
+{% block title %}{% trans "Avisos" %}{% endblock %}
+{% block app %}
+<div class="page-head"><h1>{% trans "Avisos" %}</h1></div>
+{% if notes %}<div class="panel">
+  {% for n in notes %}<div class="clip"><div class="meta"><b>{% if not n.read_at %}<span class="chip info plain">{% trans "Nuevo" %}</span> {% endif %}{% if n.url %}<a href="{{ n.url }}">{{ n.title }}</a>{% else %}{{ n.title }}{% endif %}</b>
+    {% if n.body %}<span>{{ n.body|truncatechars:240 }}</span>{% endif %}</div><span class="small muted">{{ n.created_at|date:"d/m H:i" }}</span></div>{% endfor %}
+</div>{% else %}<div class="empty">{% trans "No tienes avisos." %}</div>{% endif %}
+{% endblock %}

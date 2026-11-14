@@ -1,0 +1,19 @@
+{% extends "tlv/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Denunciar un uso no autorizado" %}{% endblock %}
+{% block main %}
+<div class="narrow section">
+  <h1>{% trans "Denunciar un uso no autorizado" %}</h1>
+  {% if sent %}
+    <div class="note ok"><p><b>{% blocktrans trimmed with code=sent.code %}Denuncia {{ code }} recibida.{% endblocktrans %}</b> {% trans "La revisaremos y te escribiremos al correo que nos has dado." %}</p>
+      {% if sent.detection.match %}<p>{% trans "Hemos identificado el audio como generado en la plataforma. Esto acelera la investigación." %}</p>{% endif %}</div>
+  {% else %}
+    <p>{% trans "Si crees que una voz del catálogo se está usando sin licencia, o fuera de las condiciones de su licencia, cuéntanoslo. No necesitas tener cuenta." %}</p>
+    <form method="post" enctype="multipart/form-data" class="panel">{% csrf_token %}
+      <div class="sr" aria-hidden="true"><label>Web <input name="website" tabindex="-1" autocomplete="off"></label></div>
+      {% include "tlv/parts/fields.html" %}
+      <button class="btn" data-busy="{% trans "Enviando…" %}">{% trans "Enviar denuncia" %}</button>
+    </form>
+  {% endif %}
+</div>
+{% endblock %}

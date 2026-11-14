@@ -1,0 +1,13 @@
+{% extends "tlv/app.html" %}
+{% load i18n tlv_extras %}
+{% block title %}{% trans "Privacidad" %}{% endblock %}
+{% block app %}
+<div class="page-head"><div><h1>{% trans "Solicitudes de privacidad" %}</h1><p>{% trans "Plazo legal de respuesta: un mes. La supresión retira las voces, borra grabaciones y anonimiza la cuenta." %}</p></div></div>
+<div class="panel"><div class="table-wrap"><table class="data">
+  <thead><tr><th>{% trans "Usuario" %}</th><th>{% trans "Tipo" %}</th><th>{% trans "Estado" %}</th><th>{% trans "Fecha" %}</th><th></th></tr></thead>
+  {% for r in requests %}<tr><td>{{ r.user.email }}</td><td>{{ r.get_kind_display }}</td><td><span class="chip {{ r.status|tone }}">{{ r.get_status_display }}</span></td><td>{{ r.created_at|date:"d/m/Y" }}</td>
+    <td>{% if r.status == "open" %}<form method="post" class="row" data-confirm="{% trans "Esta acción no se puede deshacer. ¿Continuar?" %}">{% csrf_token %}<input type="hidden" name="request" value="{{ r.pk }}">
+      <button class="btn danger small" name="action" value="execute">{% trans "Suprimir la cuenta" %}</button><button class="btn ghost small" name="action" value="reject">{% trans "Denegar" %}</button></form>{% endif %}</td></tr>
+  {% empty %}<tr><td colspan="5" class="muted">{% trans "No hay solicitudes." %}</td></tr>{% endfor %}
+</table></div></div>
+{% endblock %}

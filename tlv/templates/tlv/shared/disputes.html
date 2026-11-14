@@ -1,0 +1,19 @@
+{% extends "tlv/app.html" %}
+{% load i18n tlv_extras %}
+{% block title %}{% trans "Incidencias" %}{% endblock %}
+{% block app %}
+<div class="page-head"><div><h1>{% trans "Incidencias" %}</h1>
+  <p>{% if role == "talent" %}{% trans "Avísanos si crees que tu voz se ha usado sin permiso o fuera de las condiciones que aprobaste." %}{% else %}{% trans "Avísanos de cualquier problema con una licencia o de un uso indebido que hayas detectado." %}{% endif %}</p></div></div>
+<div class="panel"><h2>{% trans "Abrir una incidencia" %}</h2>
+  <form method="post" enctype="multipart/form-data">{% csrf_token %}{% include "tlv/parts/fields.html" %}
+    <button class="btn" data-busy="{% trans "Enviando…" %}">{% trans "Abrir incidencia" %}</button></form></div>
+{% for d in disputes %}
+<div class="panel"><div class="row between"><h3 style="margin:0">{{ d.code }}</h3><span class="chip {{ d.status|tone }}">{{ d.get_status_display }}</span></div>
+  <p class="small muted">{{ d.created_at|date:"d/m/Y H:i" }}{% if d.block_voice or d.block_request %} · {% trans "Usos nuevos bloqueados mientras se investiga" %}{% endif %}</p>
+  <p>{{ d.description|linebreaksbr }}</p>
+  {% if d.detection.match %}<div class="note ok"><p>{% trans "Hemos identificado el audio como generado en la plataforma." %}</p></div>{% endif %}
+  {% for n in d.notes.all %}{% if not n.internal %}<div class="msg"><header>{% trans "Equipo de Todas las Voces" %} · {{ n.created_at|date:"d/m/Y H:i" }}</header>{{ n.body|linebreaksbr }}</div>{% endif %}{% endfor %}
+  {% if d.resolution %}<div class="note"><p><b>{% trans "Resolución" %}:</b> {{ d.resolution|linebreaksbr }}</p></div>{% endif %}
+</div>
+{% endfor %}
+{% endblock %}

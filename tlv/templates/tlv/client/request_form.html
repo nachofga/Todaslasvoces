@@ -1,0 +1,17 @@
+{% extends "tlv/app.html" %}
+{% load i18n tlv_extras %}
+{% block title %}{% trans "Solicitar licencia" %}{% endblock %}
+{% block app %}
+<div class="page-head"><div><h1>{% trans "Solicitar licencia" %}</h1><p>{% blocktrans trimmed with v=voice.name %}Voz: <b>{{ v }}</b>. El locutor verá esta solicitud y decidirá si la aprueba.{% endblocktrans %}</p></div>{% voiceprint voice %}</div>
+<form method="post" novalidate class="grid" style="grid-template-columns:minmax(0,1fr)">{% csrf_token %}
+  <div class="cols-voice" style="padding-top:0">
+    <div class="panel">{% include "tlv/parts/fields.html" %}
+      <button class="btn">{% trans "Enviar solicitud al locutor" %}</button></div>
+    <aside class="stack" style="position:sticky;top:84px">
+      <div class="quote" id="quote" data-url="{% url 'client_quote' voice.slug %}"><span>{% trans "Presupuesto sin IVA" %}</span><b data-net>—</b><span>{% trans "Total con IVA" %}: <span data-total>—</span></span></div>
+      <div class="panel small"><p>{% trans "El precio se calcula con la tarifa del locutor para la categoría elegida, el territorio y la duración. El locutor puede aceptarlo o proponerte otro." %}</p>
+        <p style="margin:0">{% trans "No pagas nada hasta que el locutor apruebe." %}</p></div>
+    </aside>
+  </div>
+</form>
+{% endblock %}

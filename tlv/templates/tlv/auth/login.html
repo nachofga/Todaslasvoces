@@ -1,0 +1,13 @@
+{% extends "tlv/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Entrar" %}{% endblock %}
+{% block main %}
+<div class="narrow section" style="max-width:460px">
+  <h1>{% trans "Entrar" %}</h1>
+  <form method="post" class="panel">{% csrf_token %}<input type="hidden" name="next" value="{{ next }}">
+    {% include "tlv/parts/fields.html" %}
+    <div class="row between"><button class="btn">{% trans "Entrar" %}</button><a href="{% url 'password_reset' %}">{% trans "He olvidado mi contraseña" %}</a></div>
+  </form>
+  <p style="margin-top:1rem">{% trans "¿No tienes cuenta?" %} <a href="{% url 'signup' %}">{% trans "Crear cuenta" %}</a></p>
+</div>
+{% endblock %}

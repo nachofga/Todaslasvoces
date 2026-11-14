@@ -1,0 +1,14 @@
+{% extends "tlv/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Crear cuenta" %}{% endblock %}
+{% block main %}
+<div class="narrow section">
+  <h1>{% if kind == "talent" %}{% trans "Cuenta de locutor" %}{% else %}{% trans "Cuenta de cliente" %}{% endif %}</h1>
+  <p class="muted">{% if kind == "talent" %}{% trans "Después podrás completar tu perfil, subir tus muestras y firmar el contrato." %}{% else %}{% trans "Validaremos los datos de tu empresa antes de que puedas solicitar licencias." %}{% endif %}</p>
+  <form method="post" class="panel" novalidate>{% csrf_token %}
+    {% include "tlv/parts/fields.html" %}
+    <button class="btn">{% trans "Crear cuenta" %}</button>
+    <p class="help" style="margin-top:.8rem"><a href="{% url 'legal' 'condiciones' %}" target="_blank">{% trans "Condiciones de uso" %}</a> · <a href="{% url 'legal' 'privacidad' %}" target="_blank">{% trans "Privacidad" %}</a></p>
+  </form>
+</div>
+{% endblock %}

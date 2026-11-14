@@ -1,0 +1,17 @@
+{% extends "tlv/app.html" %}
+{% load i18n tlv_extras %}
+{% block title %}{% trans "Pagos a locutores" %}{% endblock %}
+{% block app %}
+<div class="page-head"><div><h1>{% trans "Pagos a locutores" %}</h1><p>{% blocktrans trimmed with a=owed|eur %}Pendiente de pagar: <b>{{ a }}</b>.{% endblocktrans %} {% trans "Haz la transferencia desde el banco y regístrala aquí." %}</p></div></div>
+<div class="panel"><h2>{% trans "Pendientes" %}</h2>
+  {% if open %}<div class="table-wrap"><table class="data">
+    <thead><tr><th>{% trans "Locutor" %}</th><th>IBAN</th><th>{% trans "Proyecto" %}</th><th class="num">{% trans "Locutor" %}</th><th class="num">{% trans "Representante" %}</th><th></th></tr></thead>
+    {% for s in open %}<tr><td><a href="{% url 'staff_talent' s.talent_id %}">{{ s.talent.legal_name }}</a></td><td class="mono">{{ s.talent.payout_iban|default:"—" }}</td>
+      <td><a href="{% url 'staff_request' s.payment.request_id %}">{{ s.payment.request.project_name }}</a></td><td class="num"><b>{{ s.talent_amount|eur }}</b></td>
+      <td class="num">{% if s.representative %}{{ s.representative_amount|eur }}<div class="small muted">{{ s.representative.name }}</div>{% else %}—{% endif %}</td>
+      <td><form method="post" class="row">{% csrf_token %}<input type="hidden" name="split" value="{{ s.pk }}"><input class="input" style="width:10rem" name="reference" placeholder="{% trans "Ref. transferencia" %}"><button class="btn ok small">{% trans "Marcar pagado" %}</button></form></td></tr>{% endfor %}
+  </table></div>{% else %}<p class="muted">{% trans "No hay pagos pendientes." %}</p>{% endif %}</div>
+<div class="panel"><h2>{% trans "Pagados" %}</h2><div class="table-wrap"><table class="data">
+  {% for s in done %}<tr><td>{{ s.talent.legal_name }}</td><td>{{ s.payment.request.project_name }}</td><td class="num">{{ s.talent_amount|eur }}</td><td>{{ s.talent_paid_at|date:"d/m/Y" }}</td><td class="small">{{ s.talent_payout_ref }}</td></tr>
+  {% empty %}<tr><td class="muted">—</td></tr>{% endfor %}</table></div></div>
+{% endblock %}

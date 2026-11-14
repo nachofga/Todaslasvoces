@@ -1,0 +1,7 @@
+{% extends "tlv/base.html" %}
+{% block main %}
+<div class="wrap app">
+  {% include "tlv/parts/side.html" %}
+  <div class="stack">{% block app %}{% endblock %}</div>
+</div>
+{% endblock %}
