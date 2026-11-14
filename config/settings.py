@@ -37,7 +37,7 @@ if not DEBUG and SECRET_KEY.startswith("dev-only") and env("TLV_ALLOW_DEV_SECRET
     if env("RENDER") or env("TLV_PRODUCTION") == "1":
         raise RuntimeError("Falta la variable SECRET_KEY en producción.")
 
-ALLOWED_HOSTS = [h.strip() for h in env("ALLOWED_HOSTS", "localhost,127.0.0.1,testserver").split(",") if h.strip()]
+ALLOWED_HOSTS = [h.strip() for h in (env("ALLOWED_HOSTS") or "localhost,127.0.0.1,testserver").split(",") if h.strip()]
 if env("RENDER_EXTERNAL_HOSTNAME"):
     ALLOWED_HOSTS.append(env("RENDER_EXTERNAL_HOSTNAME"))
 if env("RAILWAY_PUBLIC_DOMAIN"):
@@ -57,6 +57,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "tlv.middleware.HealthMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -170,14 +171,14 @@ TLV_MAX_UPLOAD_MB = int(env("TLV_MAX_UPLOAD_MB", "40"))
 if env("EMAIL_HOST"):
     EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
     EMAIL_HOST = env("EMAIL_HOST")
-    EMAIL_PORT = int(env("EMAIL_PORT", "587"))
+    EMAIL_PORT = int(env("EMAIL_PORT") or "587")
     EMAIL_HOST_USER = env("EMAIL_HOST_USER")
     EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
     EMAIL_USE_TLS = env_bool("EMAIL_USE_TLS", True)
     EMAIL_TIMEOUT = 15
 else:
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", "Todas las Voces <no-responder@todaslasvoces.local>")
+DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL") or "Todas las Voces <no-responder@todaslasvoces.local>"
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 # --- Todas las Voces ---------------------------------------------------------
