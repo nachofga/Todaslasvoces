@@ -380,6 +380,16 @@ def tools(request):
             engine_status = get_engine().status()
         except EngineError as exc:
             engine_error = str(exc)
+    if request.GET.get("motor"):
+        import subprocess
+
+        from ..services import audio
+
+        try:
+            out = subprocess.run([audio.ffmpeg_bin(), "-version"], capture_output=True, timeout=20).stdout.decode()[:60]
+            engine_status = {**(engine_status or {}), "conversor de audio (ffmpeg)": out.splitlines()[0] if out else "no responde"}
+        except Exception as exc:
+            engine_status = {**(engine_status or {}), "conversor de audio (ffmpeg)": f"NO DISPONIBLE: {exc}"}
     return render(request, "tlv/staff/tools.html", {
         "form": form, "result": result, "engine_status": engine_status, "engine_error": engine_error,
     })

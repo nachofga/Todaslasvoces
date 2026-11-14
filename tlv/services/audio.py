@@ -35,18 +35,46 @@ def ffmpeg_bin():
 
 def decode(data: bytes):
     """Devuelve (array mono float32, frecuencia de muestreo) de cualquier formato."""
+    if not data:
+        raise AudioError("El fichero ha llegado vacío. Vuelve a subirlo.")
+    first_error = ""
     try:
         arr, sr = sf.read(io.BytesIO(data), dtype="float32", always_2d=True)
-        return arr.mean(axis=1), int(sr)
-    except Exception:
-        pass
-    # Formatos que libsndfile no abre (webm/opus del navegador, m4a, aac...).
-    proc = subprocess.run(
-        [ffmpeg_bin(), "-v", "error", "-i", "pipe:0", "-f", "f32le", "-ac", "1", "-ar", str(TARGET_SR), "pipe:1"],
-        input=data, capture_output=True, timeout=120,
-    )
+        if len(arr):
+            return arr.mean(axis=1), int(sr)
+        first_error = "sin muestras"
+    except Exception as exc:
+        first_error = str(exc)
+    # Formatos que libsndfile no abre (webm/opus del navegador, m4a, aac, WAV poco habituales...).
+    # Se pasa por un fichero temporal: muchos formatos necesitan poder "rebobinar" y no se leen por tubería.
+    import logging
+    import os
+    import tempfile
+
+    log = logging.getLogger("tlv")
+    fd, path = tempfile.mkstemp(suffix=".audio")
+    try:
+        with os.fdopen(fd, "wb") as fh:
+            fh.write(data)
+        proc = subprocess.run(
+            [ffmpeg_bin(), "-v", "error", "-nostdin", "-i", path, "-vn", "-f", "f32le", "-ac", "1", "-ar", str(TARGET_SR), "pipe:1"],
+            capture_output=True, timeout=180,
+        )
+        detail = proc.stderr.decode("utf-8", "replace").strip().splitlines()[-1:] if proc.returncode else []
+    except AudioError:
+        raise
+    except Exception as exc:
+        log.error("ffmpeg no disponible: %s", exc)
+        raise AudioError(f"No se ha podido leer el audio (conversor no disponible: {exc.__class__.__name__}).") from exc
+    finally:
+        try:
+            os.unlink(path)
+        except OSError:
+            pass
     if proc.returncode != 0 or not proc.stdout:
-        raise AudioError("No se ha podido leer el audio. Usa WAV, FLAC, MP3, M4A u OGG.")
+        reason = (detail[0] if detail else first_error)[:160]
+        log.warning("Audio ilegible (%s bytes, cabecera %r): libsndfile=%s · ffmpeg=%s", len(data), data[:12], first_error, detail)
+        raise AudioError(f"No se ha podido leer el audio. Usa WAV, FLAC, MP3, M4A u OGG. Detalle técnico: {reason}")
     return np.frombuffer(proc.stdout, dtype="<f4").copy(), TARGET_SR
 
 
