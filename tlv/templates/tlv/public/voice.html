@@ -32,6 +32,7 @@
         {% if demo_gate %}
           <form id="demo-form" method="post" action="{% url 'client_demo' voice.slug %}" data-error="{% trans "No se ha podido generar la demo." %}">{% csrf_token %}
             <textarea class="input" name="text" maxlength="{{ cfg.demo_max_chars }}" data-count="1" rows="3" required placeholder="{% trans "Escribe una frase de tu guion…" %}"></textarea>
+            {% include "tlv/parts/direction.html" %}
             <div class="row" style="margin-top:.7rem">
               <button class="btn" data-busy-text="{% trans "Generando…" %}">{% trans "Generar demo" %}</button>
               <span class="hide row" data-player>{% include "tlv/parts/play.html" with src="" hue=voice.hue size="small" %}<span class="small muted">{% trans "Tu demo" %}</span></span>

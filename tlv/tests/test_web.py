@@ -217,10 +217,17 @@ class LicenseWebTests(TlvTestCase):
 
         # el cliente genera, descarga y obtiene certificado y factura
         c.logout(); self.login(self.client_user)
-        c.post(url_c, {"form": "take"})
+        self.assertContains(c.get(url_c), "dir_tone")
+        c.post(url_c, {"form": "take", "dir_tone": "calm", "dir_speed": "0.9", "dir_boost_sent": "1", "dir_boost": "on"})
         gen = Generation.objects.get(request=req, kind="final")
         self.assertEqual(gen.text, "Llega la primavera. Llega tu momento.")
+        self.assertEqual((gen.direction["tone"], gen.direction["speed"], gen.direction["boost"]), ("calm", 0.9, True))
+        from tlv.services import insight
+        self.assertEqual(insight.stage_of(req)["key"], "generated")
         wav = c.get(reverse("media_generation", args=[gen.pk, "wav"]) + "?descargar=1")
+        gen.refresh_from_db()
+        self.assertEqual(gen.downloads, 1)
+        self.assertEqual(insight.stage_of(req)["key"], "delivered")
         self.assertEqual(wav.status_code, 200)
         self.assertIn("attachment", wav["Content-Disposition"])
         self.assertEqual(b"".join(wav.streaming_content)[:4], b"RIFF")
@@ -249,8 +256,19 @@ class LicenseWebTests(TlvTestCase):
         self.assertEqual(c.get(reverse("media_generation", args=[gen.pk, "wav"])).status_code, 404)
         self.assertEqual(c.get(reverse("talent_statement", args=[split.pk])).content[:4], b"%PDF")
 
-        # gestión paga al locutor
+        # gestión paga al locutor, y ve la solicitud entregada, su historial y el audio
         c.logout(); self.login(self.staff)
+        page = c.get(reverse("staff_request", args=[req.pk]))
+        self.assertContains(page, "Audio descargado")
+        self.assertContains(page, "Calmado y relajado")
+        self.assertContains(page, "Cobro confirmado")
+        self.assertContains(c.get(reverse("staff_requests") + "?fase=delivered"), req.code)
+        self.assertNotContains(c.get(reverse("staff_requests") + "?fase=requested"), req.code)
+        self.assertContains(c.get(reverse("staff_client", args=[req.client_id])), "descargada 1 vez")
+        self.assertContains(c.get(reverse("staff_audios") + "?tipo=final"), reverse("media_generation", args=[gen.pk, "mp3"]))
+        self.assertEqual(c.get(reverse("media_generation", args=[gen.pk, "mp3"])).status_code, 200)
+        gen.refresh_from_db()
+        self.assertEqual(gen.downloads, 1)      # escuchar o descargar desde gestión no cuenta como entrega
         c.post(reverse("staff_payouts"), {"split": split.pk, "reference": "TR-1"})
         split.refresh_from_db()
         self.assertEqual(split.talent_payout, "paid")
@@ -339,7 +357,7 @@ class PagesAndPrivacyTests(TlvTestCase):
     TALENT = ["talent_home", "talent_profile", "talent_identity", "talent_samples", "talent_verification", "talent_contract",
               "talent_listen", "talent_requests", "talent_earnings", "talent_disputes", "notifications", "account"]
     CLIENT = ["client_home", "client_profile", "client_requests", "client_disputes", "notifications", "account"]
-    STAFF = ["staff_home", "staff_talents", "staff_clients", "staff_voices", "staff_requests", "staff_payments", "staff_payouts",
+    STAFF = ["staff_home", "staff_talents", "staff_clients", "staff_audios", "staff_voices", "staff_requests", "staff_payments", "staff_payouts",
              "staff_settings", "staff_categories", "staff_disputes", "staff_ledger", "staff_reports", "staff_tools", "staff_privacy"]
 
     def _all_ok(self, names, lang):
@@ -364,7 +382,8 @@ class PagesAndPrivacyTests(TlvTestCase):
             self.login(self.client_user); self._all_ok(self.CLIENT, lang)
             self.assertEqual(self.client.get(url("client_request", self.req.pk)).status_code, 200)
             self.login(self.staff); self._all_ok(self.STAFF, lang)
-            for name, pk in (("staff_request", self.req.pk), ("staff_voice", self.voice.pk), ("staff_talent", self.voice.talent_id)):
+            for name, pk in (("staff_request", self.req.pk), ("staff_voice", self.voice.pk), ("staff_talent", self.voice.talent_id),
+                             ("staff_client", self.req.client_id)):
                 self.assertEqual(self.client.get(url(name, pk)).status_code, 200, name)
 
     def test_la_interfaz_esta_traducida_al_ingles(self):

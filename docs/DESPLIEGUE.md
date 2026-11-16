@@ -108,3 +108,31 @@ S3) en vez de disco: `pip install "django-storages[s3]"` y las variables `TLV_S3
 - Con el plan estándar de ElevenLabs los audios se procesan fuera de la UE; la residencia de datos en
   la UE y la «retención cero» son de su plan Enterprise.
 - Facturación: validar con el asesor fiscal antes de quitar el modo proforma.
+
+
+## Activar el correo (por API, sin SMTP)
+
+Render permite SMTP en los planes de pago (puertos 465 y 587; el 25 está siempre cerrado),
+pero lo más sencillo y robusto es enviar por API web:
+
+1. Crea una cuenta gratuita en https://www.brevo.com (300 correos al día).
+2. En Brevo → *Remitentes*, añade y verifica la dirección desde la que se enviará.
+   Sin dominio propio vale una dirección personal verificada, aunque con dominio
+   propio (y sus registros DKIM) los correos llegan mejor.
+3. En Brevo → *SMTP y API* → *Claves API*, crea una clave.
+4. En Render → servicio `todaslasvoces` → *Environment*, añade:
+   - `BREVO_API_KEY` = la clave
+   - `DEFAULT_FROM_EMAIL` = `Todas las Voces <la-direccion-verificada>`
+5. Guarda (Render vuelve a desplegar) y en Gestión → Herramientas → Correo pulsa
+   «Enviar correo de prueba».
+
+Desde ese momento las cuentas nuevas tienen que confirmar su correo y cada aviso
+de la web se envía también por correo. `RESEND_API_KEY` funciona igual con Resend.
+
+## Tono de la interpretación
+
+El cliente elige el tono al probar una voz, al pedir la licencia y en cada toma.
+«Natural» usa `ELEVENLABS_MODEL_ID` (eleven_multilingual_v2) con los cinco ajustes
+(velocidad, estabilidad, similitud, exageración de estilo y realce de voz). El resto
+de tonos usa `ELEVENLABS_EXPRESSIVE_MODEL` (eleven_v3), que entiende la indicación
+de tono; se puede cambiar por `eleven_v4` desde las variables de entorno.

@@ -47,7 +47,9 @@ services:
         sync: false
       - key: ELEVENLABS_API_KEY       # sin ella, la web funciona con el motor de voz simulado
         sync: false
-      - key: EMAIL_HOST               # p. ej. smtp-relay.brevo.com
+      - key: BREVO_API_KEY            # correo por API (recomendado): clave de brevo.com
+        sync: false
+      - key: EMAIL_HOST               # alternativa por SMTP, p. ej. smtp-relay.brevo.com
         sync: false
       - key: EMAIL_HOST_USER
         sync: false

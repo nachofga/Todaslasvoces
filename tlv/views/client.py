@@ -9,7 +9,8 @@ from django.views.decorators.http import require_POST
 
 from .. import forms
 from ..models import Dispute, Generation, LicenseRequest, Payment, PlatformSettings, UseCategory, Voice
-from ..services import disputes, documents, licenseflow, money, policy
+from ..services import direction as direction_service
+from ..services import disputes, documents, insight, licenseflow, money, policy
 from ..services.voiceflow import FlowError
 from .common import client_required, flow
 
@@ -48,7 +49,8 @@ def demo(request, slug):
     """Genera una demo de texto libre. Responde en JSON para el reproductor de la ficha."""
     voice = get_object_or_404(Voice, slug=slug)
     try:
-        gen = licenseflow.generate_demo(voice, request.user, request.POST.get("text", ""))
+        gen = licenseflow.generate_demo(voice, request.user, request.POST.get("text", ""),
+                                        direction=direction_service.clean(request.POST, "dir_"))
     except FlowError as exc:
         return JsonResponse({"ok": False, "error": str(exc)}, status=400)
     return JsonResponse({"ok": True, "url": reverse("media_generation", args=[gen.pk, "mp3"]), "seconds": gen.duration})
@@ -82,12 +84,15 @@ def request_new(request, slug):
         messages.warning(request, _("Estamos validando los datos de tu empresa. En cuanto estén validados podrás solicitar licencias."))
         return redirect("client_home")
     form = forms.LicenseRequestForm(request.POST or None, voice=voice, initial={"territory": "es", "duration_months": 12})
+    direction = direction_service.clean(request.POST, "dir_") if request.method == "POST" else None
     if request.method == "POST" and form.is_valid():
-        req = flow(request, licenseflow.create_request, request.user, voice, form.cleaned_data,
+        req = flow(request, licenseflow.create_request, request.user, voice, {**form.cleaned_data, "direction": direction},
                    success=_("Solicitud enviada al locutor. Te avisaremos cuando responda."))
         if req:
             return redirect("client_request", pk=req.pk)
-    return render(request, "tlv/client/request_form.html", {"form": form, "voice": voice, "cfg": cfg})
+    return render(request, "tlv/client/request_form.html", {
+        "form": form, "voice": voice, "cfg": cfg, "dir": direction_service.form_context(direction),
+    })
 
 
 @client_required
@@ -129,7 +134,8 @@ def request_detail(request, pk):
                      success=_("Gracias. Activaremos la licencia en cuanto veamos la transferencia."))
                 return redirect("client_request", pk=req.pk)
         elif kind == "take":
-            flow(request, licenseflow.generate_take, req, request.user, success=_("Toma generada."))
+            flow(request, licenseflow.generate_take, req, request.user,
+                 direction=direction_service.clean(request.POST, "dir_"), success=_("Toma generada."))
             return redirect("client_request", pk=req.pk)
     payment = getattr(req, "payment", None) if hasattr(req, "payment") else None
     return render(request, "tlv/shared/request_detail.html", {
@@ -138,6 +144,7 @@ def request_detail(request, pk):
         "takes": req.generations.filter(kind="final", ok=True), "can_take": policy.check_final(req, request.user),
         "can_download": policy.can_download(req, request.user),
         "pay_states": (Payment.Status.PENDING, Payment.Status.REPORTED),
+        "stage": insight.stage_of(req), "dir": direction_service.form_context(req.direction),
     })
 
 

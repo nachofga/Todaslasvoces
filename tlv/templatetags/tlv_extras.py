@@ -79,3 +79,26 @@ def active_nav(request, prefix):
         if path.startswith(lang):
             path = path[len(lang) - 1:]
     return "is-active" if (path == prefix or (prefix != "/" and path.startswith(prefix))) else ""
+
+
+@register.filter
+def event_label(event):
+    """Nombre legible de un evento del registro."""
+    from ..services.insight import event_label as label
+
+    return label(event)
+
+
+@register.filter
+def direction(value):
+    """Resumen de una dirección de voz: «Entusiasta · velocidad 1.10»."""
+    from ..services.direction import describe
+
+    return describe(value)
+
+
+@register.filter
+def tone_name(value):
+    from ..services.direction import tone_label
+
+    return tone_label(value)

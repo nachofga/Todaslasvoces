@@ -2,14 +2,17 @@
 <nav class="side" aria-label="{% trans "Área privada" %}">
 {% if user.is_manager %}
   <a class="{% if request.path|slice:'-9:' == '/gestion/' %}is-active{% endif %}" href="{% url 'staff_home' %}">{% trans "Resumen" %}</a>
-  <a class="{{ request|active_nav:'/gestion/locutores/' }}" href="{% url 'staff_talents' %}">{% trans "Locutores" %}</a>
-  <a class="{{ request|active_nav:'/gestion/clientes/' }}" href="{% url 'staff_clients' %}">{% trans "Clientes" %}</a>
-  <a class="{{ request|active_nav:'/gestion/voces/' }}" href="{% url 'staff_voices' %}">{% trans "Voces" %}</a>
+  <div class="group">{% trans "Negocio" %}</div>
   <a class="{{ request|active_nav:'/gestion/solicitudes/' }}" href="{% url 'staff_requests' %}">{% trans "Solicitudes" %}</a>
+  <a class="{{ request|active_nav:'/gestion/audios/' }}" href="{% url 'staff_audios' %}">{% trans "Audios" %}</a>
   <a class="{{ request|active_nav:'/gestion/cobros/' }}" href="{% url 'staff_payments' %}">{% trans "Cobros" %}</a>
   <a class="{{ request|active_nav:'/gestion/pagos/' }}" href="{% url 'staff_payouts' %}">{% trans "Pagos a locutores" %}</a>
+  <div class="group">{% trans "Personas" %}</div>
+  <a class="{{ request|active_nav:'/gestion/clientes/' }}" href="{% url 'staff_clients' %}">{% trans "Clientes" %}</a>
+  <a class="{{ request|active_nav:'/gestion/locutores/' }}" href="{% url 'staff_talents' %}">{% trans "Locutores" %}</a>
+  <a class="{{ request|active_nav:'/gestion/voces/' }}" href="{% url 'staff_voices' %}">{% trans "Voces" %}</a>
   <a class="{{ request|active_nav:'/gestion/disputas/' }}" href="{% url 'staff_disputes' %}">{% trans "Disputas" %}</a>
-  <div class="sep"></div>
+  <div class="group">{% trans "Control" %}</div>
   <a class="{{ request|active_nav:'/gestion/informes/' }}" href="{% url 'staff_reports' %}">{% trans "Informes" %}</a>
   <a class="{{ request|active_nav:'/gestion/registro/' }}" href="{% url 'staff_ledger' %}">{% trans "Registro" %}</a>
   <a class="{{ request|active_nav:'/gestion/herramientas/' }}" href="{% url 'staff_tools' %}">{% trans "Herramientas" %}</a>

@@ -18,6 +18,7 @@ from ..models import (
     UseCategory,
     Voice,
 )
+from ..services import direction as direction_service
 from ..services import disputes, ledger, money, policy
 from .common import client_ip
 
@@ -91,6 +92,7 @@ def voice_detail(request, slug):
         "samples": voice.samples.filter(public=True, ok=True),
         "allowed": allowed, "denied": denied, "cfg": cfg, "owner_preview": not voice.is_public,
         "demo_gate": demo_gate, "from_price": min((p for _c, p in allowed), default=voice.base_price),
+        "dir": direction_service.form_context(),
     })
 
 

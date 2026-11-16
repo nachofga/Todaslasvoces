@@ -10,6 +10,7 @@ from django.utils import timezone
 from django.utils.translation import gettext as _
 
 from ..models import Generation, License, LicenseRequest, Payment, PlatformSettings, RequestMessage
+from . import direction as direction_service
 from . import ledger, money, policy, studio
 from .engines import EngineError
 from .notify import N_, notify, notify_staff
@@ -37,6 +38,7 @@ def create_request(user, voice, data):
         purpose=data["purpose"], sector=data["sector"], script=policy.normalize_script(data["script"]),
         territory=data["territory"], channels=list(data["channels"]), duration_months=int(data["duration_months"]),
         conditions=data.get("conditions", ""), max_takes=cfg.default_max_takes,
+        direction=direction_service.clean(data.get("direction")),
         quoted_price=money.quote(voice, data["category"], data["territory"], int(data["duration_months"])),
     )
     ledger.record(
@@ -210,28 +212,33 @@ def confirm_payment(payment, staff):
     return req
 
 
-def generate_take(req, user):
-    """Genera una toma final. Antes pasa SIEMPRE por el control de usos."""
+def generate_take(req, user, direction=None):
+    """Genera una toma final. Antes pasa SIEMPRE por el control de usos.
+
+    `direction` permite cambiar el tono de esta toma; si no se indica, se usa el
+    que el cliente pidió en la solicitud.
+    """
     decision = policy.check_final(req, user)
     if not decision:
         ledger.record("audio.blocked", user, request=req.code, reason=decision.code)
         raise FlowError(decision.message)
     try:
         lang = req.voice.languages.values_list("code", flat=True).first()
-        return studio.render(req.voice, req.script, Generation.Kind.FINAL, user=user, request=req, language=lang)
+        return studio.render(req.voice, req.script, Generation.Kind.FINAL, user=user, request=req, language=lang,
+                             direction=direction or req.direction)
     except (EngineError, Exception) as exc:
         if isinstance(exc, FlowError):
             raise
         raise FlowError(_("No se ha podido generar el audio: %(error)s") % {"error": exc}) from exc
 
 
-def generate_demo(voice, user, text):
+def generate_demo(voice, user, text, direction=None):
     decision = policy.check_demo(user, voice, text)
     if not decision:
         raise FlowError(decision.message)
     try:
         lang = voice.languages.values_list("code", flat=True).first()
-        return studio.render(voice, text, Generation.Kind.DEMO, user=user, language=lang)
+        return studio.render(voice, text, Generation.Kind.DEMO, user=user, language=lang, direction=direction)
     except Exception as exc:
         raise FlowError(_("No se ha podido generar el audio: %(error)s") % {"error": exc}) from exc
 

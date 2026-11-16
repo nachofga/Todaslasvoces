@@ -1,6 +1,23 @@
 {% extends "tlv/app.html" %}
 {% load i18n tlv_extras %}
-{% block title %}{% trans "Herramientas" %}{% endblock %}
+{% block title %}{% trans "Herramientas" %}<div class="panel" id="correo"><h2>{% trans "Correo" %}</h2>
+  {% if mail_provider %}
+    <p><span class="chip ok">{% trans "Activo" %}</span> · {% trans "Proveedor" %}: <b>{{ mail_provider }}</b> · {% trans "Remitente" %}: <b>{{ mail_from }}</b></p>
+  {% else %}
+    <p><span class="chip warn">{% trans "Sin configurar" %}</span> · {% trans "Los avisos solo se ven dentro de la web y las cuentas nuevas no confirman su correo." %}</p>
+    <ol class="small" style="max-width:70ch">
+      <li>{% trans "Crea una cuenta gratuita en brevo.com (300 correos al día)." %}</li>
+      <li>{% trans "En Brevo, verifica la dirección desde la que quieres enviar (Remitentes) y crea una clave en «SMTP y API» → «Claves API»." %}</li>
+      <li>{% trans "En Render → todaslasvoces → Environment, añade BREVO_API_KEY con esa clave y DEFAULT_FROM_EMAIL con la dirección verificada, por ejemplo: Todas las Voces <hola@tudominio.com>. Guarda y espera al nuevo despliegue." %}</li>
+      <li>{% trans "Vuelve aquí y envía un correo de prueba." %}</li>
+    </ol>
+  {% endif %}
+  <form method="post" class="row" style="margin-top:.8rem">{% csrf_token %}<input type="hidden" name="action" value="mail">
+    <input class="input" style="max-width:20rem" type="email" name="to" value="{{ user.email }}" aria-label="{% trans "Destinatario" %}">
+    <button class="btn ghost small">{% trans "Enviar correo de prueba" %}</button></form>
+  {% if not mail_provider %}<p class="help">{% trans "Sin proveedor configurado, la prueba solo se escribe en el registro del servidor." %}</p>{% endif %}
+</div>
+{% endblock %}
 {% block app %}
 <div class="page-head"><h1>{% trans "Herramientas" %}</h1></div>
 <div class="panel"><h2>{% trans "¿De dónde sale este audio?" %}</h2>
@@ -18,4 +35,21 @@
   <a class="btn ghost small" href="?motor=1">{% trans "Comprobar la conexión y el consumo" %}</a>
   {% if engine_error %}<div class="note bad" style="margin-top:1rem"><p>{{ engine_error }}</p></div>{% endif %}
   {% if engine_status %}<dl class="dl" style="margin-top:1rem">{% for k, v in engine_status.items %}<dt>{{ k }}</dt><dd>{{ v|default_if_none:"—" }}</dd>{% endfor %}</dl>{% endif %}</div>
+<div class="panel" id="correo"><h2>{% trans "Correo" %}</h2>
+  {% if mail_provider %}
+    <p><span class="chip ok">{% trans "Activo" %}</span> · {% trans "Proveedor" %}: <b>{{ mail_provider }}</b> · {% trans "Remitente" %}: <b>{{ mail_from }}</b></p>
+  {% else %}
+    <p><span class="chip warn">{% trans "Sin configurar" %}</span> · {% trans "Los avisos solo se ven dentro de la web y las cuentas nuevas no confirman su correo." %}</p>
+    <ol class="small" style="max-width:70ch">
+      <li>{% trans "Crea una cuenta gratuita en brevo.com (300 correos al día)." %}</li>
+      <li>{% trans "En Brevo, verifica la dirección desde la que quieres enviar (Remitentes) y crea una clave en «SMTP y API» → «Claves API»." %}</li>
+      <li>{% trans "En Render → todaslasvoces → Environment, añade BREVO_API_KEY con esa clave y DEFAULT_FROM_EMAIL con la dirección verificada, por ejemplo: Todas las Voces <hola@tudominio.com>. Guarda y espera al nuevo despliegue." %}</li>
+      <li>{% trans "Vuelve aquí y envía un correo de prueba." %}</li>
+    </ol>
+  {% endif %}
+  <form method="post" class="row" style="margin-top:.8rem">{% csrf_token %}<input type="hidden" name="action" value="mail">
+    <input class="input" style="max-width:20rem" type="email" name="to" value="{{ user.email }}" aria-label="{% trans "Destinatario" %}">
+    <button class="btn ghost small">{% trans "Enviar correo de prueba" %}</button></form>
+  {% if not mail_provider %}<p class="help">{% trans "Sin proveedor configurado, la prueba solo se escribe en el registro del servidor." %}</p>{% endif %}
+</div>
 {% endblock %}

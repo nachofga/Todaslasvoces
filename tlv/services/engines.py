@@ -20,6 +20,7 @@ import requests
 from django.conf import settings
 from scipy.signal import lfilter
 
+from . import direction as direction_service
 from .audio import TARGET_SR, encode_wav
 
 log = logging.getLogger("tlv")
@@ -90,21 +91,36 @@ class ElevenLabsEngine:
             "model": self.model,
         }
 
-    def synthesize(self, voice_id, text, language=None, previous_text=None, next_text=None, voice_settings=None):
-        payload = {"text": text, "model_id": self.model}
-        if voice_settings:
-            payload["voice_settings"] = voice_settings
-        if previous_text:
-            payload["previous_text"] = previous_text[-500:]
-        if next_text:
-            payload["next_text"] = next_text[:500]
+    def plan(self, direction=None):
+        """Traduce una dirección de voz a (modelo, ajustes, indicación de tono) de ElevenLabs.
+
+        - Tono «natural»: modelo estándar, que admite los cinco ajustes.
+        - Cualquier otro tono: modelo expresivo, que entiende indicaciones entre
+          corchetes al principio del texto y solo admite estabilidad, similitud
+          y velocidad.
+        """
+        d = direction_service.clean(direction)
+        tag = direction_service.TONE_TAGS[d["tone"]]
+        model = settings.ELEVENLABS_EXPRESSIVE_MODEL if tag else self.model
+        voice_settings = {"stability": d["stability"], "similarity_boost": d["similarity"], "speed": d["speed"]}
+        if "multilingual_v2" in model:
+            voice_settings["style"] = d["style"]
+            voice_settings["use_speaker_boost"] = d["boost"]
+        return model, voice_settings, tag
+
+    def synthesize(self, voice_id, text, language=None, direction=None):
+        model, voice_settings, tag = self.plan(direction)
+        if tag:  # la indicación se repite en cada párrafo para que el tono no se pierda
+            text = "\n\n".join(f"[{tag}] {part.strip()}" for part in text.split("\n\n") if part.strip())
+        payload = {"text": text, "model_id": model, "voice_settings": voice_settings}
         # language_code no lo admiten los modelos multilingual_v2: solo se envía en el resto.
-        if language and "multilingual_v2" not in self.model:
+        if language and "multilingual_v2" not in model:
             payload["language_code"] = language
         resp = self._request(
             "POST", f"/v1/text-to-speech/{voice_id}",
             params={"output_format": settings.ELEVENLABS_OUTPUT_FORMAT}, json=payload,
         )
+        self.last_model = model
         return resp.content
 
     def transcribe(self, filename, data, language=None):
@@ -165,13 +181,15 @@ class SimulatedEngine:
         digest = hashlib.sha256(b"".join(s[1][:4096] for s in samples) + name.encode()).hexdigest()[:20]
         return {"voice_id": f"sim_{digest}", "requires_verification": False, "model": "formantes-v1"}
 
-    def synthesize(self, voice_id, text, language=None, previous_text=None, next_text=None, voice_settings=None):
+    def synthesize(self, voice_id, text, language=None, direction=None):
         sr = TARGET_SR
+        d = direction_service.clean(direction)
+        self.last_model = "formantes-v1"
         seed = int(hashlib.sha256(voice_id.encode()).hexdigest()[:8], 16)
         voice_rng = np.random.default_rng(seed)
         f0_base = float(voice_rng.uniform(95, 225))
         tract = float(voice_rng.uniform(0.9, 1.16))
-        rate = float(voice_rng.uniform(0.9, 1.1))
+        rate = float(voice_rng.uniform(0.9, 1.1)) * d["speed"]
         rng = np.random.default_rng(seed ^ int(hashlib.sha256(text.encode()).hexdigest()[:8], 16))
 
         chunks, phase = [], 0.0

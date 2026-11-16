@@ -2,16 +2,24 @@
 {% load i18n tlv_extras %}
 {% block title %}{% trans "Clientes" %}{% endblock %}
 {% block app %}
-<div class="page-head"><h1>{% trans "Clientes" %}</h1></div>
-{% for c in clients %}
-<div class="panel"><div class="row between"><h3 style="margin:0">{{ c.company_name }}</h3>
-  <span><span class="chip {{ c.status|tone }}">{{ c.get_status_display }}</span>{% if c.blocked %} <span class="chip bad">{% trans "Bloqueado" %}</span>{% endif %}</span></div>
-  <p class="small muted" style="margin:.3rem 0 .6rem">{{ c.tax_id }} · {{ c.contact_name }} · {{ c.user.email }}{% if not c.user.email_verified %} ({% trans "sin confirmar" %}){% endif %} · {{ c.billing_address }}, {{ c.postal_code }} {{ c.city }}, {{ c.country }} · {{ c.n }} {% trans "solicitudes" %}</p>
-  <form method="post" class="row">{% csrf_token %}<input type="hidden" name="client" value="{{ c.pk }}">
-    <input class="input" style="max-width:20rem" name="note" placeholder="{% trans "Motivo" %}" value="{{ c.status_note }}">
-    {% if c.status != "verified" %}<button class="btn ok small" name="action" value="verify">{% trans "Validar" %}</button>{% endif %}
-    {% if c.status != "rejected" %}<button class="btn ghost small" name="action" value="reject">{% trans "Rechazar" %}</button>{% endif %}
-    <button class="btn ghost small" name="action" value="block">{% if c.blocked %}{% trans "Quitar bloqueo" %}{% else %}{% trans "Bloquear" %}{% endif %}</button></form>
-</div>
-{% empty %}<div class="empty">{% trans "Todavía no hay clientes." %}</div>{% endfor %}
+<div class="page-head"><div><h1>{% trans "Clientes" %}</h1><p>{% blocktrans trimmed count n=clients|length %}{{ n }} cliente{% plural %}{{ n }} clientes{% endblocktrans %}</p></div>
+  <form method="get" class="toolbar" style="margin:0"><input class="input" type="search" name="q" value="{{ q }}" placeholder="{% trans "Buscar empresa, contacto o correo" %}" aria-label="{% trans "Buscar" %}"><button class="btn ghost small">{% trans "Buscar" %}</button></form></div>
+
+{% if pending %}<div class="panel"><h2>{% trans "Pendientes de validar" %}</h2>
+  {% for c in pending %}<form method="post" class="clip">{% csrf_token %}<input type="hidden" name="client" value="{{ c.pk }}">
+    <div class="meta"><b><a href="{% url 'staff_client' c.pk %}">{{ c.company_name }}</a></b><span>{{ c.tax_id }} · {{ c.contact_name }} · {{ c.user.email }} · {{ c.city }}, {{ c.country }}</span></div>
+    <button class="btn ok small" name="action" value="verify">{% trans "Validar" %}</button><a class="btn ghost small" href="{% url 'staff_client' c.pk %}">{% trans "Revisar" %}</a></form>{% endfor %}
+</div>{% endif %}
+
+{% if clients %}<div class="table-wrap"><table class="data">
+  <thead><tr><th>{% trans "Empresa" %}</th><th>{% trans "Estado" %}</th><th>{% trans "En qué punto está" %}</th><th class="num">{% trans "Solicitudes" %}</th><th class="num">{% trans "Licencias activas" %}</th><th class="num">{% trans "Demos" %}</th><th class="num">{% trans "Gastado" %}</th><th>{% trans "Alta" %}</th></tr></thead>
+  {% for c in clients %}<tr>
+    <td><a href="{% url 'staff_client' c.pk %}"><b>{{ c.company_name }}</b></a><div class="small muted">{{ c.contact_name }} · {{ c.user.email }}</div></td>
+    <td><span class="chip {{ c.status|tone }}">{{ c.get_status_display }}</span>{% if c.blocked %}<br><span class="chip bad">{% trans "Bloqueado" %}</span>{% endif %}</td>
+    <td>{% if c.latest %}{% include "tlv/parts/stages.html" with stage=c.latest.stage size="mini" %}<div class="small" style="margin-top:.25rem"><a href="{% url 'staff_request' c.latest.pk %}">{{ c.latest.project_name }}</a>: {{ c.where }}</div>{% else %}<span class="small muted">{{ c.where }}</span>{% endif %}</td>
+    <td class="num">{{ c.n_requests }}{% if c.n_open %}<div class="small muted">{% blocktrans trimmed with n=c.n_open %}{{ n }} en curso{% endblocktrans %}</div>{% endif %}</td>
+    <td class="num">{{ c.n_active }}</td><td class="num">{{ c.n_demos }}</td><td class="num">{{ c.spent|eur }}</td>
+    <td class="nowrap">{{ c.created_at|date:"d/m/Y" }}</td></tr>{% endfor %}
+</table></div>
+{% else %}<div class="empty">{% if q %}{% trans "Ningún cliente coincide con la búsqueda." %}{% else %}{% trans "Todavía no hay clientes. Aparecerán aquí en cuanto se registren." %}{% endif %}</div>{% endif %}
 {% endblock %}

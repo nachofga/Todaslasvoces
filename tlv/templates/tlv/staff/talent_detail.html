@@ -2,8 +2,15 @@
 {% load i18n tlv_extras %}
 {% block title %}{{ talent.stage_name }}{% endblock %}
 {% block app %}
-<div class="page-head"><div><h1>{{ talent.stage_name }}</h1><p>{{ talent.legal_name }} · {{ talent.user.email }}</p></div>
-  <span class="chip {{ talent.identity_status|tone }}">{% trans "Identidad" %}: {{ talent.get_identity_status_display }}</span></div>
+<div><a class="back" href="{% url 'staff_talents' %}">{% trans "Locutores" %}</a>
+<div class="page-head" style="margin-bottom:0"><div><h1>{{ talent.stage_name }}</h1><p>{{ talent.legal_name }} · {{ talent.user.email }}</p></div>
+  <span class="chip {{ talent.identity_status|tone }}">{% trans "Identidad" %}: {{ talent.get_identity_status_display }}</span></div></div>
+<div class="grid g4">
+  <div class="stat"><b style="font-size:1.25rem;line-height:1.25">{{ step.0 }}</b><span>{% trans "En qué punto está" %}</span></div>
+  <div class="stat"><b>{{ requests|length }}</b><span>{% trans "Solicitudes recibidas" %}</span></div>
+  <div class="stat"><b>{{ earned|eur }}</b><span>{% trans "Ganado" %}</span></div>
+  <div class="stat {% if owed %}alert{% endif %}"><b>{{ owed|eur }}</b><span>{% trans "Pendiente de pagarle" %}</span></div>
+</div>
 <div class="grid g2">
   <div class="panel"><h2>{% trans "Datos" %}</h2><dl class="dl">
     <dt>NIF</dt><dd>{{ talent.tax_id|default:"—" }}</dd><dt>{% trans "Teléfono" %}</dt><dd>{{ talent.phone|default:"—" }}</dd>
@@ -23,6 +30,24 @@
   <p class="help">{% trans "Si la comisión específica se deja vacía, se aplica la comisión general de la plataforma." %}</p></div>
 <div class="panel"><h2>{% trans "Voces" %}</h2>
   {% for v in voices %}<div class="clip"><div class="meta"><b><a href="{% url 'staff_voice' v.pk %}">{{ v.name }}</a></b></div><span class="chip {{ v.status|tone }}">{{ v.get_status_display }}</span></div>{% endfor %}</div>
+<section><h2>{% trans "Solicitudes sobre sus voces" %}</h2>
+  {% if requests %}<div class="table-wrap"><table class="data">
+    <thead><tr><th>{% trans "Proyecto" %}</th><th>{% trans "Cliente" %}</th><th>{% trans "Fase" %}</th><th>{% trans "Qué falta" %}</th><th class="num">{% trans "Precio" %}</th><th>{% trans "Fecha" %}</th></tr></thead>
+    {% for r in requests %}<tr><td><a href="{% url 'staff_request' r.pk %}"><b>{{ r.project_name }}</b></a><div class="small muted">{{ r.code }}</div></td>
+      <td><a href="{% url 'staff_client' r.client_id %}">{{ r.client.company_name }}</a></td>
+      <td>{% include "tlv/parts/stages.html" with stage=r.stage size="mini" %}<div class="small" style="margin-top:.25rem">{{ r.stage.label }}</div></td>
+      <td><span class="chip {{ r.stage.tone }}" style="white-space:normal">{{ r.stage.todo }}</span></td><td class="num">{{ r.price|eur }}</td><td class="nowrap">{{ r.created_at|date:"d/m/Y" }}</td></tr>{% endfor %}
+  </table></div>{% else %}<div class="empty">{% trans "Todavía no ha recibido solicitudes." %}</div>{% endif %}
+</section>
+<div class="grid g2">
+  <div class="panel"><h2>{% trans "Audios generados con su voz" %}</h2>
+    {% for g in audio %}<div class="clip" data-player>{% url 'media_generation' g.pk 'mp3' as src %}{% include "tlv/parts/play.html" with src=src size="small" %}
+      <div class="meta"><b>{{ g.get_kind_display }}{% if g.request %} · <a href="{% url 'staff_request' g.request_id %}">{{ g.request.client.company_name }}</a>{% endif %}</b><span>{{ g.direction|tone_name }} · {{ g.duration|dur }} · {{ g.created_at|date:"d/m/Y H:i" }}</span></div></div>
+    {% empty %}<p class="muted">{% trans "Todavía no se ha generado ningún audio con su voz." %}</p>{% endfor %}</div>
+  <div class="panel"><h2>{% trans "Lo que ha hecho" %}</h2>
+    <ol class="timeline">{% for e in activity %}<li><time>{{ e.created_at|date:"d/m H:i" }}</time><div>{{ e.event|event_label }}{% if e.payload.request %} <small>· {{ e.payload.request }}</small>{% endif %}</div></li>
+    {% empty %}<li><time></time><div class="muted">{% trans "Sin actividad registrada." %}</div></li>{% endfor %}</ol></div>
+</div>
 <form method="post" class="row" data-confirm="{% trans "¿Cambiar el estado de suspensión de esta cuenta?" %}">{% csrf_token %}<input class="input" style="max-width:20rem" name="note" placeholder="{% trans "Motivo" %}">
   <button class="btn ghost small" name="action" value="suspend">{% if talent.user.suspended %}{% trans "Reactivar la cuenta" %}{% else %}{% trans "Suspender la cuenta" %}{% endif %}</button></form>
 {% endblock %}

@@ -167,20 +167,29 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = 80 * 1024 * 1024
 TLV_MAX_UPLOAD_MB = int(env("TLV_MAX_UPLOAD_MB", "40"))
 
 # --- Correo ------------------------------------------------------------------
-# Cualquier proveedor SMTP sirve (Brevo, Resend, Mailgun, Gmail...).
-if env("EMAIL_HOST"):
+# Correo. Tres formas de enviarlo, por orden de preferencia:
+#   1. BREVO_API_KEY o RESEND_API_KEY -> por API web (HTTPS). Funciona en cualquier alojamiento.
+#   2. EMAIL_HOST                     -> por SMTP clásico.
+#   3. nada                           -> los correos solo se escriben en el registro del servidor.
+EMAIL_TIMEOUT = 15
+BREVO_API_KEY = env("BREVO_API_KEY")
+RESEND_API_KEY = env("RESEND_API_KEY")
+if BREVO_API_KEY or RESEND_API_KEY:
+    TLV_EMAIL_PROVIDER = "brevo" if BREVO_API_KEY else "resend"
+    EMAIL_BACKEND = "tlv.mail.ApiEmailBackend"
+elif env("EMAIL_HOST"):
+    TLV_EMAIL_PROVIDER = "smtp"
     EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
     EMAIL_HOST = env("EMAIL_HOST")
     EMAIL_PORT = int(env("EMAIL_PORT") or "587")
     EMAIL_HOST_USER = env("EMAIL_HOST_USER")
     EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
     EMAIL_USE_TLS = env_bool("EMAIL_USE_TLS", True)
-    EMAIL_TIMEOUT = 15
 else:
+    TLV_EMAIL_PROVIDER = ""
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-# Sin servidor de correo no se puede confirmar ninguna dirección: las cuentas nuevas
-# se dan por confirmadas para poder probar, y gestión ve un aviso en su panel.
-TLV_EMAIL_CONFIGURED = bool(env("EMAIL_HOST"))
+
+TLV_EMAIL_CONFIGURED = bool(TLV_EMAIL_PROVIDER)
 DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL") or "Todas las Voces <no-responder@todaslasvoces.local>"
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
@@ -197,6 +206,8 @@ ELEVENLABS_API_KEY = env("ELEVENLABS_API_KEY")
 # Residencia de datos en la UE (solo cuentas Enterprise): https://api.eu.residency.elevenlabs.io
 ELEVENLABS_BASE_URL = (env("ELEVENLABS_BASE_URL") or "https://api.elevenlabs.io").rstrip("/")
 ELEVENLABS_MODEL_ID = env("ELEVENLABS_MODEL_ID") or "eleven_multilingual_v2"
+# Modelo que se usa cuando el cliente pide un tono concreto (entiende indicaciones como [excited]).
+ELEVENLABS_EXPRESSIVE_MODEL = env("ELEVENLABS_EXPRESSIVE_MODEL") or "eleven_v3"
 ELEVENLABS_OUTPUT_FORMAT = env("ELEVENLABS_OUTPUT_FORMAT") or "mp3_44100_128"
 ELEVENLABS_STT_MODEL = env("ELEVENLABS_STT_MODEL") or "scribe_v2"
 ELEVENLABS_TIMEOUT = int(env("ELEVENLABS_TIMEOUT", "110"))

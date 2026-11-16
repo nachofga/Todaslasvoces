@@ -1,0 +1,29 @@
+{% extends "tlv/app.html" %}
+{% load i18n tlv_extras %}
+{% block title %}{% trans "Solicitudes" %}{% endblock %}
+{% block app %}
+<div class="page-head"><div><h1>{% trans "Solicitudes" %}</h1><p>{% blocktrans trimmed count n=requests|length with t=total|eur %}{{ n }} solicitud · {{ t }}{% plural %}{{ n }} solicitudes · {{ t }}{% endblocktrans %}</p></div></div>
+<nav class="tabs" aria-label="{% trans "Fase" %}">
+  <a class="{% if not stage %}is-active{% endif %}" href="?{% qs fase='' %}">{% trans "Todas" %}</a>
+  {% for key, label in stages %}<a class="{% if stage == key %}is-active{% endif %}" href="?{% qs fase=key %}">{{ label }}</a>{% endfor %}
+  <a class="{% if stage == 'closed' %}is-active{% endif %}" href="?{% qs fase='closed' %}">{% trans "Cerradas" %}</a>
+</nav>
+<form method="get" class="toolbar">{% if stage %}<input type="hidden" name="fase" value="{{ stage }}">{% endif %}
+  <input class="input" type="search" name="q" value="{{ q }}" placeholder="{% trans "Buscar proyecto, cliente, voz o código" %}" aria-label="{% trans "Buscar" %}">
+  <select class="input" name="estado" aria-label="{% trans "Estado" %}"><option value="">{% trans "Cualquier estado" %}</option>
+    {% for value, label in statuses %}<option value="{{ value }}" {% if status == value %}selected{% endif %}>{{ label }}</option>{% endfor %}</select>
+  <button class="btn ghost small">{% trans "Filtrar" %}</button></form>
+{% if requests %}<div class="table-wrap"><table class="data">
+  <thead><tr><th>{% trans "Proyecto" %}</th><th>{% trans "Cliente" %}</th><th>{% trans "Voz y locutor" %}</th><th>{% trans "Fase" %}</th><th>{% trans "Qué falta" %}</th><th>{% trans "Se espera a" %}</th><th class="num">{% trans "Tomas" %}</th><th class="num">{% trans "Precio" %}</th><th>{% trans "Creada" %}</th></tr></thead>
+  {% for r in requests %}<tr>
+    <td><a href="{% url 'staff_request' r.pk %}"><b>{{ r.project_name }}</b></a><div class="small muted">{{ r.code }} · {{ r.category.name }}</div></td>
+    <td><a href="{% url 'staff_client' r.client_id %}">{{ r.client.company_name }}</a></td>
+    <td>{{ r.voice.name }}<div class="small muted"><a href="{% url 'staff_talent' r.voice.talent_id %}">{{ r.voice.talent.stage_name }}</a></div></td>
+    <td>{% include "tlv/parts/stages.html" with stage=r.stage size="mini" %}<div class="small" style="margin-top:.25rem">{{ r.stage.label }}</div></td>
+    <td><span class="chip {{ r.stage.tone }}" style="white-space:normal">{{ r.stage.todo }}</span>{% if r.blocked %}<br><span class="chip bad">{% trans "Bloqueada" %}</span>{% endif %}</td>
+    <td>{{ r.stage.waiting_label }}{% if r.stage.waiting %}<div class="small muted">{% blocktrans trimmed count n=r.stage.days %}hace {{ n }} día{% plural %}hace {{ n }} días{% endblocktrans %}</div>{% endif %}</td>
+    <td class="num">{{ r.stage.takes }}{% if r.stage.downloads %}<div class="small muted">{% trans "descargado" %}</div>{% endif %}</td>
+    <td class="num">{{ r.price|eur }}</td><td class="nowrap">{{ r.created_at|date:"d/m/Y" }}</td></tr>{% endfor %}
+</table></div>
+{% else %}<div class="empty">{% trans "No hay solicitudes con este filtro." %}</div>{% endif %}
+{% endblock %}

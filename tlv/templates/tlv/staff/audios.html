@@ -1,0 +1,26 @@
+{% extends "tlv/app.html" %}
+{% load i18n tlv_extras %}
+{% block title %}{% trans "Audios" %}{% endblock %}
+{% block app %}
+<div class="page-head"><div><h1>{% trans "Audios generados" %}</h1><p>{% trans "Todo lo que ha sonado con una voz de la plataforma: locuciones con licencia, demos de clientes y pruebas internas." %}</p></div></div>
+<nav class="tabs" aria-label="{% trans "Tipo" %}">
+  <a class="{% if not kind %}is-active{% endif %}" href="?{% qs tipo='' %}">{% trans "Todos" %} <small>{{ total }}</small></a>
+  {% for value, label in kinds %}<a class="{% if kind == value %}is-active{% endif %}" href="?{% qs tipo=value %}">{{ label }} <small>{{ counts|get:value|default:0 }}</small></a>{% endfor %}
+</nav>
+<form method="get" class="toolbar">{% if kind %}<input type="hidden" name="tipo" value="{{ kind }}">{% endif %}
+  <input class="input" type="search" name="q" value="{{ q }}" placeholder="{% trans "Buscar en el texto, la voz, el cliente o el código" %}" aria-label="{% trans "Buscar" %}"><button class="btn ghost small">{% trans "Buscar" %}</button></form>
+{% if audios %}<div class="table-wrap"><table class="data">
+  <thead><tr><th></th><th>{% trans "Voz" %}</th><th>{% trans "Quién y para qué" %}</th><th>{% trans "Texto" %}</th><th>{% trans "Tono y ajustes" %}</th><th class="num">{% trans "Duración" %}</th><th>{% trans "Fecha" %}</th><th></th></tr></thead>
+  {% for g in audios %}<tr data-player>
+    <td>{% if g.ok and g.file_mp3 %}{% url 'media_generation' g.pk 'mp3' as src %}{% include "tlv/parts/play.html" with src=src size="small" %}{% endif %}</td>
+    <td><b>{{ g.voice.name }}</b><div class="small muted">{{ g.get_kind_display }}{% if g.kind == "final" %} · {% trans "toma" %} {{ g.take }}{% endif %}</div></td>
+    <td>{% if g.request %}<a href="{% url 'staff_request' g.request_id %}">{{ g.request.project_name }}</a><div class="small muted"><a href="{% url 'staff_client' g.request.client_id %}">{{ g.request.client.company_name }}</a></div>{% else %}{{ g.user.display_name|default:"—" }}<div class="small muted">{{ g.user.email }}</div>{% endif %}</td>
+    <td style="max-width:22rem"><span class="small">{{ g.text|truncatechars:120 }}</span><div class="small muted">{{ g.chars|num }} {% trans "caracteres" %}</div></td>
+    <td class="small">{{ g.direction|direction }}<div class="muted">{{ g.engine_model }}</div></td>
+    <td class="num">{{ g.duration|dur }}</td>
+    <td class="nowrap small">{{ g.created_at|date:"d/m/Y H:i" }}{% if g.kind == "final" %}<div class="muted">{% if g.downloads %}{% blocktrans trimmed count n=g.downloads %}{{ n }} descarga{% plural %}{{ n }} descargas{% endblocktrans %}{% else %}{% trans "sin descargar" %}{% endif %}</div>{% endif %}</td>
+    <td class="nowrap">{% if g.kind == "final" and g.file_wav %}<a class="btn ghost small" href="{% url 'media_generation' g.pk 'wav' %}?descargar=1">WAV</a>{% endif %}</td></tr>{% endfor %}
+</table></div>
+<p class="small muted">{% trans "Se muestran los 150 más recientes. Cada audio lleva una marca de agua con su identificador." %}</p>
+{% else %}<div class="empty">{% trans "No hay audios con este filtro." %}</div>{% endif %}
+{% endblock %}

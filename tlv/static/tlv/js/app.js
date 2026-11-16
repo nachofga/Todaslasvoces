@@ -182,4 +182,19 @@
       $$("input[type=checkbox][data-regular]").forEach((c) => { c.checked = true; });
     });
   }
+
+  /* Dirección de voz: enseña el valor de cada ajuste y permite restablecerlos */
+  $$(".slider input[type=range]").forEach((range) => {
+    const out = $("output", range.closest(".slider"));
+    const show = () => { if (out) out.value = Number(range.value).toFixed(2); };
+    range.addEventListener("input", show);
+    show();
+  });
+  $$("[data-reset-direction]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const box = btn.closest(".direction");
+      $$("input[type=range]", box).forEach((r) => { r.value = r.dataset.default; r.dispatchEvent(new Event("input")); });
+      $$("input[type=checkbox]", box).forEach((c) => { c.checked = c.dataset.default === "1"; });
+    });
+  });
 })();

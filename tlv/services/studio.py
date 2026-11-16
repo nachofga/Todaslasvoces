@@ -10,6 +10,7 @@ from django.core.files.base import ContentFile
 
 from ..models import Generation
 from . import audio, ledger, watermark
+from . import direction as direction_service
 from .engines import get_engine
 from .policy import normalize_script, script_hash
 
@@ -21,11 +22,13 @@ def new_watermark_id():
             return wid
 
 
-def render(voice, text, kind, user=None, request=None, language=None):
+def render(voice, text, kind, user=None, request=None, language=None, direction=None):
     """Genera, marca y guarda una locución. Lanza EngineError o AudioError si algo falla."""
     text = normalize_script(text)
     engine = get_engine(voice.engine or None)
-    raw = engine.synthesize(voice.external_voice_id, text, language=language)
+    direction = direction_service.clean(direction)
+    raw = engine.synthesize(voice.external_voice_id, text, language=language, direction=direction)
+    model = getattr(engine, "last_model", "") or voice.engine_model
     arr, sr = audio.decode(raw)
     wid = new_watermark_id()
     marked = watermark.embed(arr, sr, wid)
@@ -46,7 +49,7 @@ def render(voice, text, kind, user=None, request=None, language=None):
     mp3 = audio.encode_mp3(marked, tags=tags)
     gen = Generation(
         kind=kind, voice=voice, user=user, request=request, text=text, text_hash=script_hash(text),
-        chars=len(text), take=take, engine=engine.name, engine_model=voice.engine_model,
+        chars=len(text), take=take, engine=engine.name, engine_model=model, direction=direction,
         external_voice_id=voice.external_voice_id, contract_code=contract.code if contract else "",
         watermark_id=wid, duration=round(audio.duration(marked, audio.TARGET_SR), 2),
         sha_wav=hashlib.sha256(wav).hexdigest(), sha_mp3=hashlib.sha256(mp3).hexdigest(),
@@ -61,6 +64,6 @@ def render(voice, text, kind, user=None, request=None, language=None):
         client=request.client_id if request is not None else None,
         request=request.code if request is not None else None, license=ref, contract=gen.contract_code,
         engine=engine.name, model=gen.engine_model, external_voice=gen.external_voice_id,
-        watermark=wid, text_hash=gen.text_hash, chars=gen.chars, sha_mp3=gen.sha_mp3,
+        watermark=wid, text_hash=gen.text_hash, chars=gen.chars, sha_mp3=gen.sha_mp3, direction=direction,
     )
     return gen

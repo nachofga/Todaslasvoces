@@ -527,9 +527,6 @@ msgstr ""
 msgid "Paga, genera y descarga"
 msgstr "Pay, generate and download"
 
-msgid "Recibes el audio en WAV y MP3 con su certificado de licencia."
-msgstr "You receive the audio in WAV and MP3 with its licence certificate."
-
 msgid "Si eres locutor"
 msgstr "If you are a voice actor"
 
@@ -1140,13 +1137,6 @@ msgstr "Generate another take"
 msgid "Generar la locución"
 msgstr "Generate the recording"
 
-msgid ""
-"Cada toma interpreta el mismo guion aprobado de forma ligeramente distinta. "
-"Para otro guion necesitas una licencia nueva."
-msgstr ""
-"Each take performs the same approved script slightly differently. For a "
-"different script you need a new licence."
-
 msgid "Locuciones generadas"
 msgstr "Generated recordings"
 
@@ -1316,17 +1306,11 @@ msgstr "Blocked"
 msgid "sin confirmar"
 msgstr "unconfirmed"
 
-msgid "solicitudes"
-msgstr "requests"
-
 msgid "Validar"
 msgstr "Validate"
 
 msgid "Bloquear"
 msgstr "Block"
-
-msgid "Todavía no hay clientes."
-msgstr "There are no clients yet."
 
 msgid "Denuncia"
 msgstr "Report"
@@ -1422,23 +1406,11 @@ msgstr "Management"
 msgid "Panel de gestión"
 msgstr "Management dashboard"
 
-msgid "Pendiente de hacer"
-msgstr "To do"
-
 msgid "Identidades por verificar"
 msgstr "Identities to verify"
 
 msgid "Clientes por validar"
 msgstr "Clients to validate"
-
-msgid "Voces por revisar"
-msgstr "Voices to review"
-
-msgid "Cobros por confirmar"
-msgstr "Payments to confirm"
-
-msgid "Pagos a locutores pendientes"
-msgstr "Payouts pending"
 
 msgid "Disputas abiertas"
 msgstr "Open disputes"
@@ -1449,14 +1421,8 @@ msgstr "Privacy requests"
 msgid "La plataforma en cifras"
 msgstr "The platform in figures"
 
-msgid "Voces activas"
-msgstr "Active voices"
-
 msgid "Facturado (sin IVA)"
 msgstr "Invoiced (excl. VAT)"
-
-msgid "Facturado este mes"
-msgstr "Invoiced this month"
 
 msgid "Comisiones de la plataforma"
 msgstr "Platform commissions"
@@ -3557,14 +3523,799 @@ msgstr "Question sent to the client."
 msgid "El correo no está configurado."
 msgstr "Email is not configured."
 
-msgid ""
-"Las cuentas nuevas se dan por confirmadas sin comprobar su dirección y los "
-"avisos solo se ven dentro de la web. Configura el servidor de correo antes "
-"de abrir la plataforma a usuarios reales."
-msgstr ""
-"New accounts are treated as confirmed without checking their address, and "
-"notifications are only shown inside the site. Configure the mail server "
-"before opening the platform to real users."
-
 msgid "Cuenta creada."
 msgstr "Account created."
+
+msgid "Tono de la interpretación"
+msgstr "Tone of delivery"
+
+msgid ""
+"El guion no cambia: cambia cómo lo dice la voz. Puedes generar varias tomas "
+"con tonos distintos."
+msgstr ""
+"The script does not change: what changes is how the voice says it. You can "
+"generate several takes with different tones."
+
+msgid "Ajuste fino de la voz"
+msgstr "Fine-tune the voice"
+
+msgid "Realce de voz"
+msgstr "Speaker boost"
+
+msgid "Acerca el resultado a la voz original del locutor."
+msgstr "Brings the result closer to the talent's original voice."
+
+msgid ""
+"La exageración de estilo y el realce solo se aplican con el tono natural. "
+"Con el resto de tonos manda el tono elegido."
+msgstr ""
+"Style exaggeration and speaker boost only apply to the natural tone. With "
+"any other tone, the chosen tone leads."
+
+msgid "Restablecer los valores"
+msgstr "Reset values"
+
+msgid "Negocio"
+msgstr "Business"
+
+msgid "Personas"
+msgstr "People"
+
+msgid "Control"
+msgstr "Control"
+
+msgid ""
+"Eliges el tono de la interpretación y recibes el audio en WAV y MP3 con su "
+"certificado de licencia."
+msgstr ""
+"You choose the tone of delivery and receive the audio in WAV and MP3 with "
+"its licence certificate."
+
+msgid "Crear mi voz digital"
+msgstr "Create my digital voice"
+
+msgid "%(n)s día sin cambios"
+msgid_plural "%(n)s días sin cambios"
+msgstr[0] "%(n)s day without changes"
+msgstr[1] "%(n)s days without changes"
+
+msgid "Tomas: %(t)s · Descargas: %(d)s"
+msgstr "Takes: %(t)s · Downloads: %(d)s"
+
+msgid "descargada %(n)s vez"
+msgid_plural "descargada %(n)s veces"
+msgstr[0] "downloaded %(n)s time"
+msgstr[1] "downloaded %(n)s times"
+
+msgid "Se espera a"
+msgstr "Waiting for"
+
+msgid ""
+"Cada toma interpreta el mismo guion aprobado, con el tono que elijas. Para "
+"otro guion necesitas una licencia nueva."
+msgstr ""
+"Each take performs the same approved script, in the tone you choose. A "
+"different script needs a new licence."
+
+msgid "Fallida"
+msgstr "Failed"
+
+msgid "sin descargar"
+msgstr "not downloaded"
+
+msgid "Tono pedido"
+msgstr "Requested tone"
+
+msgid "Historial"
+msgstr "History"
+
+msgid "Sin movimientos registrados."
+msgstr "No activity recorded."
+
+msgid "sistema"
+msgstr "system"
+
+msgid "%(n)s descarga"
+msgid_plural "%(n)s descargas"
+msgstr[0] "%(n)s download"
+msgstr[1] "%(n)s downloads"
+
+msgid ""
+"Todo lo que ha sonado con una voz de la plataforma: locuciones con licencia,"
+" demos de clientes y pruebas internas."
+msgstr ""
+"Everything a platform voice has said: licensed voice-overs, client demos and"
+" internal tests."
+
+msgid "Buscar en el texto, la voz, el cliente o el código"
+msgstr "Search the text, voice, client or code"
+
+msgid "Quién y para qué"
+msgstr "Who and what for"
+
+msgid "Tono y ajustes"
+msgstr "Tone and settings"
+
+msgid "toma"
+msgstr "take"
+
+msgid ""
+"Se muestran los 150 más recientes. Cada audio lleva una marca de agua con su"
+" identificador."
+msgstr ""
+"Showing the 150 most recent. Every audio carries a watermark with its "
+"identifier."
+
+msgid "No hay audios con este filtro."
+msgstr "No audio matches this filter."
+
+msgid "correo sin confirmar"
+msgstr "email not confirmed"
+
+msgid "Locuciones finales"
+msgstr "Final voice-overs"
+
+msgid "Demos"
+msgstr "Demos"
+
+msgid "Gastado (sin IVA)"
+msgstr "Spent (excl. VAT)"
+
+msgid "Solicitudes y en qué fase están"
+msgstr "Requests and their stage"
+
+msgid "Fase"
+msgstr "Stage"
+
+msgid "Qué falta"
+msgstr "What is missing"
+
+msgid "Tomas"
+msgstr "Takes"
+
+msgid "Descargas"
+msgstr "Downloads"
+
+msgid "Este cliente todavía no ha pedido ninguna licencia."
+msgstr "This client has not requested any licence yet."
+
+msgid "Todavía no ha generado ninguna locución con licencia."
+msgstr "No licensed voice-over generated yet."
+
+msgid "Demos que ha probado"
+msgstr "Demos they have tried"
+
+msgid "No ha generado demos."
+msgstr "No demos generated."
+
+msgid "Datos de la empresa"
+msgstr "Company details"
+
+msgid "Contacto"
+msgstr "Contact"
+
+msgid "Sector"
+msgstr "Sector"
+
+msgid "Web"
+msgstr "Website"
+
+msgid "Facturación"
+msgstr "Billing"
+
+msgid "Último acceso"
+msgstr "Last sign-in"
+
+msgid "Validar empresa"
+msgstr "Validate company"
+
+msgid "Avisos que ha recibido"
+msgstr "Notices received"
+
+msgid "enviado por correo"
+msgstr "sent by email"
+
+msgid "solo en la web"
+msgstr "on the website only"
+
+msgid "leído"
+msgstr "read"
+
+msgid "sin leer"
+msgstr "unread"
+
+msgid "Ninguno todavía."
+msgstr "None yet."
+
+msgid "Lo que ha hecho"
+msgstr "What they have done"
+
+msgid "Sin actividad registrada."
+msgstr "No activity recorded."
+
+msgid "%(n)s cliente"
+msgid_plural "%(n)s clientes"
+msgstr[0] "%(n)s client"
+msgstr[1] "%(n)s clients"
+
+msgid "%(n)s en curso"
+msgstr "%(n)s in progress"
+
+msgid "Buscar empresa, contacto o correo"
+msgstr "Search company, contact or email"
+
+msgid "Pendientes de validar"
+msgstr "Awaiting validation"
+
+msgid "En qué punto está"
+msgstr "Where they are"
+
+msgid "Gastado"
+msgstr "Spent"
+
+msgid "Ningún cliente coincide con la búsqueda."
+msgstr "No client matches the search."
+
+msgid "Todavía no hay clientes. Aparecerán aquí en cuanto se registren."
+msgstr "No clients yet. They will appear here as soon as they sign up."
+
+msgid "Tienes %(n)s cosa pendiente de hacer."
+msgid_plural "Tienes %(n)s cosas pendientes de hacer."
+msgstr[0] "You have %(n)s thing to do."
+msgstr[1] "You have %(n)s things to do."
+
+msgid "Esperando al locutor: %(t)s · al cliente: %(c)s · a gestión: %(s)s"
+msgstr "Waiting for talent: %(t)s · for client: %(c)s · for staff: %(s)s"
+
+msgid ""
+"De las %(n)s solicitudes recibidas hasta hoy, el locutor ha aprobado el "
+"%(a)s %, se ha cobrado el %(p)s % y el %(g)s % ya tiene audio generado. "
+"Rechazadas: %(r)s. Canceladas: %(c)s."
+msgstr ""
+"Of the %(n)s requests received so far, talents have approved %(a)s %, %(p)s "
+"% have been paid and %(g)s % already have audio generated. Rejected: %(r)s. "
+"Cancelled: %(c)s."
+
+msgid "%(n)s nuevos en 30 días"
+msgstr "%(n)s new in 30 days"
+
+msgid "%(n)s creadas en total"
+msgstr "%(n)s created in total"
+
+msgid "No tienes nada pendiente ahora mismo."
+msgstr "Nothing is waiting for you right now."
+
+msgid ""
+"Las cuentas nuevas se dan por confirmadas sin comprobar su dirección y los "
+"avisos solo se ven dentro de la web."
+msgstr ""
+"New accounts are treated as confirmed without checking their address, and "
+"notices are only shown on the website."
+
+msgid "Cómo activarlo"
+msgstr "How to enable it"
+
+msgid "Te toca a ti"
+msgstr "Your turn"
+
+msgid "Transferencias por confirmar"
+msgstr "Transfers to confirm"
+
+msgid "Voces por revisar y clonar"
+msgstr "Voices to review and clone"
+
+msgid "Solicitudes en curso, por fase"
+msgstr "Requests in progress, by stage"
+
+msgid "Dónde está cada solicitud"
+msgstr "Where each request stands"
+
+msgid "Ver todas"
+msgstr "View all"
+
+msgid "Días"
+msgstr "Days"
+
+msgid ""
+"No hay solicitudes en curso. Cuando un cliente pida una licencia, la verás "
+"aquí con su fase."
+msgstr ""
+"No requests in progress. When a client requests a licence you will see it "
+"here with its stage."
+
+msgid "Este mes"
+msgstr "This month"
+
+msgid "Aprobado y pendiente de cobro"
+msgstr "Approved and awaiting payment"
+
+msgid "Voces publicadas"
+msgstr "Published voices"
+
+msgid "Caracteres este mes"
+msgstr "Characters this month"
+
+msgid "Últimos audios generados"
+msgstr "Latest audio generated"
+
+msgid "Ver todos"
+msgstr "View all"
+
+msgid "Todavía no se ha generado ningún audio."
+msgstr "No audio has been generated yet."
+
+msgid "Altas de los últimos 30 días"
+msgstr "Sign-ups in the last 30 days"
+
+msgid "Nadie se ha registrado en los últimos 30 días."
+msgstr "Nobody has signed up in the last 30 days."
+
+msgid "%(n)s solicitud · %(t)s"
+msgid_plural "%(n)s solicitudes · %(t)s"
+msgstr[0] "%(n)s request · %(t)s"
+msgstr[1] "%(n)s requests · %(t)s"
+
+msgid "hace %(n)s día"
+msgid_plural "hace %(n)s días"
+msgstr[0] "%(n)s day ago"
+msgstr[1] "%(n)s days ago"
+
+msgid "Todas"
+msgstr "All"
+
+msgid "Cerradas"
+msgstr "Closed"
+
+msgid "Buscar proyecto, cliente, voz o código"
+msgstr "Search project, client, voice or code"
+
+msgid "Cualquier estado"
+msgstr "Any status"
+
+msgid "Voz y locutor"
+msgstr "Voice and talent"
+
+msgid "Creada"
+msgstr "Created"
+
+msgid "descargado"
+msgstr "downloaded"
+
+msgid "Solicitudes recibidas"
+msgstr "Requests received"
+
+msgid "Ganado"
+msgstr "Earned"
+
+msgid "Pendiente de pagarle"
+msgstr "Owed to them"
+
+msgid "Solicitudes sobre sus voces"
+msgstr "Requests for their voices"
+
+msgid "Todavía no ha recibido solicitudes."
+msgstr "No requests received yet."
+
+msgid "Audios generados con su voz"
+msgstr "Audio generated with their voice"
+
+msgid "Todavía no se ha generado ningún audio con su voz."
+msgstr "No audio has been generated with their voice yet."
+
+msgid "%(n)s locutor"
+msgid_plural "%(n)s locutores"
+msgstr[0] "%(n)s talent"
+msgstr[1] "%(n)s talents"
+
+msgid "%(n)s por decidir"
+msgstr "%(n)s to decide"
+
+msgid "Todavía no hay locutores con este filtro."
+msgstr "No talents match this filter yet."
+
+msgid "Correo"
+msgstr "Email"
+
+msgid "Activo"
+msgstr "Active"
+
+msgid "Proveedor"
+msgstr "Provider"
+
+msgid "Remitente"
+msgstr "Sender"
+
+msgid "Sin configurar"
+msgstr "Not configured"
+
+msgid ""
+"Los avisos solo se ven dentro de la web y las cuentas nuevas no confirman su"
+" correo."
+msgstr ""
+"Notices are only shown on the website and new accounts do not confirm their "
+"email."
+
+msgid "Crea una cuenta gratuita en brevo.com (300 correos al día)."
+msgstr "Create a free account at brevo.com (300 emails a day)."
+
+msgid ""
+"En Brevo, verifica la dirección desde la que quieres enviar (Remitentes) y "
+"crea una clave en «SMTP y API» → «Claves API»."
+msgstr ""
+"In Brevo, verify the address you want to send from (Senders) and create a "
+"key under “SMTP & API” → “API keys”."
+
+msgid ""
+"En Render → todaslasvoces → Environment, añade BREVO_API_KEY con esa clave y"
+" DEFAULT_FROM_EMAIL con la dirección verificada, por ejemplo: Todas las "
+"Voces <hola@tudominio.com>. Guarda y espera al nuevo despliegue."
+msgstr ""
+"In Render → todaslasvoces → Environment, add BREVO_API_KEY with that key and"
+" DEFAULT_FROM_EMAIL with the verified address, for example: Todas las Voces "
+"<hello@yourdomain.com>. Save and wait for the new deploy."
+
+msgid "Vuelve aquí y envía un correo de prueba."
+msgstr "Come back here and send a test email."
+
+msgid "Destinatario"
+msgstr "Recipient"
+
+msgid "Enviar correo de prueba"
+msgstr "Send test email"
+
+msgid ""
+"Sin proveedor configurado, la prueba solo se escribe en el registro del "
+"servidor."
+msgstr ""
+"With no provider configured, the test is only written to the server log."
+
+msgid "dirección de voz"
+msgstr "voice direction"
+
+msgid "Natural, como habla el locutor"
+msgstr "Natural, as the talent speaks"
+
+msgid "Cálido y cercano"
+msgstr "Warm and friendly"
+
+msgid "Alegre"
+msgstr "Cheerful"
+
+msgid "Entusiasta"
+msgstr "Enthusiastic"
+
+msgid "Enérgico, de anuncio"
+msgstr "Energetic, commercial"
+
+msgid "Calmado y relajado"
+msgstr "Calm and relaxed"
+
+msgid "Serio y formal"
+msgstr "Serious and formal"
+
+msgid "Seguro y convincente"
+msgstr "Confident and persuasive"
+
+msgid "Dramático"
+msgstr "Dramatic"
+
+msgid "Misterioso"
+msgstr "Mysterious"
+
+msgid "Emotivo, con tristeza"
+msgstr "Emotional, with sadness"
+
+msgid "Susurrado"
+msgstr "Whispered"
+
+msgid "velocidad"
+msgstr "speed"
+
+msgid "estabilidad"
+msgstr "stability"
+
+msgid "similitud"
+msgstr "similarity"
+
+msgid "Velocidad"
+msgstr "Speed"
+
+msgid "Más lenta"
+msgstr "Slower"
+
+msgid "Más rápida"
+msgstr "Faster"
+
+msgid "Estabilidad"
+msgstr "Stability"
+
+msgid "Más variación y emoción"
+msgstr "More variation and emotion"
+
+msgid "Más uniforme"
+msgstr "More even"
+
+msgid "Similitud"
+msgstr "Similarity"
+
+msgid "Más libre"
+msgstr "Freer"
+
+msgid "Más fiel a la voz original"
+msgstr "Closer to the original voice"
+
+msgid "Exageración de estilo"
+msgstr "Style exaggeration"
+
+msgid "Ninguna"
+msgstr "None"
+
+msgid "Muy marcada"
+msgstr "Very marked"
+
+msgid "sin realce de voz"
+msgstr "no speaker boost"
+
+msgid "Cuenta creada"
+msgstr "Account created"
+
+msgid "Cambio de suspensión de la cuenta"
+msgstr "Account suspension changed"
+
+msgid "Cuenta suprimida"
+msgstr "Account deleted"
+
+msgid "Documento de identidad enviado"
+msgstr "Identity document submitted"
+
+msgid "Identidad revisada"
+msgstr "Identity reviewed"
+
+msgid "Empresa revisada"
+msgstr "Company reviewed"
+
+msgid "Bloqueo de cliente"
+msgstr "Client block"
+
+msgid "Prueba de titularidad grabada"
+msgstr "Ownership check recorded"
+
+msgid "Voz enviada a revisión"
+msgstr "Voice submitted for review"
+
+msgid "Cambios pedidos al locutor"
+msgstr "Changes requested from talent"
+
+msgid "Voz clonada"
+msgstr "Voice cloned"
+
+msgid "Voz publicada"
+msgstr "Voice published"
+
+msgid "Voz pausada"
+msgstr "Voice paused"
+
+msgid "Voz retirada"
+msgstr "Voice withdrawn"
+
+msgid "Bloqueo de voz"
+msgstr "Voice block"
+
+msgid "Modelo de voz borrado"
+msgstr "Voice model deleted"
+
+msgid "Prueba de titularidad revisada"
+msgstr "Ownership check reviewed"
+
+msgid "Contrato firmado"
+msgstr "Contract signed"
+
+msgid "Usos permitidos actualizados"
+msgstr "Permitted uses updated"
+
+msgid "Solicitud de licencia creada"
+msgstr "Licence request created"
+
+msgid "Solicitud aprobada por el locutor"
+msgstr "Request approved by the talent"
+
+msgid "Solicitud rechazada"
+msgstr "Request rejected"
+
+msgid "El cliente responde a la contraoferta"
+msgstr "Client answers the counter-offer"
+
+msgid "Solicitud cancelada"
+msgstr "Request cancelled"
+
+msgid "Bloqueo de solicitud"
+msgstr "Request block"
+
+msgid "Mensaje en la solicitud"
+msgstr "Message on the request"
+
+msgid "El cliente avisa de la transferencia"
+msgstr "Client reports the transfer"
+
+msgid "Licencia emitida"
+msgstr "Licence issued"
+
+msgid "Licencia anulada"
+msgstr "Licence revoked"
+
+msgid "Audio generado"
+msgstr "Audio generated"
+
+msgid "Generación de audio bloqueada"
+msgstr "Audio generation blocked"
+
+msgid "Audio descargado"
+msgstr "Audio downloaded"
+
+msgid "Pago al locutor"
+msgstr "Talent payout"
+
+msgid "Incidencia abierta"
+msgstr "Issue opened"
+
+msgid "Incidencia resuelta"
+msgstr "Issue resolved"
+
+msgid "Bloqueos por incidencia"
+msgstr "Blocks due to an issue"
+
+msgid "Ajustes cambiados"
+msgstr "Settings changed"
+
+msgid "Categorías cambiadas"
+msgstr "Categories changed"
+
+msgid "Condiciones del locutor cambiadas"
+msgstr "Talent terms changed"
+
+msgid "Exportación de datos"
+msgstr "Data export"
+
+msgid "Petición de supresión de datos"
+msgstr "Data deletion request"
+
+msgid "Solicitada"
+msgstr "Requested"
+
+msgid "Aprobada por el locutor"
+msgstr "Approved by the talent"
+
+msgid "Pagada, con licencia"
+msgstr "Paid, with licence"
+
+msgid "Listo para enviar a revisión"
+msgstr "Ready to submit for review"
+
+msgid "El locutor tiene que decidir"
+msgstr "The talent has to decide"
+
+msgid "Sin voz creada"
+msgstr "No voice created"
+
+msgid "Voz publicada en el catálogo"
+msgstr "Voice published in the catalogue"
+
+msgid "Esperando la revisión de gestión"
+msgstr "Waiting for staff review"
+
+msgid "Voz pausada por el locutor"
+msgstr "Voice paused by the talent"
+
+msgid "Clonada: el locutor tiene que escucharla y activarla"
+msgstr "Cloned: the talent has to listen to it and activate it"
+
+msgid "Gestión ha pedido cambios"
+msgstr "Staff has requested changes"
+
+msgid "Falta subir el documento de identidad"
+msgstr "Identity document missing"
+
+msgid "Falta subir muestras de voz"
+msgstr "Voice samples missing"
+
+msgid "Falta la prueba de titularidad"
+msgstr "Ownership check missing"
+
+msgid "Falta firmar el contrato"
+msgstr "Contract not signed"
+
+msgid "El cliente tiene que responder al locutor"
+msgstr "The client has to answer the talent"
+
+msgid "El cliente tiene que aceptar el nuevo precio"
+msgstr "The client has to accept the new price"
+
+msgid "Pendiente de validar la empresa"
+msgstr "Company awaiting validation"
+
+msgid "Empresa rechazada"
+msgstr "Company rejected"
+
+msgid "Probando voces: ha generado demos pero no ha pedido licencia"
+msgstr "Trying voices: has generated demos but has not requested a licence"
+
+msgid "Registrado, sin actividad"
+msgstr "Signed up, no activity"
+
+msgid "Transferencia avisada: hay que confirmar el cobro"
+msgstr "Transfer reported: payment must be confirmed"
+
+msgid "El cliente tiene que pagar"
+msgstr "The client has to pay"
+
+msgid "El cliente todavía no ha generado la locución"
+msgstr "The client has not generated the voice-over yet"
+
+msgid "Audio generado, aún sin descargar"
+msgstr "Audio generated, not downloaded yet"
+
+msgid "Entregada: el cliente ya tiene el audio"
+msgstr "Delivered: the client already has the audio"
+
+msgid "Abrir en Todas las Voces"
+msgstr "Open in Todas las Voces"
+
+msgid "Cliente revisado."
+msgstr "Client reviewed."
+
+msgid "Si lees esto, el envío de correo de Todas las Voces funciona."
+msgstr "If you can read this, email sending from Todas las Voces works."
+
+msgid "Correo de prueba"
+msgstr "Test email"
+
+msgid ""
+"Correo de prueba enviado a %(to)s. Mira también la carpeta de correo no "
+"deseado."
+msgstr "Test email sent to %(to)s. Check your spam folder too."
+
+msgid "No se ha podido enviar: %(e)s"
+msgstr "Could not send: %(e)s"
+
+#~ msgid "Recibes el audio en WAV y MP3 con su certificado de licencia."
+#~ msgstr "You receive the audio in WAV and MP3 with its licence certificate."
+
+#~ msgid ""
+#~ "Cada toma interpreta el mismo guion aprobado de forma ligeramente distinta. "
+#~ "Para otro guion necesitas una licencia nueva."
+#~ msgstr ""
+#~ "Each take performs the same approved script slightly differently. For a "
+#~ "different script you need a new licence."
+
+#~ msgid "solicitudes"
+#~ msgstr "requests"
+
+#~ msgid "Todavía no hay clientes."
+#~ msgstr "There are no clients yet."
+
+#~ msgid "Pendiente de hacer"
+#~ msgstr "To do"
+
+#~ msgid "Voces por revisar"
+#~ msgstr "Voices to review"
+
+#~ msgid "Cobros por confirmar"
+#~ msgstr "Payments to confirm"
+
+#~ msgid "Pagos a locutores pendientes"
+#~ msgstr "Payouts pending"
+
+#~ msgid "Voces activas"
+#~ msgstr "Active voices"
+
+#~ msgid "Facturado este mes"
+#~ msgstr "Invoiced this month"
+
+#~ msgid ""
+#~ "Las cuentas nuevas se dan por confirmadas sin comprobar su dirección y los "
+#~ "avisos solo se ven dentro de la web. Configura el servidor de correo antes "
+#~ "de abrir la plataforma a usuarios reales."
+#~ msgstr ""
+#~ "New accounts are treated as confirmed without checking their address, and "
+#~ "notifications are only shown inside the site. Configure the mail server "
+#~ "before opening the platform to real users."

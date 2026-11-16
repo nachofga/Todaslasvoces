@@ -72,6 +72,8 @@ class LicenseRequest(models.Model):
     channels = models.JSONField(_("canales de difusión"), default=list)
     duration_months = models.PositiveSmallIntegerField(_("duración"), choices=DURATIONS, default=12)
     conditions = models.TextField(_("otras condiciones"), blank=True, max_length=1500)
+    # Tono y ajustes de interpretación que pide el cliente (ver services/direction.py).
+    direction = models.JSONField(_("dirección de voz"), default=dict, blank=True)
 
     quoted_price = models.DecimalField(max_digits=10, decimal_places=2)
     agreed_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
@@ -194,6 +196,9 @@ class Generation(models.Model):
     duration = models.FloatField(null=True, blank=True)
     ok = models.BooleanField(default=True)
     error = models.CharField(max_length=300, blank=True)
+    direction = models.JSONField(default=dict, blank=True)
+    downloads = models.PositiveIntegerField(default=0)
+    first_download_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

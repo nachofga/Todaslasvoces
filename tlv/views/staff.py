@@ -4,6 +4,8 @@ from collections import defaultdict
 
 from django.contrib import messages
 from django.core.cache import cache
+from django.conf import settings
+from django.core.mail import EmailMultiAlternatives
 from django.db.models import Count, Q, Sum
 from django.forms import modelformset_factory
 from django.http import HttpResponse
@@ -19,6 +21,7 @@ from ..models import (
     Generation,
     LedgerEntry,
     LicenseRequest,
+    Notification,
     Payment,
     PlatformSettings,
     Split,
@@ -27,7 +30,8 @@ from ..models import (
     Voice,
 )
 from ..services import disputes as dispute_service
-from ..services import documents, ledger, licenseflow, money, privacy, voiceflow
+from ..services import direction as direction_service
+from ..services import documents, insight, ledger, licenseflow, money, privacy, voiceflow
 from ..services.engines import EngineError, get_engine
 from ..services.notify import N_, notify
 from .common import flow, split_of, staff_required
@@ -36,40 +40,32 @@ from .common import flow, split_of, staff_required
 @staff_required
 def home(request):
     R, P = LicenseRequest.Status, Payment.Status
-    confirmed = Payment.objects.filter(status=P.CONFIRMED)
-    month_start = timezone.localtime().replace(day=1, hour=0, minute=0, second=0, microsecond=0)
     queue = {
         "identities": TalentProfile.objects.filter(identity_status="submitted").count(),
         "clients": ClientProfile.objects.filter(status="pending").count(),
         "voices": Voice.objects.filter(status=Voice.Status.IN_REVIEW).count(),
         "payments": Payment.objects.filter(status__in=[P.PENDING, P.REPORTED], request__status=R.APPROVED).count(),
+        "reported": Payment.objects.filter(status=P.REPORTED, request__status=R.APPROVED).count(),
         "payouts": Split.objects.filter(talent_payout=Split.Payout.PENDING).count(),
         "disputes": Dispute.objects.filter(status__in=["open", "investigating"]).count(),
         "privacy": DataRequest.objects.filter(status="open").count(),
     }
+    queue["total"] = sum(queue[k] for k in ("identities", "clients", "voices", "reported", "payouts", "disputes", "privacy"))
+    funnel, waiting = insight.funnel()
+    in_progress = insight.attach_stage(insight.open_requests().order_by("-updated_at")[:60])
+    in_progress = [r for r in in_progress if r.stage["index"] < 4][:12]
     return render(request, "tlv/staff/home.html", {
-        "queue": queue,
-        "kpi": {
-            "voices": Voice.objects.filter(status=Voice.Status.ACTIVE).count(),
-            "talents": TalentProfile.objects.filter(user__is_active=True).count(),
-            "clients": ClientProfile.objects.filter(user__is_active=True).count(),
-            "licenses": LicenseRequest.objects.filter(status=R.ACTIVE).count(),
-            "revenue": confirmed.aggregate(s=Sum("net"))["s"] or 0,
-            "revenue_month": confirmed.filter(confirmed_at__gte=month_start).aggregate(s=Sum("net"))["s"] or 0,
-            "platform": Split.objects.aggregate(s=Sum("platform_amount"))["s"] or 0,
-            "generations": Generation.objects.count(),
-        },
-        "latest": LedgerEntry.objects.select_related("actor")[:12],
+        "queue": queue, "kpi": insight.kpis(), "funnel": funnel, "waiting": waiting,
+        "conversion": insight.conversion(), "in_progress": in_progress,
+        "audio": insight.recent_audio(6), "signups": insight.signups(),
+        "latest": LedgerEntry.objects.select_related("actor")[:14],
     })
 
 
 # --- Usuarios -----------------------------------------------------------------
 @staff_required
 def talents(request):
-    qs = TalentProfile.objects.select_related("user").annotate(n_voices=Count("voices"))
-    if request.GET.get("estado"):
-        qs = qs.filter(identity_status=request.GET["estado"])
-    return render(request, "tlv/staff/talents.html", {"talents": qs.order_by("-created_at")[:300]})
+    return render(request, "tlv/staff/talents.html", {"talents": insight.talents_overview(request.GET.get("estado", ""))})
 
 
 @staff_required
@@ -102,32 +98,74 @@ def talent_detail(request, pk):
                           representative=talent.representative_id)
             messages.success(request, _("Condiciones guardadas."))
         return redirect("staff_talent", pk=pk)
-    return render(request, "tlv/staff/talent_detail.html", {"talent": talent, "form": form, "voices": talent.voices.all()})
+    voices = list(talent.voices.all())
+    reqs = insight.with_progress(
+        LicenseRequest.objects.filter(voice__talent=talent).select_related("client", "voice", "payment")
+    )[:50]
+    return render(request, "tlv/staff/talent_detail.html", {
+        "talent": talent, "form": form, "voices": voices,
+        "step": insight.talent_step(talent, voices[0] if voices else None),
+        "requests": insight.attach_stage(reqs),
+        "earned": Split.objects.filter(talent=talent).aggregate(s=Sum("talent_amount"))["s"] or 0,
+        "owed": Split.objects.filter(talent=talent, talent_payout="pending").aggregate(s=Sum("talent_amount"))["s"] or 0,
+        "audio": insight.recent_audio(12, voice__talent=talent),
+        "activity": insight.user_activity(talent.user, 25),
+    })
+
+
+def _client_action(request, client):
+    action = request.POST.get("action")
+    if action in ("verify", "reject"):
+        client.status = "verified" if action == "verify" else "rejected"
+        client.status_note = request.POST.get("note", "")[:300]
+        client.reviewed_at, client.reviewed_by = timezone.now(), request.user
+        client.save()
+        ledger.record("client.reviewed", request.user, client=client.pk, result=client.status)
+        if action == "verify":
+            notify(client.user, N_("Empresa validada: ya puedes solicitar licencias"), "", "/voces/")
+        else:
+            notify(client.user, N_("No hemos podido validar los datos de tu empresa"), client.status_note, "/cliente/empresa/")
+        messages.success(request, _("Cliente revisado."))
+    elif action == "block":
+        client.blocked = not client.blocked
+        client.blocked_reason = request.POST.get("note", "")[:300]
+        client.save()
+        ledger.record("client.block", request.user, client=client.pk, blocked=client.blocked)
 
 
 @staff_required
 def clients(request):
     if request.method == "POST":
-        client = get_object_or_404(ClientProfile, pk=request.POST.get("client"))
-        action = request.POST.get("action")
-        if action in ("verify", "reject"):
-            client.status = "verified" if action == "verify" else "rejected"
-            client.status_note = request.POST.get("note", "")[:300]
-            client.reviewed_at, client.reviewed_by = timezone.now(), request.user
-            client.save()
-            ledger.record("client.reviewed", request.user, client=client.pk, result=client.status)
-            if action == "verify":
-                notify(client.user, N_("Empresa validada: ya puedes solicitar licencias"), "", "/voces/")
-            else:
-                notify(client.user, N_("No hemos podido validar los datos de tu empresa"), client.status_note, "/cliente/empresa/")
-        elif action == "block":
-            client.blocked = not client.blocked
-            client.blocked_reason = request.POST.get("note", "")[:300]
-            client.save()
-            ledger.record("client.block", request.user, client=client.pk, blocked=client.blocked)
+        _client_action(request, get_object_or_404(ClientProfile, pk=request.POST.get("client")))
         return redirect("staff_clients")
-    qs = ClientProfile.objects.select_related("user").annotate(n=Count("requests"))
-    return render(request, "tlv/staff/clients.html", {"clients": qs.order_by("status", "-created_at")[:300]})
+    rows = insight.clients_overview()
+    q = request.GET.get("q", "").strip().lower()
+    if q:
+        rows = [c for c in rows if q in f"{c.company_name} {c.contact_name} {c.user.email} {c.tax_id}".lower()]
+    return render(request, "tlv/staff/clients.html", {
+        "clients": rows, "q": q, "pending": [c for c in rows if c.status == "pending"],
+    })
+
+
+@staff_required
+def client_detail(request, pk):
+    client = get_object_or_404(ClientProfile.objects.select_related("user"), pk=pk)
+    if request.method == "POST":
+        _client_action(request, client)
+        return redirect("staff_client", pk=pk)
+    reqs = insight.attach_stage(insight.with_progress(
+        client.requests.select_related("voice__talent", "category", "payment")
+    ))
+    paid = Payment.objects.filter(request__client=client, status=Payment.Status.CONFIRMED)
+    return render(request, "tlv/staff/client_detail.html", {
+        "client": client, "requests": reqs,
+        "spent": paid.aggregate(s=Sum("net"))["s"] or 0,
+        "n_active": sum(1 for r in reqs if r.status == "active"),
+        "finals": Generation.objects.filter(request__client=client, kind="final").select_related("voice", "request"),
+        "demos": Generation.objects.filter(user=client.user, kind="demo").select_related("voice")[:30],
+        "notices": Notification.objects.filter(user=client.user)[:20],
+        "activity": insight.user_activity(client.user),
+    })
 
 
 # --- Voces --------------------------------------------------------------------
@@ -191,18 +229,30 @@ def contract_pdf(request, pk):
 # --- Solicitudes, cobros y pagos ---------------------------------------------
 @staff_required
 def requests_list(request):
-    status = request.GET.get("estado", "")
-    qs = LicenseRequest.objects.select_related("client", "voice", "category")
+    status, stage, q = request.GET.get("estado", ""), request.GET.get("fase", ""), request.GET.get("q", "").strip()
+    qs = LicenseRequest.objects.select_related("client", "voice__talent", "category", "payment")
     if status:
         qs = qs.filter(status=status)
-    return render(request, "tlv/shared/requests.html", {
-        "requests": qs[:300], "role": "staff", "status": status, "statuses": LicenseRequest.Status.choices,
+    if q:
+        qs = qs.filter(
+            Q(project_name__icontains=q) | Q(code__icontains=q) | Q(client__company_name__icontains=q)
+            | Q(voice__name__icontains=q) | Q(sector__icontains=q)
+        )
+    rows = insight.attach_stage(insight.with_progress(qs)[:400])
+    if stage == "closed":
+        rows = [r for r in rows if r.stage["closed"]]
+    elif stage:
+        rows = [r for r in rows if r.stage["key"] == stage and not r.stage["closed"]]
+    return render(request, "tlv/staff/requests.html", {
+        "requests": rows, "status": status, "stage": stage, "q": q,
+        "statuses": LicenseRequest.Status.choices, "stages": insight.STAGES,
+        "total": sum(r.price for r in rows),
     })
 
 
 @staff_required
 def request_detail(request, pk):
-    req = get_object_or_404(LicenseRequest.objects.select_related("client", "category", "voice__talent"), pk=pk)
+    req = get_object_or_404(LicenseRequest.objects.select_related("client__user", "category", "voice__talent"), pk=pk)
     if request.method == "POST":
         action = request.POST.get("action")
         if action == "block":
@@ -221,6 +271,25 @@ def request_detail(request, pk):
     return render(request, "tlv/shared/request_detail.html", {
         "req": req, "role": "staff", "thread": req.messages.select_related("author"), "payment": payment,
         "split": split_of(req), "takes": req.generations.filter(kind="final"), "cfg": PlatformSettings.load(),
+        "stage": insight.stage_of(req), "timeline": insight.request_timeline(req),
+    })
+
+
+@staff_required
+def audios(request):
+    kind, q = request.GET.get("tipo", ""), request.GET.get("q", "").strip()
+    qs = Generation.objects.select_related("voice", "user", "request__client")
+    if kind:
+        qs = qs.filter(kind=kind)
+    if q:
+        qs = qs.filter(
+            Q(text__icontains=q) | Q(voice__name__icontains=q) | Q(request__code__icontains=q)
+            | Q(request__client__company_name__icontains=q) | Q(user__email__icontains=q)
+        )
+    counts = dict(Generation.objects.values_list("kind").annotate(n=Count("id")))
+    return render(request, "tlv/staff/audios.html", {
+        "audios": qs[:150], "kind": kind, "q": q, "kinds": Generation.Kind.choices, "counts": counts,
+        "total": sum(counts.values()),
     })
 
 
@@ -370,28 +439,42 @@ def reports(request):
 
 @staff_required
 def tools(request):
+    if request.method == "POST" and request.POST.get("action") == "mail":
+        to = (request.POST.get("to") or request.user.email).strip()
+        msg = EmailMultiAlternatives(
+            "[Todas las Voces] " + _("Correo de prueba"),
+            _("Si lees esto, el envío de correo de Todas las Voces funciona."), settings.DEFAULT_FROM_EMAIL, [to],
+        )
+        try:
+            msg.send(fail_silently=False)
+            messages.success(request, _("Correo de prueba enviado a %(to)s. Mira también la carpeta de correo no deseado.") % {"to": to})
+        except Exception as exc:
+            messages.error(request, _("No se ha podido enviar: %(e)s") % {"e": str(exc)[:400]})
+        return redirect("staff_tools")
     form = forms.AudioCheckForm(request.POST or None, request.FILES or None)
     result = None
     if request.method == "POST" and form.is_valid():
         result = dispute_service.identify_audio(form.cleaned_data["file"].read())
     engine_status, engine_error = None, ""
     if request.GET.get("motor"):
-        try:
-            engine_status = get_engine().status()
-        except EngineError as exc:
-            engine_error = str(exc)
-    if request.GET.get("motor"):
         import subprocess
 
         from ..services import audio
 
         try:
+            engine_status = get_engine().status()
+        except EngineError as exc:
+            engine_error = str(exc)
+        try:
             out = subprocess.run([audio.ffmpeg_bin(), "-version"], capture_output=True, timeout=20).stdout.decode()[:60]
-            engine_status = {**(engine_status or {}), "conversor de audio (ffmpeg)": out.splitlines()[0] if out else "no responde"}
+            converter = out.splitlines()[0] if out else "no responde"
         except Exception as exc:
-            engine_status = {**(engine_status or {}), "conversor de audio (ffmpeg)": f"NO DISPONIBLE: {exc}"}
+            converter = f"NO DISPONIBLE: {exc}"
+        engine_status = {**(engine_status or {}), "modelo para tonos": settings.ELEVENLABS_EXPRESSIVE_MODEL,
+                         "conversor de audio (ffmpeg)": converter}
     return render(request, "tlv/staff/tools.html", {
         "form": form, "result": result, "engine_status": engine_status, "engine_error": engine_error,
+        "mail_provider": settings.TLV_EMAIL_PROVIDER, "mail_from": settings.DEFAULT_FROM_EMAIL,
     })
 
 

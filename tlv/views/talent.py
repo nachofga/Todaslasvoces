@@ -21,7 +21,7 @@ from ..models import (
     VoiceSample,
     VoiceVerification,
 )
-from ..services import disputes, documents, ledger, licenseflow, voiceflow
+from ..services import disputes, documents, insight, ledger, licenseflow, voiceflow
 from ..services.notify import N_, notify_staff
 from .common import flow, request_meta, split_of, talent_required
 
@@ -266,7 +266,7 @@ def request_detail(request, pk):
     return render(request, "tlv/shared/request_detail.html", {
         "req": req, "role": "talent", "decision": decision, "msg_form": msg_form,
         "thread": req.messages.select_related("author"), "split": split_of(req),
-        "takes": req.generations.filter(kind="final", ok=True),
+        "takes": req.generations.filter(kind="final", ok=True), "stage": insight.stage_of(req),
     })
 
 

@@ -5,8 +5,10 @@ URL pública: cada descarga pasa por aquí y se comprueba quién la pide.
 import mimetypes
 import re
 
+from django.db.models import F
 from django.http import Http404, HttpResponse, StreamingHttpResponse
 from django.shortcuts import get_object_or_404
+from django.utils import timezone
 
 from ..models import (
     DemoClip,
@@ -19,7 +21,7 @@ from ..models import (
     VoiceSample,
     VoiceVerification,
 )
-from ..services import policy
+from ..services import ledger, policy
 
 CHUNK = 64 * 1024
 
@@ -108,6 +110,15 @@ def generation(request, pk, fmt):
         in_catalog = DemoClip.objects.filter(generation=gen).exists() and gen.voice.is_public
         if not (in_catalog or owner):
             raise Http404
+    if download and user.is_authenticated and not user.is_manager:
+        # Solo cuentan las descargas del cliente: así gestión ve si ya tiene su audio.
+        first = gen.first_download_at is None
+        Generation.objects.filter(pk=gen.pk).update(
+            downloads=F("downloads") + 1, first_download_at=gen.first_download_at or timezone.now()
+        )
+        if first:
+            ledger.record("audio.downloaded", user, generation=gen.pk, request=gen.request.code, format=fmt,
+                          watermark=gen.watermark_id)
     if fmt == "wav":
         return serve(request, gen.file_wav, "audio/wav", download)
     return serve(request, gen.file_mp3, "audio/mpeg", download)

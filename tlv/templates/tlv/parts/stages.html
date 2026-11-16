@@ -1,0 +1,1 @@
+{% load i18n %}<ol class="stages {{ size }}" {% if size == "mini" %}title="{{ stage.label }}: {{ stage.todo }}"{% endif %}>{% for s in stage.steps %}<li class="{{ s.state }}">{{ s.label }}</li>{% endfor %}</ol>

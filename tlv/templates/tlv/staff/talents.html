@@ -2,12 +2,14 @@
 {% load i18n tlv_extras %}
 {% block title %}{% trans "Locutores" %}{% endblock %}
 {% block app %}
-<div class="page-head"><h1>{% trans "Locutores" %}</h1></div>
-<div class="panel"><div class="table-wrap"><table class="data">
-  <thead><tr><th>{% trans "Locutor" %}</th><th>{% trans "Correo electrónico" %}</th><th>{% trans "Identidad" %}</th><th>{% trans "Voces" %}</th><th>{% trans "Alta" %}</th></tr></thead>
-  {% for t in talents %}<tr><td><a href="{% url 'staff_talent' t.pk %}"><b>{{ t.stage_name }}</b></a><div class="small muted">{{ t.legal_name }}</div></td>
-    <td>{{ t.user.email }}{% if not t.user.email_verified %} <span class="chip warn plain">{% trans "sin confirmar" %}</span>{% endif %}{% if t.user.suspended %} <span class="chip bad">{% trans "Suspendido" %}</span>{% endif %}</td>
-    <td><span class="chip {{ t.identity_status|tone }}">{{ t.get_identity_status_display }}</span></td><td>{{ t.n_voices }}</td><td>{{ t.created_at|date:"d/m/Y" }}</td></tr>
-  {% empty %}<tr><td colspan="5" class="muted">{% trans "Sin resultados." %}</td></tr>{% endfor %}
-</table></div></div>
+<div class="page-head"><div><h1>{% trans "Locutores" %}</h1><p>{% blocktrans trimmed count n=talents|length %}{{ n }} locutor{% plural %}{{ n }} locutores{% endblocktrans %}</p></div></div>
+{% if talents %}<div class="table-wrap"><table class="data">
+  <thead><tr><th>{% trans "Locutor" %}</th><th>{% trans "Identidad" %}</th><th>{% trans "Voz" %}</th><th>{% trans "En qué punto está" %}</th><th class="num">{% trans "Solicitudes" %}</th><th class="num">{% trans "Ganado" %}</th><th>{% trans "Alta" %}</th></tr></thead>
+  {% for t in talents %}<tr><td><a href="{% url 'staff_talent' t.pk %}"><b>{{ t.stage_name }}</b></a><div class="small muted">{{ t.legal_name }} · {{ t.user.email }}{% if not t.user.email_verified %} ({% trans "sin confirmar" %}){% endif %}</div>{% if t.user.suspended %}<span class="chip bad">{% trans "Suspendido" %}</span>{% endif %}</td>
+    <td><span class="chip {{ t.identity_status|tone }}">{{ t.get_identity_status_display }}</span></td>
+    <td>{% if t.main_voice %}<a href="{% url 'staff_voice' t.main_voice.pk %}">{{ t.main_voice.name }}</a><div><span class="chip {{ t.main_voice.status|tone }}">{{ t.main_voice.get_status_display }}</span></div>{% else %}<span class="muted">—</span>{% endif %}</td>
+    <td><span class="chip {{ t.step_tone }}" style="white-space:normal">{{ t.step }}</span></td>
+    <td class="num">{{ t.n_requests }}{% if t.n_pending %}<div class="small"><span class="chip warn">{% blocktrans trimmed with n=t.n_pending %}{{ n }} por decidir{% endblocktrans %}</span></div>{% endif %}</td>
+    <td class="num">{{ t.earned|eur }}</td><td class="nowrap">{{ t.created_at|date:"d/m/Y" }}</td></tr>{% endfor %}
+</table></div>{% else %}<div class="empty">{% trans "Todavía no hay locutores con este filtro." %}</div>{% endif %}
 {% endblock %}

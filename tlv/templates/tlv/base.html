@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}{% trans "Voces profesionales con IA y con permiso" %}{% endblock %} · Todas las Voces</title>
   <meta name="description" content="{% trans "Marketplace de voces profesionales generadas con IA, con el consentimiento y la licencia del locutor." %}">
-  <link rel="preload" href="{% static 'tlv/fonts/bricolage-grotesque-latin-standard-normal.woff2' %}" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{% static 'tlv/fonts/archivo-latin-wdth-normal.woff2' %}" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="{% static 'tlv/css/app.css' %}">
   <link rel="icon" href="{% static 'tlv/img/favicon.svg' %}" type="image/svg+xml">
 </head>
@@ -15,7 +15,7 @@
 <header class="top">
   <div class="wrap">
     <a class="brand" href="{% url 'home' %}">
-      <span class="brand-mark" aria-hidden="true"><i style="--h:8;--b:55"></i><i style="--h:46;--b:100"></i><i style="--h:162;--b:70"></i><i style="--h:222;--b:90"></i><i style="--h:292;--b:45"></i></span>
+      <span class="brand-mark" aria-hidden="true"></span>
       Todas las Voces
     </a>
     <button class="menu-btn" aria-expanded="false" aria-controls="nav">{% trans "Menú" %}</button>

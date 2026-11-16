@@ -1,0 +1,18 @@
+{% load i18n %}
+<div class="direction">
+  <div class="field"><label for="dir_tone{{ suffix }}">{% trans "Tono de la interpretación" %}</label>
+    <select class="input" id="dir_tone{{ suffix }}" name="dir_tone">{% for code, label in dir.tones %}<option value="{{ code }}" {% if dir.value.tone == code %}selected{% endif %}>{{ label }}</option>{% endfor %}</select>
+    <div class="help">{% trans "El guion no cambia: cambia cómo lo dice la voz. Puedes generar varias tomas con tonos distintos." %}</div></div>
+  <details>
+    <summary>{% trans "Ajuste fino de la voz" %}</summary>
+    <div class="sliders">
+      {% for s in dir.sliders %}<div class="slider">
+        <label for="dir_{{ s.name }}{{ suffix }}">{{ s.label }} <output>{{ s.value|floatformat:2 }}</output></label>
+        <input type="range" id="dir_{{ s.name }}{{ suffix }}" name="dir_{{ s.name }}" min="{{ s.min|floatformat:2 }}" max="{{ s.max|floatformat:2 }}" step="{{ s.step|floatformat:2 }}" value="{{ s.value|floatformat:2 }}" data-default="{{ s.default|floatformat:2 }}">
+        <div class="ends"><span>{{ s.low }}</span><span>{{ s.high }}</span></div></div>{% endfor %}
+      <div class="slider"><input type="hidden" name="dir_boost_sent" value="1">
+        <label class="check"><input type="checkbox" name="dir_boost" {% if dir.value.boost %}checked{% endif %} data-default="1"> <span><b>{% trans "Realce de voz" %}</b><br><span class="small muted">{% trans "Acerca el resultado a la voz original del locutor." %}</span></span></label></div>
+    </div>
+    <p class="help">{% trans "La exageración de estilo y el realce solo se aplican con el tono natural. Con el resto de tonos manda el tono elegido." %} <button type="button" class="linklike" data-reset-direction style="text-decoration:underline;padding:0">{% trans "Restablecer los valores" %}</button></p>
+  </details>
+</div>

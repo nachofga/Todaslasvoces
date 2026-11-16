@@ -43,7 +43,34 @@ class ElevenLabsTests(SimpleTestCase):
         kw = req.call_args.kwargs
         self.assertTrue(req.call_args.args[1].endswith("/v1/text-to-speech/abc123"))
         self.assertEqual(kw["params"], {"output_format": "mp3_44100_128"})
-        self.assertEqual(kw["json"], {"text": "Hola mundo", "model_id": "eleven_multilingual_v2"})
+        self.assertEqual(kw["json"], {
+            "text": "Hola mundo", "model_id": "eleven_multilingual_v2",
+            "voice_settings": {"stability": 0.5, "similarity_boost": 0.75, "speed": 1.0, "style": 0.0, "use_speaker_boost": True},
+        })
+
+    @override_settings(ELEVENLABS_EXPRESSIVE_MODEL="eleven_v3")
+    def test_un_tono_usa_el_modelo_expresivo_y_marca_cada_parrafo(self):
+        direction = {"tone": "excited", "speed": 1.1, "stability": 0.3, "similarity": 0.8, "style": 0.9, "boost": False}
+        with mock.patch("tlv.services.engines.requests.request") as req:
+            req.return_value = FakeResponse(content=b"ID3audio")
+            engine = get_engine()
+            engine.synthesize("abc123", "Primer párrafo.\n\nSegundo párrafo.", language="es", direction=direction)
+        body = req.call_args.kwargs["json"]
+        self.assertEqual(body["model_id"], "eleven_v3")
+        self.assertEqual(body["text"], "[excited] Primer párrafo.\n\n[excited] Segundo párrafo.")
+        self.assertEqual(body["language_code"], "es")
+        # el modelo expresivo no admite estilo ni realce: no se envían
+        self.assertEqual(body["voice_settings"], {"stability": 0.3, "similarity_boost": 0.8, "speed": 1.1})
+        self.assertEqual(engine.last_model, "eleven_v3")
+
+    def test_los_ajustes_fuera_de_rango_se_corrigen(self):
+        from tlv.services import direction
+
+        d = direction.clean({"dir_tone": "inventado", "dir_speed": "3", "dir_stability": "-1", "dir_style": "abc",
+                             "dir_boost_sent": "1"}, "dir_")
+        self.assertEqual(d, {"tone": "natural", "speed": 1.2, "stability": 0.0, "similarity": 0.75, "style": 0.0, "boost": False})
+        self.assertEqual(direction.clean(None), direction.DEFAULT)
+        self.assertEqual(direction.describe({"tone": "calm", "speed": 0.9}), "Calmado y relajado · velocidad 0.90")
 
     def test_transcribir_borrar_y_estado(self):
         with mock.patch("tlv.services.engines.requests.request") as req:
@@ -68,3 +95,36 @@ class ElevenLabsTests(SimpleTestCase):
     def test_sin_clave_avisa(self):
         with self.assertRaises(EngineError):
             ElevenLabsEngine()
+
+
+class MailApiTests(SimpleTestCase):
+    def _send(self):
+        from django.core.mail import EmailMultiAlternatives
+
+        msg = EmailMultiAlternatives("Asunto", "Texto", "Todas las Voces <hola@example.com>", ["ana@example.com"])
+        msg.attach_alternative("<p>Texto</p>", "text/html")
+        return msg.send()
+
+    @override_settings(EMAIL_BACKEND="tlv.mail.ApiEmailBackend", TLV_EMAIL_PROVIDER="brevo", BREVO_API_KEY="xkeysib-test", EMAIL_TIMEOUT=5)
+    def test_brevo(self):
+        with mock.patch("tlv.mail.requests.post") as post:
+            post.return_value = FakeResponse(201, {"messageId": "1"})
+            self.assertEqual(self._send(), 1)
+        self.assertEqual(post.call_args.args[0], "https://api.brevo.com/v3/smtp/email")
+        self.assertEqual(post.call_args.kwargs["headers"]["api-key"], "xkeysib-test")
+        body = post.call_args.kwargs["json"]
+        self.assertEqual(body["sender"], {"email": "hola@example.com", "name": "Todas las Voces"})
+        self.assertEqual((body["to"], body["subject"], body["htmlContent"]), ([{"email": "ana@example.com"}], "Asunto", "<p>Texto</p>"))
+
+    @override_settings(EMAIL_BACKEND="tlv.mail.ApiEmailBackend", TLV_EMAIL_PROVIDER="resend", RESEND_API_KEY="re_test", EMAIL_TIMEOUT=5)
+    def test_resend_y_error_del_proveedor(self):
+        from tlv.mail import MailError
+
+        with mock.patch("tlv.mail.requests.post") as post:
+            post.return_value = FakeResponse(200, {"id": "1"})
+            self.assertEqual(self._send(), 1)
+            self.assertEqual(post.call_args.kwargs["headers"], {"Authorization": "Bearer re_test"})
+            self.assertEqual(post.call_args.kwargs["json"]["to"], ["ana@example.com"])
+            post.return_value = FakeResponse(401, {"message": "clave no válida"})
+            with self.assertRaises(MailError):
+                self._send()

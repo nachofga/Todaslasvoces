@@ -1,0 +1,69 @@
+{% extends "tlv/app.html" %}
+{% load i18n tlv_extras %}
+{% block title %}{{ client.company_name }}{% endblock %}
+{% block app %}
+<div><a class="back" href="{% url 'staff_clients' %}">{% trans "Clientes" %}</a>
+<div class="page-head" style="margin-bottom:0"><div><h1>{{ client.company_name }}</h1><p>{{ client.contact_name }} · {{ client.user.email }}{% if not client.user.email_verified %} ({% trans "correo sin confirmar" %}){% endif %}</p></div>
+  <span><span class="chip {{ client.status|tone }}">{{ client.get_status_display }}</span>{% if client.blocked %} <span class="chip bad">{% trans "Bloqueado" %}</span>{% endif %}</span></div></div>
+
+<div class="grid g4">
+  <div class="stat"><b>{{ requests|length }}</b><span>{% trans "Solicitudes" %}</span></div>
+  <div class="stat"><b>{{ n_active }}</b><span>{% trans "Licencias activas" %}</span></div>
+  <div class="stat"><b>{{ finals|length }}</b><span>{% trans "Locuciones finales" %}</span><small>{% trans "Demos" %}: {{ demos|length }}</small></div>
+  <div class="stat"><b>{{ spent|eur }}</b><span>{% trans "Gastado (sin IVA)" %}</span></div>
+</div>
+
+<section><h2>{% trans "Solicitudes y en qué fase están" %}</h2>
+  {% if requests %}<div class="table-wrap"><table class="data">
+    <thead><tr><th>{% trans "Proyecto" %}</th><th>{% trans "Voz" %}</th><th>{% trans "Fase" %}</th><th>{% trans "Qué falta" %}</th><th class="num">{% trans "Tomas" %}</th><th class="num">{% trans "Descargas" %}</th><th class="num">{% trans "Precio" %}</th><th>{% trans "Fecha" %}</th></tr></thead>
+    {% for r in requests %}<tr>
+      <td><a href="{% url 'staff_request' r.pk %}"><b>{{ r.project_name }}</b></a><div class="small muted">{{ r.code }} · {{ r.category.name }}</div></td>
+      <td>{{ r.voice.name }}</td>
+      <td>{% include "tlv/parts/stages.html" with stage=r.stage size="mini" %}<div class="small" style="margin-top:.25rem">{{ r.stage.label }}</div></td>
+      <td><span class="chip {{ r.stage.tone }}">{{ r.stage.todo }}</span></td>
+      <td class="num">{{ r.stage.takes }}</td><td class="num">{{ r.stage.downloads }}</td><td class="num">{{ r.price|eur }}</td><td class="nowrap">{{ r.created_at|date:"d/m/Y" }}</td></tr>{% endfor %}
+  </table></div>{% else %}<div class="empty">{% trans "Este cliente todavía no ha pedido ninguna licencia." %}</div>{% endif %}
+</section>
+
+<div class="grid g2">
+  <div class="panel"><h2>{% trans "Locuciones finales" %}</h2>
+    {% for g in finals %}<div class="clip" data-player>{% url 'media_generation' g.pk 'mp3' as src %}{% include "tlv/parts/play.html" with src=src size="small" %}
+      <div class="meta"><b><a href="{% url 'staff_request' g.request_id %}">{{ g.request.project_name }}</a> · {% trans "toma" %} {{ g.take }}</b><span>{{ g.voice.name }} · {{ g.direction|direction }} · {{ g.duration|dur }} · {{ g.created_at|date:"d/m/Y H:i" }} · {% if g.downloads %}{% blocktrans trimmed count n=g.downloads %}descargada {{ n }} vez{% plural %}descargada {{ n }} veces{% endblocktrans %}{% else %}{% trans "sin descargar" %}{% endif %}</span></div>
+      <a class="btn ghost small" href="{% url 'media_generation' g.pk 'wav' %}?descargar=1">WAV</a></div>
+    {% empty %}<p class="muted">{% trans "Todavía no ha generado ninguna locución con licencia." %}</p>{% endfor %}
+  </div>
+  <div class="panel"><h2>{% trans "Demos que ha probado" %}</h2>
+    {% for g in demos %}<div class="clip" data-player>{% url 'media_generation' g.pk 'mp3' as src %}{% include "tlv/parts/play.html" with src=src size="small" %}
+      <div class="meta"><b>{{ g.voice.name }}</b><span>«{{ g.text|truncatechars:70 }}» · {{ g.direction|tone_name }} · {{ g.created_at|date:"d/m/Y H:i" }}</span></div></div>
+    {% empty %}<p class="muted">{% trans "No ha generado demos." %}</p>{% endfor %}
+  </div>
+</div>
+
+<div class="grid g2">
+  <div class="panel"><h2>{% trans "Datos de la empresa" %}</h2><dl class="dl">
+    <dt>CIF / NIF</dt><dd>{{ client.tax_id }}</dd>
+    <dt>{% trans "Contacto" %}</dt><dd>{{ client.contact_name }}</dd>
+    <dt>{% trans "Correo electrónico" %}</dt><dd>{{ client.user.email }}</dd>
+    <dt>{% trans "Teléfono" %}</dt><dd>{{ client.phone|default:"—" }}</dd>
+    <dt>{% trans "Sector" %}</dt><dd>{{ client.sector|default:"—" }}</dd>
+    <dt>{% trans "Web" %}</dt><dd>{{ client.website|default:"—" }}</dd>
+    <dt>{% trans "Facturación" %}</dt><dd>{{ client.billing_address }}, {{ client.postal_code }} {{ client.city }}, {{ client.country }}</dd>
+    <dt>{% trans "Alta" %}</dt><dd>{{ client.created_at|date:"d/m/Y H:i" }}</dd>
+    <dt>{% trans "Último acceso" %}</dt><dd>{{ client.user.last_login|date:"d/m/Y H:i"|default:"—" }}</dd>
+    <dt>{% trans "Idioma" %}</dt><dd>{{ client.user.language|upper }}</dd>
+  </dl>
+    <form method="post" class="row" style="margin-top:1.2rem">{% csrf_token %}
+      <input class="input" style="max-width:18rem" name="note" placeholder="{% trans "Motivo" %}" value="{{ client.status_note }}" aria-label="{% trans "Motivo" %}">
+      {% if client.status != "verified" %}<button class="btn ok small" name="action" value="verify">{% trans "Validar empresa" %}</button>{% endif %}
+      {% if client.status != "rejected" %}<button class="btn ghost small" name="action" value="reject">{% trans "Rechazar" %}</button>{% endif %}
+      <button class="btn ghost small" name="action" value="block">{% if client.blocked %}{% trans "Quitar bloqueo" %}{% else %}{% trans "Bloquear" %}{% endif %}</button></form>
+  </div>
+  <div class="panel"><h2>{% trans "Avisos que ha recibido" %}</h2>
+    <ol class="timeline">{% for n in notices %}<li><time>{{ n.created_at|date:"d/m H:i" }}</time><div>{{ n.title }} <small>— {% if n.emailed %}{% trans "enviado por correo" %}{% else %}{% trans "solo en la web" %}{% endif %}{% if n.read_at %}, {% trans "leído" %}{% else %}, {% trans "sin leer" %}{% endif %}</small></div></li>
+    {% empty %}<li><time></time><div class="muted">{% trans "Ninguno todavía." %}</div></li>{% endfor %}</ol>
+    <h2 style="margin-top:1.5rem">{% trans "Lo que ha hecho" %}</h2>
+    <ol class="timeline">{% for e in activity %}<li><time>{{ e.created_at|date:"d/m H:i" }}</time><div>{{ e.event|event_label }}{% if e.payload.request %} <small>· {{ e.payload.request }}</small>{% endif %}</div></li>
+    {% empty %}<li><time></time><div class="muted">{% trans "Sin actividad registrada." %}</div></li>{% endfor %}</ol>
+  </div>
+</div>
+{% endblock %}

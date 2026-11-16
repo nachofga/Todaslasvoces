@@ -6,6 +6,10 @@
   <p>{{ req.code }} · <span class="chip {{ req.status|tone }}">{{ req.get_status_display }}</span>{% if req.blocked %} <span class="chip bad">{% trans "Bloqueada por una incidencia" %}</span>{% endif %}</p></div>
   <div class="quote" style="padding:.7rem 1rem"><span>{% trans "Precio sin IVA" %}</span><b style="font-size:1.5rem">{{ req.price|eur }}</b></div></div>
 
+{% if stage %}<div class="panel">{% include "tlv/parts/stages.html" with stage=stage %}
+  <div class="stage-now"><span><b>{{ stage.todo }}</b></span>{% if role == "staff" %}{% if stage.waiting %}<span class="muted">{% trans "Se espera a" %}: {{ stage.waiting_label }} · {% blocktrans trimmed count n=stage.days %}{{ n }} día sin cambios{% plural %}{{ n }} días sin cambios{% endblocktrans %}</span>{% endif %}
+    <span class="muted">{% blocktrans trimmed with t=stage.takes d=stage.downloads %}Tomas: {{ t }} · Descargas: {{ d }}{% endblocktrans %}</span>{% endif %}</div></div>{% endif %}
+
 {# --- Lo que toca hacer ahora, según el papel --- #}
 {% if role == "talent" and req.open_for_talent %}
 <div class="panel"><h2>{% trans "Tu decisión" %}</h2>
@@ -43,10 +47,11 @@
   {% elif req.status == "active" %}
   <div class="panel"><h2>{% trans "Tu locución" %}</h2>
     {% if can_take %}<form method="post">{% csrf_token %}<input type="hidden" name="form" value="take">
-      <button class="btn" data-busy="{% trans "Generando el audio…" %}">{% if takes %}{% trans "Generar otra toma" %}{% else %}{% trans "Generar la locución" %}{% endif %}</button>
-      <span class="muted small">{% blocktrans trimmed with used=req.takes_used max=req.max_takes %}{{ used }} de {{ max }} tomas usadas.{% endblocktrans %}</span></form>
+      {% include "tlv/parts/direction.html" %}
+      <div class="row" style="margin-top:1rem"><button class="btn" data-busy="{% trans "Generando el audio…" %}">{% if takes %}{% trans "Generar otra toma" %}{% else %}{% trans "Generar la locución" %}{% endif %}</button>
+      <span class="muted small">{% blocktrans trimmed with used=req.takes_used max=req.max_takes %}{{ used }} de {{ max }} tomas usadas.{% endblocktrans %}</span></div></form>
     {% else %}<div class="note warn"><p>{{ can_take.message }}</p></div>{% endif %}
-    <p class="help">{% trans "Cada toma interpreta el mismo guion aprobado de forma ligeramente distinta. Para otro guion necesitas una licencia nueva." %}</p>
+    <p class="help">{% trans "Cada toma interpreta el mismo guion aprobado, con el tono que elijas. Para otro guion necesitas una licencia nueva." %}</p>
   </div>
   {% endif %}
 {% endif %}
@@ -54,7 +59,7 @@
 {% if takes %}
 <div class="panel"><h2>{% trans "Locuciones generadas" %}</h2>
   {% for g in takes %}<div class="clip" data-player>{% url 'media_generation' g.pk 'mp3' as src %}{% include "tlv/parts/play.html" with src=src hue=req.voice.hue %}
-    <div class="meta"><b>{% trans "Toma" %} {{ g.take }}</b><span>{{ g.duration|dur }} · {{ g.created_at|date:"d/m/Y H:i" }} · ID {{ g.watermark_id }}</span></div>
+    <div class="meta"><b>{% trans "Toma" %} {{ g.take }} · {{ g.direction|tone_name }}{% if not g.ok %} <span class="chip bad">{% trans "Fallida" %}</span>{% endif %}</b><span>{{ g.direction|direction }} · {{ g.duration|dur }} · {{ g.created_at|date:"d/m/Y H:i" }} · ID {{ g.watermark_id }}{% if role == "staff" %} · {% if g.downloads %}{% blocktrans trimmed count n=g.downloads %}descargada {{ n }} vez{% plural %}descargada {{ n }} veces{% endblocktrans %}{% else %}{% trans "sin descargar" %}{% endif %}{% endif %}</span></div>
     {% if role != "talent" and can_download or role == "staff" %}<a class="btn ghost small" href="{% url 'media_generation' g.pk 'wav' %}?descargar=1">WAV</a><a class="btn ghost small" href="{{ src }}?descargar=1">MP3</a>{% endif %}</div>{% endfor %}
 </div>
 {% endif %}
@@ -80,7 +85,8 @@
 <div class="grid g2">
   <div class="panel"><h2>{% trans "Condiciones solicitadas" %}</h2><dl class="dl">
     <dt>{% trans "Voz" %}</dt><dd><a href="{% url 'voice' req.voice.slug %}">{{ req.voice.name }}</a></dd>
-    <dt>{% trans "Cliente" %}</dt><dd>{{ req.client.company_name }}</dd>
+    <dt>{% trans "Cliente" %}</dt><dd>{% if role == "staff" %}<a href="{% url 'staff_client' req.client_id %}">{{ req.client.company_name }}</a>{% else %}{{ req.client.company_name }}{% endif %}</dd>
+    <dt>{% trans "Tono pedido" %}</dt><dd>{{ req.direction|direction }}</dd>
     <dt>{% trans "Categoría de uso" %}</dt><dd>{{ req.category.name }}</dd>
     <dt>{% trans "Finalidad" %}</dt><dd>{{ req.purpose|linebreaksbr }}</dd>
     <dt>{% trans "Sector o marca" %}</dt><dd>{{ req.sector }}</dd>
@@ -109,6 +115,9 @@
 {% endif %}
 
 {% if role == "staff" %}
+<div class="panel"><h2>{% trans "Historial" %}</h2>
+  <ol class="timeline">{% for e in timeline %}<li><time>{{ e.created_at|date:"d/m/Y H:i" }}</time><div>{{ e.event|event_label }}{% if e.payload.reason %} <small>· {{ e.payload.reason }}</small>{% endif %} <small>— {{ e.actor.display_name|default:_("sistema") }}</small></div></li>
+  {% empty %}<li><time></time><div class="muted">{% trans "Sin movimientos registrados." %}</div></li>{% endfor %}</ol></div>
 <div class="panel"><h2>{% trans "Acciones de gestión" %}</h2>
   {% if payment %}<p>{% trans "Cobro" %} <b class="mono">{{ payment.reference }}</b>: <span class="chip {{ payment.status|tone }}">{{ payment.get_status_display }}</span> · {{ payment.total|eur }}
     {% if payment.receipt %} · <a href="{% url 'private_file' 'justificante' payment.pk %}">{% trans "Justificante" %}</a>{% endif %}
